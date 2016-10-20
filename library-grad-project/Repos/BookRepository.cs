@@ -6,28 +6,28 @@ namespace LibraryGradProject.Repos
 {
     public class BookRepository : IRepository<Book>
     {
-        private List<Book> _bookColection = new List<Book>();
+        private List<Book> _bookCollection = new List<Book>();
 
         public void Add(Book entity)
         {
-            entity.Id = _bookColection.Count;
-            _bookColection.Add(entity);
+            entity.Id = _bookCollection.Count;
+            _bookCollection.Add(entity);
         }
 
         public IEnumerable<Book> GetAll()
         {
-            return _bookColection;
+            return _bookCollection;
         }
 
         public Book Get(int id)
         {
-            return _bookColection.Where(book => book.Id == id).SingleOrDefault();
+            return _bookCollection.Where(book => book.Id == id).SingleOrDefault();
         }
 
         public void Remove(int id)
         {
             Book bookToRemove = Get(id);
-            _bookColection.Remove(bookToRemove);            
+            _bookCollection.Remove(bookToRemove);            
         }
     }
 }
