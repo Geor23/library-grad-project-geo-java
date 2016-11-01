@@ -8,12 +8,19 @@ namespace LibraryGradProject.Models
     public class BookReservation
     {
         public Book book;
-        public DateTime timestamp;
+        public DateTime from;
+        public Double duration;
 
-        public BookReservation(Book bookToReserve)
+        public BookReservation(Book bookToReserve, Double days)
         {
             book = bookToReserve;
-            DateTime timestamp = DateTime.UtcNow;
+            DateTime from = DateTime.UtcNow;
+            duration = days;
+        }
+
+        public DateTime expiryTime ()
+        {
+            return from.AddDays(duration);
         }
     } 
 }
