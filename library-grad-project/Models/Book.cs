@@ -7,5 +7,20 @@
         public string Title { get; set; }
         public string Author { get; set; }
         public string PublishDate { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            Book book = obj as Book;
+            
+            if(book == null)
+            {
+                return false;
+            }
+
+            return book.Author == Author &&
+                   book.ISBN == ISBN &&
+                   book.PublishDate == PublishDate &&
+                   book.Title == Title;
+        }
     }
 }
