@@ -8,12 +8,20 @@ namespace LibraryGradProjectTests.Repos
 {
     public class BookRepositoryTests
     {
+        BookRepository repo;
+        Book newBook, newBook2;
+
+        public BookRepositoryTests()
+        {
+            // Arrange
+            repo = new BookRepository();
+            newBook = new Book() { Title = "Test" };
+            newBook2 = new Book() { Id = 1, Title = "Test2" };
+        }
+
         [Fact]
         public void New_Book_Repository_Is_Empty()
         {
-            // Arrange
-            BookRepository repo = new BookRepository();
-
             // Act
             IEnumerable<Book> books = repo.GetAll();
 
@@ -24,10 +32,6 @@ namespace LibraryGradProjectTests.Repos
         [Fact]
         public void Add_Inserts_New_Book()
         {
-            // Arrange
-            BookRepository repo = new BookRepository();
-            Book newBook = new Book() { Title = "Test" };
-
             // Act
             repo.Add(newBook);
             IEnumerable<Book> books = repo.GetAll();
@@ -39,10 +43,6 @@ namespace LibraryGradProjectTests.Repos
         [Fact]
         public void Add_Sets_New_Id()
         {
-            // Arrange
-            BookRepository repo = new BookRepository();
-            Book newBook = new Book() { Title = "Test" };
-
             // Act
             repo.Add(newBook);
             IEnumerable<Book> books = repo.GetAll();
@@ -54,11 +54,7 @@ namespace LibraryGradProjectTests.Repos
         [Fact]
         public void Get_Returns_Specific_Book()
         {
-            // Arrange
-            BookRepository repo = new BookRepository();
-            Book newBook1 = new Book() { Id = 0, Title = "Test1" };
-            Book newBook2 = new Book() { Id = 1, Title = "Test2" };
-            repo.Add(newBook1);
+            repo.Add(newBook);
             repo.Add(newBook2);
 
             // Act
@@ -71,29 +67,21 @@ namespace LibraryGradProjectTests.Repos
         [Fact]
         public void Get_All_Returns_All_Books()
         {
-            // Arrange
-            BookRepository repo = new BookRepository();
-            Book newBook1 = new Book() { Title = "Test1" };
-            Book newBook2 = new Book() { Title = "Test2" };
-            repo.Add(newBook1);
+            repo.Add(newBook);
             repo.Add(newBook2);
 
             // Act
             IEnumerable<Book> books = repo.GetAll();
 
             // Asert
-            Assert.Equal(new Book[] { newBook1, newBook2 }, books.ToArray());
+            Assert.Equal(new Book[] { newBook, newBook2 }, books.ToArray());
         }
 
         [Fact]
         public void Delete_Removes_Correct_Book()
         {
-            // Arrange
-            BookRepository repo = new BookRepository();
-            Book newBook1 = new Book() { Title = "Test1" };
-            Book newBook2 = new Book() { Title = "Test2" };
             Book newBook3 = new Book() { Title = "Test3" };
-            repo.Add(newBook1);
+            repo.Add(newBook);
             repo.Add(newBook2);
             repo.Add(newBook3);
 
@@ -102,7 +90,7 @@ namespace LibraryGradProjectTests.Repos
             IEnumerable<Book> books = repo.GetAll();
 
             // Asert
-            Assert.Equal(new Book[] { newBook1, newBook3 }, books.ToArray());
+            Assert.Equal(new Book[] { newBook, newBook3 }, books.ToArray());
         }
     }
 }
