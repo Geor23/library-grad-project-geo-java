@@ -149,5 +149,42 @@ namespace LibraryGradProjectTests.Repos
 
             Assert.True(newBookReservation1.Equals(repo.GetAllForBook(book1).First()));
         }
+
+        [Fact]
+        public void CheckTimeSlot_Returns_False_If_Timeslot_Invalid()
+        {
+            BookReservationRepository repo = new BookReservationRepository();
+            Book book = new Book() { Id = 0, Title = "Test" };
+
+            DateTime from = DateTime.UtcNow;
+            DateTime to = from.AddDays(2);
+
+            BookReservation newBookReservation1 = new BookReservation() { book = book, from = from, to = to };
+            BookReservation newBookReservation2 = new BookReservation() { book = book, from = to, to = to.AddDays(2) };
+
+            repo.Add(newBookReservation1);
+            repo.Add(newBookReservation2);
+
+            Assert.False(repo.CheckTimeSlot(repo.GetAllForBook(book), newBookReservation1));
+        }
+
+        [Fact]
+        public void CheckTimeSlot_Returns_True_If_Timeslot_Valid()
+        {
+            BookReservationRepository repo = new BookReservationRepository();
+            Book book = new Book() { Id = 0, Title = "Test" };
+
+            DateTime from = DateTime.UtcNow;
+            DateTime to = from.AddDays(2);
+
+            BookReservation newBookReservation1 = new BookReservation() { book = book, from = from, to = to };
+            BookReservation newBookReservation2 = new BookReservation() { book = book, from = to, to = to.AddDays(2) };
+            BookReservation newBookReservation3 = new BookReservation() { book = book, from = to.AddDays(2), to = to.AddDays(4) };
+
+            repo.Add(newBookReservation1);
+            repo.Add(newBookReservation2);
+
+            Assert.False(repo.CheckTimeSlot(repo.GetAllForBook(book), newBookReservation3));
+        }
     }
 }
