@@ -43,26 +43,6 @@ namespace LibraryGradProjectTests.Repos
         }
 
         [Fact]
-        public void Add_Inserts_New_Book()
-        {
-            // Arrange
-            BookReservationRepository repo = new BookReservationRepository();
-            Book book = new Book() { Title = "Test" };
-
-            DateTime from = DateTime.UtcNow;
-            DateTime to = from.AddDays(2);
-
-            BookReservation newBookReservation = new BookReservation() { book = book, from = from, to = to };
-
-            // Act
-            repo.Add(newBookReservation);
-            IEnumerable<BookReservation> bookReservations = repo.GetAll();
-
-            // Asert
-            Assert.Equal(new BookReservation[] { newBookReservation }, bookReservations.ToArray());
-        }
-
-        [Fact]
         public void Add_Sets_New_Id()
         {
             // Arrange
@@ -83,7 +63,7 @@ namespace LibraryGradProjectTests.Repos
         }
 
         [Fact]
-        public void Get_Returns_Specific_Book()
+        public void Get_Returns_Specific_Book_Reservation()
         {
             // Arrange
             BookReservationRepository repo = new BookReservationRepository();
@@ -105,7 +85,7 @@ namespace LibraryGradProjectTests.Repos
         }
 
         [Fact]
-        public void Get_All_Returns_All_Books()
+        public void Get_All_Returns_All_Book_Reservations()
         {
             // Arrange
             BookReservationRepository repo = new BookReservationRepository();
@@ -128,7 +108,7 @@ namespace LibraryGradProjectTests.Repos
         }
 
         [Fact]
-        public void Delete_Removes_Correct_Book()
+        public void Delete_Removes_Correct_Book_Reservation()
         {
             // Arrange
             BookReservationRepository repo = new BookReservationRepository();
