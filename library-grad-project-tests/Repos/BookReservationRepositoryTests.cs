@@ -147,7 +147,7 @@ namespace LibraryGradProjectTests.Repos
             repo.Add(newBookReservation1);
             repo.Add(newBookReservation2);
 
-            Assert.True(newBookReservation1.Equals(repo.GetAllForBook(book1)));
+            Assert.True(newBookReservation1.Equals(repo.GetAllForBook(book1).First()));
         }
     }
 }
