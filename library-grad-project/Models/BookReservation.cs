@@ -18,7 +18,7 @@ namespace LibraryGradProject.Models
                 return false;
             }
 
-            return bookRes.book == book &&
+            return bookRes.book.Equals(book) &&
                    bookRes.from == from &&
                    bookRes.to == to ;
         }

@@ -135,14 +135,14 @@ namespace LibraryGradProjectTests.Repos
         public void GetAllForBook_Returns_All_Reservations_For_A_Certain_Book()
         {
             BookReservationRepository repo = new BookReservationRepository();
-            Book book1 = new Book() { Title = "Test1" };
-            Book book2 = new Book() { Title = "Test2" };
+            Book book1 = new Book() { Id = 0, Title = "Test1" };
+            Book book2 = new Book() { Id = 1, Title = "Test2" };
 
             DateTime from = DateTime.UtcNow;
             DateTime to = from.AddDays(2);
 
             BookReservation newBookReservation1 = new BookReservation() { book = book1, from = from, to = to };
-            BookReservation newBookReservation2 = new BookReservation() { book = book2, from = from, to = to };
+            BookReservation newBookReservation2 = new BookReservation() { book = book2, from = to, to = to.AddDays(2) };
 
             repo.Add(newBookReservation1);
             repo.Add(newBookReservation2);
