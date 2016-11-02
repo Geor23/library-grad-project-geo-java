@@ -2,16 +2,11 @@
 using LibraryGradProject.Models;
 using LibraryGradProject.Repos;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace LibraryGradProjectTests.Controllers
 {
-    class BookReservationsControllerTests
+    public class BookReservationsControllerTests
     {
         [Fact]
         public void Get_Calls_Repo_GetAll()

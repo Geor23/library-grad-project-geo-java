@@ -3,8 +3,6 @@ using LibraryGradProject.Models;
 using LibraryGradProject.Repos;
 using Moq;
 using Xunit;
-using System;
-using System.Collections.Generic;
 
 namespace LibraryGradProjectTests.Controllers
 {

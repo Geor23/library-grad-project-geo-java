@@ -6,7 +6,7 @@ using Xunit;
 
 namespace LibraryGradProjectTests.Repos
 {
-    class BookReservationRepositoryTests
+    public class BookReservationRepositoryTests
     {
         [Fact]
         public void New_Book_Repository_Is_Empty()
