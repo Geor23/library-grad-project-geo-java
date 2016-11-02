@@ -46,7 +46,9 @@ namespace LibraryGradProjectTests.Controllers
             mockRepo.Setup(mock => mock.Add(It.IsAny<BookReservation>()));
             BookReservationsController controller = new BookReservationsController(mockRepo.Object);
 
-            BookReservation newBookReservation = new BookReservation() { book = { Title = "Test" } };
+            Book book = new Book() { Title = "Test"};
+
+            BookReservation newBookReservation = new BookReservation() { book = book };
 
             // Act
             controller.Post(newBookReservation);
@@ -78,7 +80,8 @@ namespace LibraryGradProjectTests.Controllers
             mockRepo.Setup(mock => mock.Add(It.IsAny<BookReservation>()));
             BookReservationsController controller = new BookReservationsController(mockRepo.Object);
 
-            BookReservation newBookReservation = new BookReservation() { book = { Title = "Test" } };
+            Book book = new Book() { Title = "Test" };
+            BookReservation newBookReservation = new BookReservation() { book = book };
 
             // Act
             controller.Put(newBookReservation);
@@ -93,9 +96,10 @@ namespace LibraryGradProjectTests.Controllers
             // Arrange
             var mockRepo = new BookReservationRepository();
             BookReservationsController controller = new BookReservationsController(mockRepo);
-
-            BookReservation oldBookReservation = new BookReservation() { book = { Title = "Test" } };
-            BookReservation newBookReservation = new BookReservation() { book = { Id = 0, Title = "NewTitle" } };
+            Book book = new Book() { Title = "Test" };
+            Book book2 = new Book() { Id = 0, Title = "NewTitle" };
+            BookReservation oldBookReservation = new BookReservation() { book = book };
+            BookReservation newBookReservation = new BookReservation() { Id = 0, book = book2 };
 
             // Act
             controller.Post(oldBookReservation);

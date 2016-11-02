@@ -8,5 +8,19 @@ namespace LibraryGradProject.Models
         public Book book { get; set; }
         public DateTime from { get; set; }
         public DateTime to { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            BookReservation bookRes = obj as BookReservation;
+
+            if (bookRes == null)
+            {
+                return false;
+            }
+
+            return bookRes.book == book &&
+                   bookRes.from == from &&
+                   bookRes.to == to ;
+        }
     } 
 }
