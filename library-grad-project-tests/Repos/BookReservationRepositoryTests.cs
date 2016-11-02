@@ -73,7 +73,7 @@ namespace LibraryGradProjectTests.Repos
             DateTime to = from.AddDays(2);
 
             BookReservation newBookReservation1 = new BookReservation() { Id = 0, book = book, from = from, to = to };
-            BookReservation newBookReservation2 = new BookReservation() { Id = 1, book = book, from = from, to = to };
+            BookReservation newBookReservation2 = new BookReservation() { Id = 1, book = book, from = to, to = to.AddDays(2) };
             repo.Add(newBookReservation1);
             repo.Add(newBookReservation2);
 
