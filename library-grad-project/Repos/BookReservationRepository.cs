@@ -74,7 +74,7 @@ namespace LibraryGradProject.Repos
 
         public IEnumerable<BookReservation> GetAllForBook (Book book)
         {
-            return _bookResCollection.Where(bookRes => bookRes.book == book);
+            return _bookResCollection.Where(bookRes => bookRes.book.Equals(book) );
         }
     }
 }
