@@ -2,6 +2,7 @@
 using LibraryGradProject.Models;
 using LibraryGradProject.Repos;
 using Moq;
+using System;
 using Xunit;
 
 namespace LibraryGradProjectTests.Controllers
@@ -98,8 +99,12 @@ namespace LibraryGradProjectTests.Controllers
             BookReservationsController controller = new BookReservationsController(mockRepo);
             Book book = new Book() { Title = "Test" };
             Book book2 = new Book() { Id = 0, Title = "NewTitle" };
-            BookReservation oldBookReservation = new BookReservation() { book = book };
-            BookReservation newBookReservation = new BookReservation() { Id = 0, book = book2 };
+
+            DateTime from = DateTime.UtcNow;
+            DateTime to = from.AddDays(2);
+
+            BookReservation oldBookReservation = new BookReservation() { book = book, from = from, to = to };
+            BookReservation newBookReservation = new BookReservation() { Id = 0, book = book2, from = from, to = to };
 
             // Act
             controller.Post(oldBookReservation);

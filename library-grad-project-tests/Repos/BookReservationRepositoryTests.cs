@@ -1,5 +1,6 @@
 ﻿using LibraryGradProject.Models;
 using LibraryGradProject.Repos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -22,12 +23,36 @@ namespace LibraryGradProjectTests.Repos
         }
 
         [Fact]
+        public void Add_Inserts_New_Book_Reservation()
+        {
+            // Arrange
+            BookReservationRepository repo = new BookReservationRepository();
+            Book book = new Book() { Title = "Test" };
+
+            DateTime from = DateTime.UtcNow;
+            DateTime to = from.AddDays(2);
+
+            BookReservation newBookReservation = new BookReservation() { book = book, from = from, to = to };
+
+            // Act
+            repo.Add(newBookReservation);
+            IEnumerable<BookReservation> bookReservations = repo.GetAll();
+
+            // Asert
+            Assert.Equal(new BookReservation[] { newBookReservation }, bookReservations.ToArray());
+        }
+
+        [Fact]
         public void Add_Inserts_New_Book()
         {
             // Arrange
             BookReservationRepository repo = new BookReservationRepository();
             Book book = new Book() { Title = "Test" };
-            BookReservation newBookReservation = new BookReservation() { book = book };
+
+            DateTime from = DateTime.UtcNow;
+            DateTime to = from.AddDays(2);
+
+            BookReservation newBookReservation = new BookReservation() { book = book, from = from, to = to };
 
             // Act
             repo.Add(newBookReservation);
@@ -43,7 +68,11 @@ namespace LibraryGradProjectTests.Repos
             // Arrange
             BookReservationRepository repo = new BookReservationRepository();
             Book book = new Book() { Title = "Test" };
-            BookReservation newBookReservation = new BookReservation() { book = book };
+
+            DateTime from = DateTime.UtcNow;
+            DateTime to = from.AddDays(2);
+
+            BookReservation newBookReservation = new BookReservation() { book = book, from = from, to = to };
 
             // Act
             repo.Add(newBookReservation);
@@ -59,8 +88,12 @@ namespace LibraryGradProjectTests.Repos
             // Arrange
             BookReservationRepository repo = new BookReservationRepository();
             Book book = new Book() { Title = "Test" };
-            BookReservation newBookReservation1 = new BookReservation() { Id = 0, book = book };
-            BookReservation newBookReservation2 = new BookReservation() { Id = 1, book = book };
+
+            DateTime from = DateTime.UtcNow;
+            DateTime to = from.AddDays(2);
+
+            BookReservation newBookReservation1 = new BookReservation() { Id = 0, book = book, from = from, to = to };
+            BookReservation newBookReservation2 = new BookReservation() { Id = 1, book = book, from = from, to = to };
             repo.Add(newBookReservation1);
             repo.Add(newBookReservation2);
 
@@ -78,8 +111,12 @@ namespace LibraryGradProjectTests.Repos
             BookReservationRepository repo = new BookReservationRepository();
             Book book1 = new Book() { Title = "Test1" };
             Book book2 = new Book() { Title = "Test2" };
-            BookReservation newBookReservation1 = new BookReservation() { book = book1 };
-            BookReservation newBookReservation2 = new BookReservation() { book = book2 };
+
+            DateTime from = DateTime.UtcNow;
+            DateTime to = from.AddDays(2);
+
+            BookReservation newBookReservation1 = new BookReservation() { book = book1, from = from, to = to };
+            BookReservation newBookReservation2 = new BookReservation() { book = book2, from = from, to = to };
             repo.Add(newBookReservation1);
             repo.Add(newBookReservation2);
 
@@ -97,8 +134,12 @@ namespace LibraryGradProjectTests.Repos
             BookReservationRepository repo = new BookReservationRepository();
             Book book1 = new Book() { Title = "Test1" };
             Book book2 = new Book() { Title = "Test2" };
-            BookReservation newBookReservation1 = new BookReservation() { book = book1 };
-            BookReservation newBookReservation2 = new BookReservation() { book = book2 };
+
+            DateTime from = DateTime.UtcNow;
+            DateTime to = from.AddDays(2);
+
+            BookReservation newBookReservation1 = new BookReservation() { book = book1, from = from, to = to };
+            BookReservation newBookReservation2 = new BookReservation() { book = book2, from = from, to = to };
             repo.Add(newBookReservation1);
             repo.Add(newBookReservation2);
 
@@ -108,6 +149,25 @@ namespace LibraryGradProjectTests.Repos
 
             // Asert
             Assert.Equal(new BookReservation[] { newBookReservation1 }, bookReservations.ToArray());
+        }
+
+        [Fact]
+        public void GetAllForBook_Returns_All_Reservations_For_A_Certain_Book()
+        {
+            BookReservationRepository repo = new BookReservationRepository();
+            Book book1 = new Book() { Title = "Test1" };
+            Book book2 = new Book() { Title = "Test2" };
+
+            DateTime from = DateTime.UtcNow;
+            DateTime to = from.AddDays(2);
+
+            BookReservation newBookReservation1 = new BookReservation() { book = book1, from = from, to = to };
+            BookReservation newBookReservation2 = new BookReservation() { book = book2, from = from, to = to };
+
+            repo.Add(newBookReservation1);
+            repo.Add(newBookReservation2);
+
+            Assert.True(newBookReservation1.Equals(repo.GetAllForBook(book1)));
         }
     }
 }
