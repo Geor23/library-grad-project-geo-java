@@ -9,12 +9,26 @@ namespace LibraryGradProjectTests.Repos
 {
     public class BookReservationRepositoryTests
     {
+        BookReservationRepository repo;
+        Book book, book2;
+        DateTime from, to;
+        BookReservation newBookReservation, newBookReservation2;
+
+        public BookReservationRepositoryTests()
+        {
+            // Arrange
+            repo = new BookReservationRepository();
+            book = new Book() { Title = "Test" };
+            book2 = new Book() { Title = "Test2" };
+            from = DateTime.UtcNow;
+            to = from.AddDays(2);
+            newBookReservation = new BookReservation() { book = book, from = from, to = to };
+            newBookReservation2 = new BookReservation() { book = book2, from = to, to = to.AddDays(2) };
+        }
+
         [Fact]
         public void New_Book_Repository_Is_Empty()
         {
-            // Arrange
-            BookReservationRepository repo = new BookReservationRepository();
-
             // Act
             IEnumerable<BookReservation> bookReservations = repo.GetAll();
 
@@ -25,15 +39,6 @@ namespace LibraryGradProjectTests.Repos
         [Fact]
         public void Add_Inserts_New_Book_Reservation()
         {
-            // Arrange
-            BookReservationRepository repo = new BookReservationRepository();
-            Book book = new Book() { Title = "Test" };
-
-            DateTime from = DateTime.UtcNow;
-            DateTime to = from.AddDays(2);
-
-            BookReservation newBookReservation = new BookReservation() { book = book, from = from, to = to };
-
             // Act
             repo.Add(newBookReservation);
             IEnumerable<BookReservation> bookReservations = repo.GetAll();
@@ -45,15 +50,6 @@ namespace LibraryGradProjectTests.Repos
         [Fact]
         public void Add_Sets_New_Id()
         {
-            // Arrange
-            BookReservationRepository repo = new BookReservationRepository();
-            Book book = new Book() { Title = "Test" };
-
-            DateTime from = DateTime.UtcNow;
-            DateTime to = from.AddDays(2);
-
-            BookReservation newBookReservation = new BookReservation() { book = book, from = from, to = to };
-
             // Act
             repo.Add(newBookReservation);
             IEnumerable<BookReservation> bookReservations = repo.GetAll();
@@ -65,16 +61,7 @@ namespace LibraryGradProjectTests.Repos
         [Fact]
         public void Get_Returns_Specific_Book_Reservation()
         {
-            // Arrange
-            BookReservationRepository repo = new BookReservationRepository();
-            Book book = new Book() { Title = "Test" };
-
-            DateTime from = DateTime.UtcNow;
-            DateTime to = from.AddDays(2);
-
-            BookReservation newBookReservation1 = new BookReservation() { Id = 0, book = book, from = from, to = to };
-            BookReservation newBookReservation2 = new BookReservation() { Id = 1, book = book, from = to, to = to.AddDays(2) };
-            repo.Add(newBookReservation1);
+            repo.Add(newBookReservation);
             repo.Add(newBookReservation2);
 
             // Act
@@ -88,39 +75,21 @@ namespace LibraryGradProjectTests.Repos
         public void Get_All_Returns_All_Book_Reservations()
         {
             // Arrange
-            BookReservationRepository repo = new BookReservationRepository();
-            Book book1 = new Book() { Title = "Test1" };
-            Book book2 = new Book() { Title = "Test2" };
-
-            DateTime from = DateTime.UtcNow;
-            DateTime to = from.AddDays(2);
-
-            BookReservation newBookReservation1 = new BookReservation() { book = book1, from = from, to = to };
-            BookReservation newBookReservation2 = new BookReservation() { book = book2, from = from, to = to };
-            repo.Add(newBookReservation1);
+            repo.Add(newBookReservation);
             repo.Add(newBookReservation2);
 
             // Act
             IEnumerable<BookReservation> bookReservations = repo.GetAll();
 
             // Asert
-            Assert.Equal(new BookReservation[] { newBookReservation1, newBookReservation2 }, bookReservations.ToArray());
+            Assert.Equal(new BookReservation[] { newBookReservation, newBookReservation2 }, bookReservations.ToArray());
         }
 
         [Fact]
         public void Delete_Removes_Correct_Book_Reservation()
         {
             // Arrange
-            BookReservationRepository repo = new BookReservationRepository();
-            Book book1 = new Book() { Title = "Test1" };
-            Book book2 = new Book() { Title = "Test2" };
-
-            DateTime from = DateTime.UtcNow;
-            DateTime to = from.AddDays(2);
-
-            BookReservation newBookReservation1 = new BookReservation() { book = book1, from = from, to = to };
-            BookReservation newBookReservation2 = new BookReservation() { book = book2, from = from, to = to };
-            repo.Add(newBookReservation1);
+            repo.Add(newBookReservation);
             repo.Add(newBookReservation2);
 
             // Act
@@ -128,60 +97,33 @@ namespace LibraryGradProjectTests.Repos
             IEnumerable<BookReservation> bookReservations = repo.GetAll();
 
             // Asert
-            Assert.Equal(new BookReservation[] { newBookReservation1 }, bookReservations.ToArray());
+            Assert.Equal(new BookReservation[] { newBookReservation }, bookReservations.ToArray());
         }
 
         [Fact]
         public void GetAllForBook_Returns_All_Reservations_For_A_Certain_Book()
         {
-            BookReservationRepository repo = new BookReservationRepository();
-            Book book1 = new Book() { Id = 0, Title = "Test1" };
-            Book book2 = new Book() { Id = 1, Title = "Test2" };
-
-            DateTime from = DateTime.UtcNow;
-            DateTime to = from.AddDays(2);
-
-            BookReservation newBookReservation1 = new BookReservation() { book = book1, from = from, to = to };
-            BookReservation newBookReservation2 = new BookReservation() { book = book2, from = to, to = to.AddDays(2) };
-
-            repo.Add(newBookReservation1);
+            repo.Add(newBookReservation);
             repo.Add(newBookReservation2);
 
-            Assert.True(newBookReservation1.Equals(repo.GetAllForBook(book1).First()));
+            Assert.True(newBookReservation.Equals(repo.GetAllForBook(book).First()));
         }
 
         [Fact]
         public void CheckTimeSlot_Returns_False_If_Timeslot_Invalid()
         {
-            BookReservationRepository repo = new BookReservationRepository();
-            Book book = new Book() { Id = 0, Title = "Test" };
-
-            DateTime from = DateTime.UtcNow;
-            DateTime to = from.AddDays(2);
-
-            BookReservation newBookReservation1 = new BookReservation() { book = book, from = from, to = to };
-            BookReservation newBookReservation2 = new BookReservation() { book = book, from = to, to = to.AddDays(2) };
-
-            repo.Add(newBookReservation1);
+            repo.Add(newBookReservation);
             repo.Add(newBookReservation2);
 
-            Assert.False(repo.CheckTimeSlot(repo.GetAllForBook(book), newBookReservation1));
+            Assert.False(repo.CheckTimeSlot(repo.GetAllForBook(book), newBookReservation));
         }
 
         [Fact]
         public void CheckTimeSlot_Returns_True_If_Timeslot_Valid()
         {
-            BookReservationRepository repo = new BookReservationRepository();
-            Book book = new Book() { Id = 0, Title = "Test" };
-
-            DateTime from = DateTime.UtcNow;
-            DateTime to = from.AddDays(2);
-
-            BookReservation newBookReservation1 = new BookReservation() { book = book, from = from, to = to };
-            BookReservation newBookReservation2 = new BookReservation() { book = book, from = to, to = to.AddDays(2) };
             BookReservation newBookReservation3 = new BookReservation() { book = book, from = to.AddDays(2), to = to.AddDays(4) };
 
-            repo.Add(newBookReservation1);
+            repo.Add(newBookReservation);
             repo.Add(newBookReservation2);
 
             Assert.True(repo.CheckTimeSlot(repo.GetAllForBook(book), newBookReservation3));
