@@ -29,5 +29,10 @@ namespace LibraryGradProject.Repos
             BookReservation bookResToRemove = Get(id);
             _bookResCollection.Remove(bookResToRemove);
         }
+
+        public BookReservation GetAllForBook (Book book)
+        {
+            return _bookResCollection.Where(bookRes => bookRes.book == book).SingleOrDefault();
+        }
     }
 }
