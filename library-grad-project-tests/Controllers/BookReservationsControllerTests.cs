@@ -95,7 +95,7 @@ namespace LibraryGradProjectTests.Controllers
         public void Put_With_Book_Changed_Book_If_Its_In_List()
         {
             // Arrange
-            var mockRepo = new BookReservationRepository();
+            var mockRepo = new BookReservationDbRepository();
             BookReservationsController controller = new BookReservationsController(mockRepo);
             Book book = new Book() { Title = "Test" };
             Book book2 = new Book() { Id = 0, Title = "NewTitle" };

@@ -9,7 +9,7 @@ namespace LibraryGradProjectTests.Repos
 {
     public class BookReservationRepositoryTests
     {
-        BookReservationRepository repo;
+        BookReservationDbRepository repo;
         Book book, book2;
         DateTime from, to;
         BookReservation newBookReservation, newBookReservation2;
@@ -17,7 +17,7 @@ namespace LibraryGradProjectTests.Repos
         public BookReservationRepositoryTests()
         {
             // Arrange
-            repo = new BookReservationRepository();
+            repo = new BookReservationDbRepository();
             book = new Book() { Title = "Test" };
             book2 = new Book() { Title = "Test2" };
             from = DateTime.UtcNow;
