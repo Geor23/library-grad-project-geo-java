@@ -2,7 +2,8 @@
 using LibraryGradProject.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System;
+using System.Data.Entity;
+using System.Data;
 
 namespace LibraryGradProject.Repos
 {
@@ -20,7 +21,7 @@ namespace LibraryGradProject.Repos
         {
             using (BookContext context = GetContext())
             {
-                context.Attach(entity);
+                context.Books.Attach(entity);
                 context.Books.Add(entity);
                 context.SaveChanges();
             }
@@ -49,7 +50,7 @@ namespace LibraryGradProject.Repos
                 Book book = Get(id);
                 if (book != null)
                 {
-                    context.Attach(book);
+                    context.Books.Attach(book);
                     context.Books.Remove(book);
                     context.SaveChanges();
                 }

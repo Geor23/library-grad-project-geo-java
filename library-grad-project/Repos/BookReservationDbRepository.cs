@@ -16,7 +16,7 @@ namespace LibraryGradProject.Repos
                 {
                     using (BookContext context = GetContext())
                     {
-                        context.Attach(entity);
+                        context.BookReservations.Attach(entity);
                         context.BookReservations.Add(entity);
                         context.SaveChanges();
                     }
@@ -49,7 +49,7 @@ namespace LibraryGradProject.Repos
             BookReservation bookResToRemove = Get(id);
             using (BookContext context = GetContext())
             {
-                context.Attach(bookResToRemove);
+                context.BookReservations.Attach(bookResToRemove);
                 context.BookReservations.Remove(bookResToRemove);
                 context.SaveChanges();
             }
