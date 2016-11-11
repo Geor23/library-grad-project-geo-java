@@ -1,5 +1,7 @@
-﻿using LibraryGradProject.Models;
+﻿using LibraryGradProject.Context;
+using LibraryGradProject.Models;
 using LibraryGradProject.Repos;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,8 @@ namespace LibraryGradProjectTests.Repos
         public void New_Book_Repository_Is_Empty()
         {
             // Arrange
-            FilledBookRepository repo = new FilledBookRepository();
+            var mockContext = new Mock<BookContext>();
+            FilledBookDbRepository repo = new FilledBookDbRepository(mockContext.Object);
 
             // Act
             IEnumerable<Book> books = repo.GetAll();
@@ -28,7 +31,8 @@ namespace LibraryGradProjectTests.Repos
         public void Add_Inserts_New_Book()
         {
             // Arrange
-            FilledBookRepository repo = new FilledBookRepository();
+            var mockContext = new Mock<BookContext>();
+            FilledBookDbRepository repo = new FilledBookDbRepository(mockContext.Object);
             Book newBook1 = new Book() { Id = 0, Title = "Book1" };
             Book newBook2 = new Book() { Id = 1, Title = "Book2" };
             Book newBook3 = new Book() { Id = 2, Title = "Book3" };

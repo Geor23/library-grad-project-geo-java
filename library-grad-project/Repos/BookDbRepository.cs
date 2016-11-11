@@ -9,51 +9,38 @@ namespace LibraryGradProject.Repos
 {
     public class BookDbRepository : IRepository<Book>
     {
-        public BookDbRepository() : base()
+        public BookContext context { get; private set; }
+
+        public BookDbRepository(BookContext context)
         {
+            this.context = context;
         }
 
-        public BookDbRepository(BookContext ctx) : base(ctx)
+        public void Add(Book entity)
         {
+            context.Books.Attach(entity);
+            context.Books.Add(entity);
+            context.SaveChanges();
         }
 
-        public override void Add(Book entity)
+        public IEnumerable<Book> GetAll()
         {
-            using (BookContext context = GetContext())
+            return context.Books.ToList();
+        }
+
+        public Book Get(int id)
+        {
+            return context.Books.Where(book => book.Id == id).SingleOrDefault();
+        }
+
+        public void Remove(int id)
+        {
+            Book book = Get(id);
+            if (book != null)
             {
-                context.Books.Attach(entity);
-                context.Books.Add(entity);
+                context.Books.Attach(book);
+                context.Books.Remove(book);
                 context.SaveChanges();
-            }
-        }
-
-        public override IEnumerable<Book> GetAll()
-        {
-            using (BookContext context = GetContext())
-            {
-                return context.Books.ToList();
-            }
-        }
-
-        public override Book Get(int id)
-        {
-            using (BookContext context = GetContext())
-            {
-                return context.Books.Where(book => book.Id == id).SingleOrDefault();
-            }
-        }
-
-        public override void Remove(int id)
-        {
-            using (BookContext context = GetContext())
-            {
-                Book book = Get(id);
-                if (book != null)
-                {
-                    context.Books.Attach(book);
-                    context.Books.Remove(book);
-                    context.SaveChanges();
-                }
             }
         }
     }

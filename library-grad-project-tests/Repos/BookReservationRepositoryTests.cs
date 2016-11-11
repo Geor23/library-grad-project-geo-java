@@ -1,7 +1,10 @@
-﻿using LibraryGradProject.Models;
+﻿using LibraryGradProject.Context;
+using LibraryGradProject.Models;
 using LibraryGradProject.Repos;
+using Moq;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Xunit;
 
@@ -12,25 +15,47 @@ namespace LibraryGradProjectTests.Repos
         BookReservationDbRepository repo;
         Book book, book2;
         DateTime from, to;
-        BookReservation newBookReservation, newBookReservation2;
+        BookDbReservation newBookReservation, newBookReservation2;
+
+        private Mock<DbSet<BookDbReservation>> setUpAsQueriable(IQueryable<BookDbReservation> data)
+        {
+            var queriable = new Mock<DbSet<BookDbReservation>>();
+            queriable.As<IQueryable<BookDbReservation>>().Setup(m => m.Provider).Returns(() => data.Provider);
+            queriable.As<IQueryable<BookDbReservation>>().Setup(m => m.Expression).Returns(() => data.Expression);
+            queriable.As<IQueryable<BookDbReservation>>().Setup(m => m.ElementType).Returns(() => data.ElementType);
+            queriable.As<IQueryable<BookDbReservation>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+            return queriable;
+        }
 
         public BookReservationRepositoryTests()
         {
+            //Setup
+            var bookReservations = new List<BookDbReservation>()
+            {
+            };
+            var data = bookReservations.AsQueryable();
+            var mockSet = setUpAsQueriable(data);
+            mockSet.Setup(d => d.Add(It.IsAny<BookDbReservation>())).Callback<BookDbReservation>((r) => bookReservations.Add(r));
+            mockSet.Setup(d => d.Remove(It.IsAny<BookDbReservation>())).Callback<BookDbReservation>((r) => bookReservations.Remove(r));
+
+            var mockContext = new Mock<BookContext>();
+            mockContext.Setup(c => c.BookReservations).Returns(mockSet.Object);
+
             // Arrange
-            repo = new BookReservationDbRepository();
+            repo = new BookReservationDbRepository(mockContext.Object);
             book = new Book() { Title = "Test" };
             book2 = new Book() { Title = "Test2" };
             from = DateTime.UtcNow;
             to = from.AddDays(2);
-            newBookReservation = new BookReservation() { book = book, from = from, to = to };
-            newBookReservation2 = new BookReservation() { book = book2, from = to, to = to.AddDays(2) };
+            newBookReservation = new BookDbReservation() { book = book, from = from, to = to };
+            newBookReservation2 = new BookDbReservation() { book = book2, from = to, to = to.AddDays(2) };
         }
 
         [Fact]
         public void New_Book_Repository_Is_Empty()
         {
             // Act
-            IEnumerable<BookReservation> bookReservations = repo.GetAll();
+            IEnumerable<BookDbReservation> bookReservations = repo.GetAll();
 
             // Asert
             Assert.Empty(bookReservations);
@@ -41,10 +66,10 @@ namespace LibraryGradProjectTests.Repos
         {
             // Act
             repo.Add(newBookReservation);
-            IEnumerable<BookReservation> bookReservations = repo.GetAll();
+            IEnumerable<BookDbReservation> bookReservations = repo.GetAll();
 
             // Asert
-            Assert.Equal(new BookReservation[] { newBookReservation }, bookReservations.ToArray());
+            Assert.Equal(new BookDbReservation[] { newBookReservation }, bookReservations.ToArray());
         }
 
         [Fact]
@@ -52,7 +77,7 @@ namespace LibraryGradProjectTests.Repos
         {
             // Act
             repo.Add(newBookReservation);
-            IEnumerable<BookReservation> bookReservations = repo.GetAll();
+            IEnumerable<BookDbReservation> bookReservations = repo.GetAll();
 
             // Asert
             Assert.Equal(0, bookReservations.First().Id);
@@ -65,7 +90,7 @@ namespace LibraryGradProjectTests.Repos
             repo.Add(newBookReservation2);
 
             // Act
-            BookReservation bookReservation = repo.Get(1);
+            BookDbReservation bookReservation = repo.Get(1);
 
             // Asert
             Assert.Equal(newBookReservation2, bookReservation);
@@ -79,10 +104,10 @@ namespace LibraryGradProjectTests.Repos
             repo.Add(newBookReservation2);
 
             // Act
-            IEnumerable<BookReservation> bookReservations = repo.GetAll();
+            IEnumerable<BookDbReservation> bookReservations = repo.GetAll();
 
             // Asert
-            Assert.Equal(new BookReservation[] { newBookReservation, newBookReservation2 }, bookReservations.ToArray());
+            Assert.Equal(new BookDbReservation[] { newBookReservation, newBookReservation2 }, bookReservations.ToArray());
         }
 
         [Fact]
@@ -94,10 +119,10 @@ namespace LibraryGradProjectTests.Repos
 
             // Act
             repo.Remove(1);
-            IEnumerable<BookReservation> bookReservations = repo.GetAll();
+            IEnumerable<BookDbReservation> bookReservations = repo.GetAll();
 
             // Asert
-            Assert.Equal(new BookReservation[] { newBookReservation }, bookReservations.ToArray());
+            Assert.Equal(new BookDbReservation[] { newBookReservation }, bookReservations.ToArray());
         }
 
         [Fact]
@@ -121,7 +146,7 @@ namespace LibraryGradProjectTests.Repos
         [Fact]
         public void CheckTimeSlot_Returns_True_If_Timeslot_Valid()
         {
-            BookReservation newBookReservation3 = new BookReservation() { book = book, from = to.AddDays(2), to = to.AddDays(4) };
+            BookDbReservation newBookReservation3 = new BookDbReservation() { book = book, from = to.AddDays(2), to = to.AddDays(4) };
 
             repo.Add(newBookReservation);
             repo.Add(newBookReservation2);

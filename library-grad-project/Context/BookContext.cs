@@ -3,12 +3,9 @@ using System.Data.Entity;
 
 namespace LibraryGradProject.Context
 {
-    public class BookContext : DbContext
+    public class BookContext : DbContext, IBookContext
     {
-        public BookContext() : base()
-        {
-        }
         public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<BookReservation> BookReservations { get; set; }
+        public virtual DbSet<BookDbReservation> BookReservations { get; set; }
     }
 }

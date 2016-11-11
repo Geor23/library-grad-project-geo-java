@@ -1,4 +1,5 @@
-﻿using LibraryGradProject.Models;
+﻿using LibraryGradProject.Context;
+using LibraryGradProject.Models;
 using LibraryGradProject.Repos;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -7,11 +8,11 @@ namespace LibraryGradProject.Controllers
 {
     public class BooksController : ApiController
     {
-        private IRepository<Book> _bookRepo;
+        private BookDbRepository _bookRepo;
         
-        public BooksController(IRepository<Book> bookRepository)
+        public BooksController(BookContext context)
         {
-            _bookRepo = bookRepository;
+            _bookRepo = new BookDbRepository(context);
         }
         
         // GET api/books
