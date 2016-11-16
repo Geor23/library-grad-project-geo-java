@@ -13,7 +13,7 @@ namespace LibraryGradProject.Repos
 
         public BookReservationDbRepository(BookContext ctx)
         {
-            this.context = context;
+            context = ctx;
         }
 
         public void Add(BookDbReservation entity)

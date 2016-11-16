@@ -47,8 +47,8 @@ namespace LibraryGradProjectTests.Repos
             book2 = new Book() { Title = "Test2" };
             from = DateTime.UtcNow;
             to = from.AddDays(2);
-            newBookReservation = new BookDbReservation() { book = book, from = from, to = to };
-            newBookReservation2 = new BookDbReservation() { book = book2, from = to, to = to.AddDays(2) };
+            newBookReservation = new BookDbReservation() { book = book, from = from, to = to, Id = 0 };
+            newBookReservation2 = new BookDbReservation() { book = book2, from = to, to = to.AddDays(2), Id = 1 };
         }
 
         [Fact]
