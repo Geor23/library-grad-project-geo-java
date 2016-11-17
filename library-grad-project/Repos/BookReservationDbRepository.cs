@@ -41,7 +41,7 @@ namespace LibraryGradProject.Repos
 
         public IEnumerable<BookDbReservation> GetAll()
         {
-            return context.BookReservations.ToList();
+            return context.BookReservations;
         }
 
         public void Remove(int id)
