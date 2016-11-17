@@ -7,7 +7,9 @@ var BookForm = React.createClass({
     getInitialState: function() {
         return {
             title: '',
-            read: false
+            author: '',
+            isbn: '',
+            date: ''
         };
     },
     changeTitle: function(ev) {
@@ -15,9 +17,19 @@ var BookForm = React.createClass({
             title: ev.target.value
         });
     },
-    changeRead: function() {
+    changeAuthor: function(ev) {
         this.setState({
-            read: !this.state.read
+            author: ev.target.value
+        });
+    },
+    changePublishDate: function(ev) {
+        this.setState({
+            date: ev.target.value
+        });
+    },
+    changeISBN: function(ev) {
+        this.setState({
+            isbn: ev.target.value
         });
     },
     addBook: function(ev) {
@@ -25,12 +37,16 @@ var BookForm = React.createClass({
 
         this.props.onBook({
             title: this.state.title,
-            read: this.state.read
+            author: this.state.author,
+            isbn: this.state.isbn,
+            date: this.state.date
         });
 
         this.setState({
             title: '',
-            read: false
+            author: '',
+            isbn: '',
+            date: ''
         });
     },
     render: function() {
@@ -41,8 +57,16 @@ var BookForm = React.createClass({
                     <div><input type='text' id='title' value={this.state.title} onChange={this.changeTitle} placeholder='Title' /></div>
                 </div>
                 <div>
-                    <label htmlFor='title'>Read</label>
-                    <div><input type='checkbox' id='read' checked={this.state.read} onChange={this.changeRead} /></div>
+                    <label htmlFor='author'>Author</label>
+                    <div><input type='text' id='author' value={this.state.author} onChange={this.changeAuthor} placeholder='Author' /></div>
+                </div>
+                <div>
+                    <label htmlFor='isbn'>ISBN</label>
+                    <div><input type='text' id='isbn' value={this.state.isbn} onChange={this.changeISBN} placeholder='ISBN' /></div>
+                </div>
+                <div>
+                    <label htmlFor='date'>Publish Date</label>
+                    <div><input type='text' id='date' value={this.state.date} onChange={this.changePublishDate} placeholder='Publish Date' /></div>
                 </div>
                 <div>
                     <button type='submit'>Add Book</button>
