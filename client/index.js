@@ -67,27 +67,6 @@ app.use('/', function(req, res) {
             ));
         }
     });
-  
-    // res.setHeader('Content-Type', 'text/html');
-    // res.end(React.renderToStaticMarkup(
-    //     React.DOM.body(
-    //         null,
-    //         React.DOM.div({
-    //             id: 'container',
-    //             dangerouslySetInnerHTML: {
-    //                 __html: React.renderToString(React.createElement(Books, JSON.stringify(books)))
-    //             }
-    //         }),
-    //         React.DOM.script({
-    //             'id': 'initial-data',
-    //             'type': 'text/plain',
-    //             'data-json': JSON.stringify(books)
-    //         }),
-    //         React.DOM.script({
-    //             src: '/bundle.js'
-    //         })
-    //     )
-    // ));
 });
 
 
