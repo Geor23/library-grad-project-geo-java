@@ -18,9 +18,12 @@ namespace LibraryGradProject.Repos
 
         public void Add(Book entity)
         {
-            context.Books.Attach(entity);
-            context.Books.Add(entity);
-            context.SaveChanges();
+            if (entity != null)
+            {
+                context.Books.Attach(entity);
+                context.Books.Add(entity);
+                context.SaveChanges();
+            }
         }
 
         public IEnumerable<Book> GetAll()
