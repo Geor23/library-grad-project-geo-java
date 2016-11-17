@@ -25,7 +25,7 @@ namespace LibraryGradProject.Repos
 
         public IEnumerable<Book> GetAll()
         {
-            return context.Books.ToList();
+            return context.Books;
         }
 
         public Book Get(int id)

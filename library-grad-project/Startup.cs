@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using LibraryGradProject.Context;
+using LibraryGradProject.Models;
 
 [assembly: OwinStartup(typeof(LibraryGradProject.Startup))]
 
@@ -19,9 +21,5 @@ namespace LibraryGradProject
     public partial class Startup
     {
         public void Configuration(IAppBuilder app){ }
-
     }
-
-   
-
 }
