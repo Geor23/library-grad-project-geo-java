@@ -43,33 +43,30 @@ app.use('/', function(req, res) {
 
     request(url + '/api/books', function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            books = body;
+            books = JSON.parse(body);
             console.log("books: " + books);
+            res.setHeader('Content-Type', 'text/html');
+            res.end(React.renderToStaticMarkup(
+                React.DOM.body(
+                    null,
+                    React.DOM.div({
+                        id: 'container',
+                        dangerouslySetInnerHTML: {
+                            __html: React.renderToString(React.createElement(Books, books))
+                        }
+                    }),
+                    React.DOM.script({
+                        'id': 'initial-data',
+                        'type': 'text/plain',
+                        'data-json': JSON.stringify(books)
+                    }),
+                    React.DOM.script({
+                        src: '/bundle.js'
+                    })
+                )
+            ));
         }
     });
-  
-    res.setHeader('Content-Type', 'text/html');
-    res.end(React.renderToStaticMarkup(
-        React.DOM.body(
-            null,
-            React.DOM.div({
-                id: 'container',
-                dangerouslySetInnerHTML: {
-                    __html: React.renderToString(React.createElement(Books, {
-                        books: books
-                    }))
-                }
-            }),
-            React.DOM.script({
-                'id': 'initial-data',
-                'type': 'text/plain',
-                'data-json': JSON.stringify(books)
-            }),
-            React.DOM.script({
-                src: '/bundle.js'
-            })
-        )
-    ));
 });
 
 
