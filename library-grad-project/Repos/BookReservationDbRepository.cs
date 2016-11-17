@@ -1,22 +1,31 @@
-﻿using LibraryGradProject.Models;
+﻿using LibraryGradProject.Context;
+using LibraryGradProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace LibraryGradProject.Repos
 {
-    public class BookReservationRepository : IRepository<BookReservation>
+    public class BookReservationDbRepository : IRepository<BookDbReservation>
     {
-        private List<BookReservation> _bookResCollection = new List<BookReservation>(); 
 
-        public void Add(BookReservation entity)
+        public BookContext context { get; private set; }
+
+        public BookReservationDbRepository(BookContext ctx)
+        {
+            context = ctx;
+        }
+
+        public void Add(BookDbReservation entity)
         {
             if ( CheckReservationArguments(entity) )
             {  
                 if (CheckTimeSlot(GetAllForBook(entity.book), entity))
                 {
-                    entity.Id = _bookResCollection.Count;
-                    _bookResCollection.Add(entity);
+                    
+                        context.BookReservations.Attach(entity);
+                        context.BookReservations.Add(entity);
+                        context.SaveChanges();
                 }
                 else
                 {
@@ -25,23 +34,25 @@ namespace LibraryGradProject.Repos
             }
         }
 
-        public BookReservation Get(int id)
+        public BookDbReservation Get(int id)
         {
-            return _bookResCollection.Where(bookRes => bookRes.Id == id).SingleOrDefault();
+            return context.BookReservations.Where(bookRes => bookRes.Id == id).SingleOrDefault();
         }
 
-        public IEnumerable<BookReservation> GetAll()
+        public IEnumerable<BookDbReservation> GetAll()
         {
-            return _bookResCollection;
+            return context.BookReservations.ToList();
         }
 
         public void Remove(int id)
         {
-            BookReservation bookResToRemove = Get(id);
-            _bookResCollection.Remove(bookResToRemove);
+            BookDbReservation bookResToRemove = Get(id);
+            context.BookReservations.Attach(bookResToRemove);
+            context.BookReservations.Remove(bookResToRemove);
+            context.SaveChanges();
         }
 
-        public bool CheckReservationArguments (BookReservation entity)
+        public bool CheckReservationArguments (BookDbReservation entity)
         {
             if (entity.book != null && entity.from != null && entity.to != null)
             {
@@ -60,9 +71,9 @@ namespace LibraryGradProject.Repos
             }
         }
 
-        public bool CheckTimeSlot (IEnumerable<BookReservation> bookReservations, BookReservation entity)
+        public bool CheckTimeSlot (IEnumerable<BookDbReservation> bookReservations, BookDbReservation entity)
         {
-            foreach (BookReservation bookRes in bookReservations)
+            foreach (BookDbReservation bookRes in bookReservations)
             {
                 if (!(DateTime.Compare(bookRes.to, entity.from) <= 0 || DateTime.Compare(bookRes.from, entity.to) >= 0))
                 {
@@ -72,9 +83,9 @@ namespace LibraryGradProject.Repos
             return true;
         }
 
-        public IEnumerable<BookReservation> GetAllForBook (Book book)
+        public IEnumerable<BookDbReservation> GetAllForBook (Book book)
         {
-            return _bookResCollection.Where(bookRes => bookRes.book.Equals(book) );
+            return context.BookReservations.Where(bookRes => bookRes.book.Equals(book));
         }
     }
 }

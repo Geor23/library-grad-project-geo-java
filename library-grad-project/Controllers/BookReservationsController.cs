@@ -1,4 +1,5 @@
-﻿using LibraryGradProject.Models;
+﻿using LibraryGradProject.Context;
+using LibraryGradProject.Models;
 using LibraryGradProject.Repos;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -7,27 +8,27 @@ namespace LibraryGradProject.Controllers
 {
     public class BookReservationsController : ApiController
     {
-        private IRepository<BookReservation> _bookResRepo;
+        private BookReservationDbRepository _bookResRepo;
 
-        public BookReservationsController(IRepository<BookReservation> bookReservationsRepository)
+        public BookReservationsController(BookContext context)
         {
-            _bookResRepo = bookReservationsRepository;
+            _bookResRepo = new BookReservationDbRepository(context);
         }
 
         // GET api/books
-        public IEnumerable<BookReservation> Get()
+        public IEnumerable<BookDbReservation> Get()
         {
             return _bookResRepo.GetAll();
         }
 
         // GET api/values/{int}
-        public BookReservation Get(int id)
+        public BookDbReservation Get(int id)
         {
             return _bookResRepo.Get(id);
         }
 
         // POST api/values
-        public void Post(BookReservation newBookRes)
+        public void Post(BookDbReservation newBookRes)
         {
             _bookResRepo.Add(newBookRes);
         }
@@ -39,9 +40,9 @@ namespace LibraryGradProject.Controllers
         }
 
         // PUT api/values/{int}
-        public void Put(BookReservation newBookRes)
+        public void Put(BookDbReservation newBookRes)
         {
-            BookReservation oldBookRes = _bookResRepo.Get(newBookRes.Id);
+            BookDbReservation oldBookRes = _bookResRepo.Get(newBookRes.Id);
             if (oldBookRes != null)
             {
                 oldBookRes.book = newBookRes.book;

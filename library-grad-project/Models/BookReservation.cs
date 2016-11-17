@@ -2,7 +2,7 @@
 
 namespace LibraryGradProject.Models
 {
-    public class BookReservation
+    public class BookDbReservation
     {
         public int Id { get; set; }
         public Book book { get; set; }
@@ -11,7 +11,7 @@ namespace LibraryGradProject.Models
 
         public override bool Equals(object obj)
         {
-            BookReservation bookRes = obj as BookReservation;
+            BookDbReservation bookRes = obj as BookDbReservation;
 
             if (bookRes == null)
             {
