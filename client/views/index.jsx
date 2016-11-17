@@ -94,7 +94,7 @@ var Books = React.createClass({
     },
     render: function() {
         var books = this.state.books.map(function(book) {
-            return <Book title={book.Title} author={book.Author}></Book>;
+            return <Book id={book.Id} title={book.Title} author={book.Author} isbn={book.ISBN} date={book.PublishDate}></Book>;
         });
 
         return (
@@ -103,8 +103,11 @@ var Books = React.createClass({
                 <table>
                     <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Title</th>
                             <th>Author</th>
+                            <th>ISBN</th>
+                            <th>Publish Date</th>
                         </tr>
                     </thead>
                     <tbody>{books}</tbody>
@@ -116,27 +119,29 @@ var Books = React.createClass({
 
 var Book = React.createClass({
     propTypes: {
+        id: React.PropTypes.number,
         title: React.PropTypes.string.isRequired,
         author: React.PropTypes.string.isRequired,
-        read: React.PropTypes.bool
+        isbn: React.PropTypes.string,
+        date: React.PropTypes.string
     },
     getInitialState: function() {
         return {
+            id: this.props.id,
             title: this.props.title,
-            author: this.props.author
+            author: this.props.author,
+            isbn: this.props.ISBN,
+            date: this.props.date
         };
-    },
-    handleChange: function(ev) {
-        this.setState({
-            read: !this.state.read
-        });
     },
     render: function() {
         return (
             <tr>
+                <td>{this.props.id}</td>
                 <td>{this.props.title}</td>
                 <td>{this.props.author}</td>
-                <td><input type='checkbox' checked={this.state.read} onChange={this.handleChange} /></td>
+                <td>{this.props.isbn}</td>
+                <td>{this.props.date}</td>
             </tr>
         );
     }

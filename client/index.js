@@ -30,16 +30,16 @@ app.use('/', function(req, res) {
         Author: "author1"
     };
 
-    request.post(
-        {
-            url:url + '/api/books',
-            headers: {
-                'content-type': 'application/json'
-            }, 
-            body: JSON.stringify(newBook)
-        }, function(err,httpResponse,body){ 
-            console.log("err: " + err);
-    });
+    // request.post(
+    //     {
+    //         url:url + '/api/books',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         }, 
+    //         body: JSON.stringify(newBook)
+    //     }, function(err,httpResponse,body){ 
+    //         console.log("err: " + err);
+    // });
 
     request(url + '/api/books', function (error, response, body) {
         if (!error && response.statusCode == 200) {
