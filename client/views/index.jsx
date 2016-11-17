@@ -70,7 +70,7 @@ var Books = React.createClass({
     },
     render: function() {
         var books = this.state.books.map(function(book) {
-            return <Book title={book.title} read={book.read}></Book>;
+            return <Book title={book.Title} author={book.Author}></Book>;
         });
 
         return (
@@ -80,7 +80,7 @@ var Books = React.createClass({
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>Read</th>
+                            <th>Author</th>
                         </tr>
                     </thead>
                     <tbody>{books}</tbody>
@@ -93,12 +93,13 @@ var Books = React.createClass({
 var Book = React.createClass({
     propTypes: {
         title: React.PropTypes.string.isRequired,
-        read: React.PropTypes.bool.isRequired
+        author: React.PropTypes.string.isRequired,
+        read: React.PropTypes.bool
     },
     getInitialState: function() {
         return {
             title: this.props.title,
-            read: this.props.read
+            author: this.props.author
         };
     },
     handleChange: function(ev) {
@@ -110,6 +111,7 @@ var Book = React.createClass({
         return (
             <tr>
                 <td>{this.props.title}</td>
+                <td>{this.props.author}</td>
                 <td><input type='checkbox' checked={this.state.read} onChange={this.handleChange} /></td>
             </tr>
         );
