@@ -88,8 +88,19 @@ var Books = React.createClass({
     onBook: function(book) {
         this.state.books.push(book);
 
-        this.setState({
-            books: this.state.books
+        $.ajax({
+            url: 'http://localhost:3333/api/books/add',
+            dataType: 'json',
+            type: 'POST',
+            data: book,
+            success: function(data) {
+                this.setState({
+                    books: this.state.books
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log("ERROR!: " + status + " - " + err.toString());
+            }.bind(this)
         });
     },
     render: function() {

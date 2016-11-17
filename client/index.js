@@ -22,25 +22,24 @@ app.use('/bundle.js', function(req, res) {
     .pipe(res);
 });
 
+app.post('/api/books/add', function(req, res) {
+    console.log(req.body);
+    request.post(
+        {
+            url:url + '/api/books',
+            headers: {
+                'content-type': 'application/json'
+            }, 
+            body: req.body
+        }, function(err,httpResponse,body){ 
+            console.log("err: " + err);
+    });
+});
+
 app.use('/', function(req, res) {
 
     var books;
-    var newBook = {
-        Title: "book1",
-        Author: "author1"
-    };
-
-    // request.post(
-    //     {
-    //         url:url + '/api/books',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         }, 
-    //         body: JSON.stringify(newBook)
-    //     }, function(err,httpResponse,body){ 
-    //         console.log("err: " + err);
-    // });
-
+   
     request(url + '/api/books', function (error, response, body) {
         if (!error && response.statusCode == 200) {
             books = JSON.parse(body);
