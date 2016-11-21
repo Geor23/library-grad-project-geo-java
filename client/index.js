@@ -26,8 +26,6 @@ app.use('/bundle.js', function(req, res) {
 });
 
 app.post('/api/books/add', function(req, res) {
-    console.log("got hereeee");
-    console.log(req.body);
     request.post(
         {
             url:url + '/api/books',
@@ -42,9 +40,7 @@ app.post('/api/books/add', function(req, res) {
 });
 
 app.use('/', function(req, res) {
-
     var books;
-   
     request(url + '/api/books', function (error, response, body) {
         if (!error && response.statusCode == 200) {
             books = JSON.parse(body);
