@@ -4,7 +4,7 @@ var Books = require('./Books.jsx');
 var Container = React.createClass({
 	render: function() {
 		return (
-			<div class="container">
+			<div className="container">
 				<Books></Books>
 			</div>
 		);

@@ -8,12 +8,25 @@ var Header = React.createClass({
 		console.log("go to add book");
 	},
 	render: function() {
+		var headerStyle = {
+			top: 0,
+			height: 100,
+			width: "100%",
+			display: 'flex',
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+			margin: 0,
+			textAlign: 'center',
+			alignItems: 'center',
+			backgroundColor: 'black',
+			color: 'white'
+		}
 		return (
-			<div class="header">
-				<div class="title">
+			<div style={headerStyle}>
+				<div className="title">
 					<h1>Library App</h1>
 				</div>
-				<div class="menu">
+				<div className="menu">
 					<input type="button" value="Search" />
 					<input type="button" value="Add Book" />
 				</div>
