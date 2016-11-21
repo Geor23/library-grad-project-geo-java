@@ -45,30 +45,6 @@ app.use('/', function(req, res) {
         
         if (!error && response.statusCode == 200) {
             var books = JSON.parse(body);
-
-            res.setHeader('Content-Type', 'text/html');
-            res.end(React.renderToStaticMarkup(
-                React.DOM.body(
-                    null,
-                    React.DOM.div({
-                        id: 'container',
-                        dangerouslySetInnerHTML: {
-                            __html: React.renderToString(React.createElement(Books, books))
-                        }
-                    }),
-                    React.DOM.script({
-                        'id': 'initial-data',
-                        'type': 'text/plain',
-                        'data-json': JSON.stringify(books)
-                    }),
-                    React.DOM.script({
-                        src: '/bundle.js'
-                    }),
-                    React.DOM.script({
-                        src: '//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js'
-                    })
-                )
-            ));
         }
     });
 });
