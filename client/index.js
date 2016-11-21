@@ -9,9 +9,8 @@ var app = express();
 jsx.install();
 
 var url = 'http://localhost:51918'; 
+var Books = require('./views/components/Book.jsx');
 
-
-var Books = require('./views/index.jsx');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
