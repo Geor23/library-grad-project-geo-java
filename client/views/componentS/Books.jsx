@@ -15,7 +15,7 @@ var Books = React.createClass({
     onBook: function(book) {
         this.state.books.push(book);
         var that = this;
-        $.post('http://localhost:3333/api/books/add', book)
+        $.post('http://localhost:3333/api/books', book)
             .done(function() {
                 alert("Book has been added successfully");
                 that.setState({
