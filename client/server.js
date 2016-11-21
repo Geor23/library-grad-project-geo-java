@@ -5,8 +5,14 @@ var jsx = require('node-jsx');
 var request = require('request');
 var bodyParser = require('body-parser')
 var app = express();
+var path = require('path');
 
 jsx.install();
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.engine('html', require('ejs').__express);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'html');
 
 var url = 'http://localhost:51918'; 
 var Books = require('./views/components/Book.jsx');
@@ -40,35 +46,12 @@ app.post('/api/books', function(req, res) {
 });
 
 app.use('/', function(req, res) {
+    res.render('index');
 
     request(url + '/api/books', function (error, response, body) {
         
         if (!error && response.statusCode == 200) {
             var books = JSON.parse(body);
-
-            res.setHeader('Content-Type', 'text/html');
-            res.end(React.renderToStaticMarkup(
-                React.DOM.body(
-                    null,
-                    React.DOM.div({
-                        id: 'container',
-                        dangerouslySetInnerHTML: {
-                            __html: React.renderToString(React.createElement(Books, books))
-                        }
-                    }),
-                    React.DOM.script({
-                        'id': 'initial-data',
-                        'type': 'text/plain',
-                        'data-json': JSON.stringify(books)
-                    }),
-                    React.DOM.script({
-                        src: '/bundle.js'
-                    }),
-                    React.DOM.script({
-                        src: '//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js'
-                    })
-                )
-            ));
         }
     });
 });
