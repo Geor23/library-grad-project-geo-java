@@ -7,7 +7,9 @@ var BookForm = React.createClass({
     getInitialState: function() {
         return {
             title: '',
-            read: false
+            author: '',
+            isbn: '',
+            date: ''
         };
     },
     changeTitle: function(ev) {
@@ -15,9 +17,19 @@ var BookForm = React.createClass({
             title: ev.target.value
         });
     },
-    changeRead: function() {
+    changeAuthor: function(ev) {
         this.setState({
-            read: !this.state.read
+            author: ev.target.value
+        });
+    },
+    changePublishDate: function(ev) {
+        this.setState({
+            date: ev.target.value
+        });
+    },
+    changeISBN: function(ev) {
+        this.setState({
+            isbn: ev.target.value
         });
     },
     addBook: function(ev) {
@@ -25,12 +37,16 @@ var BookForm = React.createClass({
 
         this.props.onBook({
             title: this.state.title,
-            read: this.state.read
+            author: this.state.author,
+            isbn: this.state.isbn,
+            date: this.state.date
         });
 
         this.setState({
             title: '',
-            read: false
+            author: '',
+            isbn: '',
+            date: ''
         });
     },
     render: function() {
@@ -41,8 +57,16 @@ var BookForm = React.createClass({
                     <div><input type='text' id='title' value={this.state.title} onChange={this.changeTitle} placeholder='Title' /></div>
                 </div>
                 <div>
-                    <label htmlFor='title'>Read</label>
-                    <div><input type='checkbox' id='read' checked={this.state.read} onChange={this.changeRead} /></div>
+                    <label htmlFor='author'>Author</label>
+                    <div><input type='text' id='author' value={this.state.author} onChange={this.changeAuthor} placeholder='Author' /></div>
+                </div>
+                <div>
+                    <label htmlFor='isbn'>ISBN</label>
+                    <div><input type='text' id='isbn' value={this.state.isbn} onChange={this.changeISBN} placeholder='ISBN' /></div>
+                </div>
+                <div>
+                    <label htmlFor='date'>Publish Date</label>
+                    <div><input type='text' id='date' value={this.state.date} onChange={this.changePublishDate} placeholder='Publish Date' /></div>
                 </div>
                 <div>
                     <button type='submit'>Add Book</button>
@@ -63,14 +87,20 @@ var Books = React.createClass({
     },
     onBook: function(book) {
         this.state.books.push(book);
-
-        this.setState({
-            books: this.state.books
-        });
+        var that = this;
+        $.post('http://localhost:3333/api/books/add', book)
+            .done(function() {
+                alert("Book has been added successfully");
+                that.setState({
+                    books: that.state.books // not updating state here!
+                });
+            }).fail(function() {
+                alert("ERROR");
+            });
     },
     render: function() {
         var books = this.state.books.map(function(book) {
-            return <Book title={book.Title} author={book.Author}></Book>;
+            return <Book id={book.Id} title={book.Title} author={book.Author} isbn={book.ISBN} date={book.PublishDate}></Book>;
         });
 
         return (
@@ -79,8 +109,11 @@ var Books = React.createClass({
                 <table>
                     <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Title</th>
                             <th>Author</th>
+                            <th>ISBN</th>
+                            <th>Publish Date</th>
                         </tr>
                     </thead>
                     <tbody>{books}</tbody>
@@ -92,27 +125,33 @@ var Books = React.createClass({
 
 var Book = React.createClass({
     propTypes: {
+        id: React.PropTypes.number,
         title: React.PropTypes.string.isRequired,
         author: React.PropTypes.string.isRequired,
-        read: React.PropTypes.bool
+        isbn: React.PropTypes.string,
+        date: React.PropTypes.string
     },
     getInitialState: function() {
         return {
+            id: this.props.id,
             title: this.props.title,
-            author: this.props.author
+            author: this.props.author,
+            isbn: this.props.ISBN,
+            date: this.props.date
         };
     },
-    handleChange: function(ev) {
-        this.setState({
-            read: !this.state.read
-        });
-    },
     render: function() {
+        //can add variable calculations here and reference in return with {}
+        // ...this.props -> pass all props to the child 
+        // not jsx -> use a variable and if/else or ternary
         return (
+        // jsx -> print result of ternary or expression with {}
             <tr>
+                <td>{this.props.id}</td>
                 <td>{this.props.title}</td>
                 <td>{this.props.author}</td>
-                <td><input type='checkbox' checked={this.state.read} onChange={this.handleChange} /></td>
+                <td>{this.props.isbn}</td>
+                <td>{this.props.date}</td>
             </tr>
         );
     }
