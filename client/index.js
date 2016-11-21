@@ -3,6 +3,7 @@ var browserify = require('browserify');
 var React = require('react');
 var jsx = require('node-jsx');
 var request = require('request');
+var bodyParser = require('body-parser')
 var app = express();
 
 jsx.install();
@@ -11,6 +12,8 @@ var url = 'http://localhost:51918';
 
 
 var Books = require('./views/index.jsx');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use('/bundle.js', function(req, res) {
     res.setHeader('content-type', 'application/javascript');
@@ -23,6 +26,7 @@ app.use('/bundle.js', function(req, res) {
 });
 
 app.post('/api/books/add', function(req, res) {
+    console.log("got hereeee");
     console.log(req.body);
     request.post(
         {
@@ -30,10 +34,11 @@ app.post('/api/books/add', function(req, res) {
             headers: {
                 'content-type': 'application/json'
             }, 
-            body: req.body
+            body: JSON.stringify(req.body)
         }, function(err,httpResponse,body){ 
             console.log("err: " + err);
     });
+    res.sendStatus(200);
 });
 
 app.use('/', function(req, res) {
@@ -43,7 +48,7 @@ app.use('/', function(req, res) {
     request(url + '/api/books', function (error, response, body) {
         if (!error && response.statusCode == 200) {
             books = JSON.parse(body);
-            console.log("books: " + books);
+
             res.setHeader('Content-Type', 'text/html');
             res.end(React.renderToStaticMarkup(
                 React.DOM.body(
@@ -61,6 +66,9 @@ app.use('/', function(req, res) {
                     }),
                     React.DOM.script({
                         src: '/bundle.js'
+                    }),
+                    React.DOM.script({
+                        src: '//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js'
                     })
                 )
             ));

@@ -87,21 +87,16 @@ var Books = React.createClass({
     },
     onBook: function(book) {
         this.state.books.push(book);
-
-        $.ajax({
-            url: 'http://localhost:3333/api/books/add',
-            dataType: 'json',
-            type: 'POST',
-            data: book,
-            success: function(data) {
-                this.setState({
-                    books: this.state.books
+        var that = this;
+        $.post('http://localhost:3333/api/books/add', book)
+            .done(function() {
+                alert("Book has been added successfully");
+                that.setState({
+                    books: that.state.books // not updating state here!
                 });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log("ERROR!: " + status + " - " + err.toString());
-            }.bind(this)
-        });
+            }).fail(function() {
+                alert("ERROR");
+            });
     },
     render: function() {
         var books = this.state.books.map(function(book) {
@@ -146,7 +141,11 @@ var Book = React.createClass({
         };
     },
     render: function() {
+        //can add variable calculations here and reference in return with {}
+        // ...this.props -> pass all props to the child 
+        // not jsx -> use a variable and if/else or ternary
         return (
+        // jsx -> print result of ternary or expression with {}
             <tr>
                 <td>{this.props.id}</td>
                 <td>{this.props.title}</td>
