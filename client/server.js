@@ -55,18 +55,17 @@ app.get('/api/books', function(req, res) {
 });
 
 app.post('/api/bookreservations', function(req, res) {
-    console.log(req.body);
-    // request.post({
-    //         url:url + '/api/bookreservations',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         }, 
-    //         body: JSON.stringify(req.body)
-    //     }, function (err, httpResponse, body) { 
-    //         if (!err) {
-    //             console.log("err: " + err);
-    //         }
-    // });
+    request.post({
+            url:url + '/api/bookreservations',
+            headers: {
+                'content-type': 'application/json'
+            }, 
+            body: JSON.stringify(req.body)
+        }, function (err, httpResponse, body) { 
+            if (!err) {
+                console.log("err: " + err);
+            }
+    });
     res.sendStatus(200);
 });
 
