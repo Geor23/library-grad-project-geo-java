@@ -1,13 +1,13 @@
 {
   "name": "library-grad-app",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "dependencies": {
     "body-parser": "^1.12.4",
     "browserify": "^13.0.0",
     "express": "^4.12.4",
     "node-jsx": "^0.13.3",
-    "react": "^0.14.3",
+    "react": "^15.4.0",
     "react-router": "^3.0.0",
     "reactify": "^1.1.1",
     "request": "^2.78.0"
