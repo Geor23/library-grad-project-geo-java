@@ -63,7 +63,7 @@ var BookForm = React.createClass({
             <form onSubmit={this.addBook}>
                 <h6>
                     <i>
-                        In order to add a book to the library, please complete the details below. 
+                        To add a book to the library, please complete the details below. 
                     </i>
                 </h6>
                 <br />
