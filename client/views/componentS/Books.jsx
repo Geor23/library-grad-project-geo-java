@@ -8,29 +8,38 @@ var Books = React.createClass({
     },
     getInitialState: function() {
         return {
-            books: (this.props.books || [])
+            books: []
         };
     },
-    onBook: function(book) {
-        this.state.books.push(book);
+    getBooks: function() {
+        $.get('http://localhost:3333/api/books')
+        .done(function(data) {
+            return data;
+        }).fail(function(err) {
+            return [];
+            alert("ERROR");
+        });
+    },
+    componentDidMount: function() {
         var that = this;
-        $.post('http://localhost:3333/api/books', book)
-            .done(function() {
-                alert("Book has been added successfully");
-                that.setState({
-                    books: that.state.books // not updating state here!
-                });
-            }).fail(function() {
-                alert("ERROR");
-            });
+        $.get('http://localhost:3333/api/books')
+        .done(function(data) {
+            that.setState({ books: data });
+        }).fail(function(err) {
+            alert("ERROR");
+        });
     },
     render: function() {
+        var Style = {
+            maxHeight: "100%",
+            overflowY: "auto",
+            overflowX: "hidden"
+        };
         var books = this.state.books.map(function(book) {
             return <Book id={book.Id} title={book.Title} author={book.Author} isbn={book.ISBN} date={book.PublishDate}></Book>;
         });
-
         return (
-            <div>
+            <div style={Style}>
                 <table>
                     <thead>
                         <tr>
