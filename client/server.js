@@ -45,15 +45,18 @@ app.post('/api/books', function(req, res) {
     res.sendStatus(200);
 });
 
-app.use('/', function(req, res) {
-    res.render('index');
-
+app.get('/api/books', function(req, res) {
     request(url + '/api/books', function (error, response, body) {
-        
         if (!error && response.statusCode == 200) {
-            var books = JSON.parse(body);
+            console.log(body);
+            res.setHeader('Content-Type', 'application/json');
+            res.send(body);
         }
     });
+});
+
+app.use('/', function(req, res) {
+    res.render('index');
 });
 
 
