@@ -4,6 +4,7 @@ var { Router, Route, IndexRoute, Link } = ReactRouter
 var browserHistory = ReactRouter.browserHistory;
 var Books = require('./Books.jsx');
 var BookForm = require('./BookForm.jsx');
+var Paper = require('material-ui/Paper').default;
 
 var Container = React.createClass({
 	render: function() {
@@ -27,17 +28,18 @@ var Container = React.createClass({
 			justifyContent: 'space-around',
 			textAlign: 'center',
 			alignItems: 'center',
-			backgroundColor: '#eaf2eb'
+			backgroundColor: '#eaf2eb',
+			color: "black"
 		};
 		return (
 			<div style={pageStyle}>
-				<div style={containerStyle}>
+				<Paper style={containerStyle} zDepth={3}>
 					<Router history={browserHistory}>
 				    	<Route path="/" component={Books} />
 				      	<Route path="/search" component={Books} />
 				      	<Route path="/add" component={BookForm} />
 				  	</Router>
-				</div>
+				</Paper>
 			</div>
 		);
 	}

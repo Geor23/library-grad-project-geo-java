@@ -1,4 +1,8 @@
 var React = require('react');
+var Divider = require('material-ui/Divider').default;
+var TextField = require('material-ui/TextField').default;
+var RaisedButton = require('material-ui/RaisedButton').default;
+var Add = require('material-ui/svg-icons/content/add').default;
 
 var BookForm = React.createClass({
     propTypes: {
@@ -50,27 +54,58 @@ var BookForm = React.createClass({
         });
     },
     render: function() {
+        var fieldStyle = {
+            display: "block",
+            margin: 10
+        };
         return (
+            
             <form onSubmit={this.addBook}>
-                <div>
-                    <label htmlFor='title'>Title</label>
-                    <div><input type='text' id='title' value={this.state.title} onChange={this.changeTitle} placeholder='Title' /></div>
-                </div>
-                <div>
-                    <label htmlFor='author'>Author</label>
-                    <div><input type='text' id='author' value={this.state.author} onChange={this.changeAuthor} placeholder='Author' /></div>
-                </div>
-                <div>
-                    <label htmlFor='isbn'>ISBN</label>
-                    <div><input type='text' id='isbn' value={this.state.isbn} onChange={this.changeISBN} placeholder='ISBN' /></div>
-                </div>
-                <div>
-                    <label htmlFor='date'>Publish Date</label>
-                    <div><input type='text' id='date' value={this.state.date} onChange={this.changePublishDate} placeholder='Publish Date' /></div>
-                </div>
-                <div>
-                    <button type='submit'>Add Book</button>
-                </div>
+                <h6>
+                    <i>
+                        In order to add a book to the library, please complete the details below. 
+                    </i>
+                </h6>
+                <br />
+                <TextField 
+                    id='title' 
+                    style={fieldStyle} 
+                    value={this.state.title} 
+                    onChange={this.changeTitle} 
+                    hintText="Title" 
+                    floatingLabelText="Title"
+                />
+                <TextField 
+                    id='author' 
+                    style={fieldStyle} 
+                    value={this.state.author} 
+                    onChange={this.changeAuthor} 
+                    hintText="Author" 
+                    floatingLabelText="Author"
+                />
+                <TextField 
+                    id='isbn' 
+                    style={fieldStyle} 
+                    value={this.state.isbn} 
+                    onChange={this.changeISBN} 
+                    hintText="ISBN" 
+                    floatingLabelText="ISBN"
+                />
+                <TextField 
+                    id='date' 
+                    style={fieldStyle} 
+                    value={this.state.date} 
+                    onChange={this.changePublishDate} 
+                    hintText="Publish Date" 
+                    floatingLabelText="Publish Date"
+                />
+                <br />
+                <RaisedButton
+                    label="ADD BOOK"
+                    labelPosition="before"
+                    icon={<Add />} 
+                    type='submit'
+                />
             </form>
         );
     }

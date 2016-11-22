@@ -7,6 +7,7 @@ var IconButton = require('material-ui/IconButton').default;
 var SearchIc = require('material-ui/svg-icons/action/search').default;
 var AddIc = require('material-ui/svg-icons/content/add').default;
 var {yellow500, blue500} = require('material-ui/styles/colors') ;
+var Paper = require('material-ui/Paper').default;
 
 var Header = React.createClass({
 	goToSearch: function(ev) {
@@ -29,16 +30,18 @@ var Header = React.createClass({
 			backgroundColor: '#032b05',
 			color: '#eaf2eb'
 		};
+		var titleStyle = {
+			letterSpacing: 10,
+			fontFamily: "'Bitter', serif"
+		};
 		return (
-			<div style={headerStyle}>
-				<div className="title">
-					<h1>Library App</h1>
-				</div>
+			<Paper style={headerStyle} zDepth={3}>
+				<h1 style={titleStyle}>LIBRARY APP</h1>
 				<div className="menu">
 					<IconButton onClick={this.goToSearch}><SearchIc color='#eaf2eb' /></IconButton>
 					<IconButton onClick={this.goToAddBook}><AddIc color='#eaf2eb' /></IconButton>
 				</div>
-			</div>
+			</Paper>
 		);
 	}
 });
