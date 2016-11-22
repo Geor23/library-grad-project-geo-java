@@ -1,4 +1,7 @@
 var React = require('react');
+var DatePicker = require('material-ui/DatePicker').default;
+var Dialog = require('material-ui/Dialog').default;
+var FlatButton = require('material-ui/FlatButton').default;
 
 var Book = React.createClass({
     propTypes: {
@@ -14,21 +17,43 @@ var Book = React.createClass({
             title: this.props.title,
             author: this.props.author,
             isbn: this.props.ISBN,
-            date: this.props.date
+            date: this.props.date,
+            open: false
         };
     },
+    startDialog: function() {
+        this.setState({open: true});
+    },
+    closeDialog: function() {
+        this.setState({open: false});
+    },
     render: function() {
-        //can add variable calculations here and reference in return with {}
-        // ...this.props -> pass all props to the child 
-        // not jsx -> use a variable and if/else or ternary
+        const actions = [
+          <FlatButton
+            label="Ok"
+            primary={true}
+            keyboardFocused={true}
+            onTouchTap={this.closeDialog}
+          />,
+        ];
         return (
         // jsx -> print result of ternary or expression with {}
-            <tr>
+            <tr onClick={this.startDialog}>
                 <td>{this.props.id}</td>
                 <td>{this.props.title}</td>
                 <td>{this.props.author}</td>
                 <td>{this.props.isbn}</td>
                 <td>{this.props.date}</td>
+                <Dialog
+                  title="Dialog With Date Picker"
+                  actions={actions}
+                  modal={false}
+                  open={this.state.open}
+                  onRequestClose={this.handleClose}
+                >
+                  Open a Date Picker dialog from within a dialog.
+                  <DatePicker hintText="Date Picker" />
+                </Dialog>
             </tr>
         );
     }
