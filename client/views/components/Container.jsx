@@ -29,9 +29,7 @@ var Container = React.createClass({
 			textAlign: 'center',
 			alignItems: 'center',
 			backgroundColor: '#eaf2eb',
-			color: "black",
-			overflowY: "auto",
-			overflowX: "hidden"
+			color: "black"
 		};
 		return (
 			<div style={pageStyle}>

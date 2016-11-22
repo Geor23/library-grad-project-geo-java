@@ -30,11 +30,16 @@ var Books = React.createClass({
         });
     },
     render: function() {
+        var Style = {
+            maxHeight: "100%",
+            overflowY: "auto",
+            overflowX: "hidden"
+        };
         var books = this.state.books.map(function(book) {
             return <Book id={book.Id} title={book.Title} author={book.Author} isbn={book.ISBN} date={book.PublishDate}></Book>;
         });
         return (
-            <div>
+            <div style={Style}>
                 <table>
                     <thead>
                         <tr>
