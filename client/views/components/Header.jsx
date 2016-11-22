@@ -1,15 +1,18 @@
 var React = require('react');
+var ReactDOM =  require('react-dom');
 var ReactRouter = require('react-router');
-var { Router, Route, IndexRoute, Link } = ReactRouter
+var { Router, Route, IndexRoute, Link } = ReactRouter;
 var browserHistory = ReactRouter.browserHistory;
+var IconButton = require('material-ui/IconButton').default;
+var SearchIc = require('material-ui/svg-icons/action/search').default;
+var AddIc = require('material-ui/svg-icons/content/add').default;
+var {yellow500, blue500} = require('material-ui/styles/colors') ;
 
 var Header = React.createClass({
 	goToSearch: function(ev) {
-		console.log("go to search");
 		browserHistory.push('/search');
 	},
 	goToAddBook: function(ev) {
-		console.log("go to add book");
 		browserHistory.push('/add');
 	},
 	render: function() {
@@ -19,21 +22,21 @@ var Header = React.createClass({
 			width: "100%",
 			display: 'flex',
 			flexDirection: 'row',
-			justifyContent: 'space-between',
+			justifyContent: 'space-around',
 			margin: 0,
 			textAlign: 'center',
 			alignItems: 'center',
-			backgroundColor: 'black',
-			color: 'white'
-		}
+			backgroundColor: '#032b05',
+			color: '#eaf2eb'
+		};
 		return (
 			<div style={headerStyle}>
 				<div className="title">
 					<h1>Library App</h1>
 				</div>
 				<div className="menu">
-					<input type="button" onClick={this.goToSearch} value="Search" />
-					<input type="button" onClick={this.goToAddBook} value="Add Book" />
+					<IconButton onClick={this.goToSearch}><SearchIc color='#eaf2eb' /></IconButton>
+					<IconButton onClick={this.goToAddBook}><AddIc color='#eaf2eb' /></IconButton>
 				</div>
 			</div>
 		);
