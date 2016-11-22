@@ -39,12 +39,19 @@ var BookForm = React.createClass({
     addBook: function(ev) {
         ev.preventDefault();
 
-        this.props.onBook({
+        var book = {
             title: this.state.title,
             author: this.state.author,
             isbn: this.state.isbn,
             date: this.state.date
-        });
+        };
+
+        $.post('http://localhost:3333/api/books', book)
+            .done(function() {
+                alert("Book has been added successfully");
+            }).fail(function() {
+                alert("ERROR");
+            });
 
         this.setState({
             title: '',
