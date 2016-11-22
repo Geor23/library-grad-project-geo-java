@@ -31,7 +31,6 @@ var Books = React.createClass({
 
         return (
             <div>
-                <BookForm onBook={this.onBook}></BookForm>
                 <table>
                     <thead>
                         <tr>
