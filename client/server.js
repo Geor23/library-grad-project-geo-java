@@ -48,7 +48,6 @@ app.post('/api/books', function(req, res) {
 app.get('/api/books', function(req, res) {
     request(url + '/api/books', function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log(body);
             res.setHeader('Content-Type', 'application/json');
             res.send(body);
         }
