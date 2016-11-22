@@ -27,15 +27,68 @@ var Book = React.createClass({
     closeDialog: function() {
         this.setState({open: false});
     },
+    addReservation: function() {
+        var book = {
+            title: this.props.title,
+            author: this.props.author,
+            isbn: this.props.isbn,
+            date: this.props.date
+        };
+
+        var fromdate = this.state.minDate;
+        var todate = this.state.maxDate;
+
+        var data = {
+            book: book,
+            from: fromdate,
+            to: todate
+        };
+
+        $.post('http://localhost:3333/api/bookreservations', data)
+            .done(function() {
+                alert("The book has been reserved successfully");
+            }).fail(function() {
+                alert("ERROR");
+            });
+
+        this.setState({open: false});
+    },
+    handleChangeMinDate: function(event, date) {
+        this.setState({
+            minDate: date,
+        });
+    },
+    handleChangeMaxDate: function(event, date) {
+        this.setState({
+            maxDate: date,
+        });
+    },
     render: function() {
         const actions = [
           <FlatButton
-            label="Ok"
+            label="CANCEL"
             primary={true}
             keyboardFocused={true}
             onTouchTap={this.closeDialog}
           />,
+          <FlatButton
+            label="SUBMIT"
+            primary={true}
+            keyboardFocused={true}
+            onTouchTap={this.addReservation}
+          />,
         ];
+        var dialStyle = {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            textAlign: 'center',
+            alignItems: 'center'
+        };
+        var elemStyle = {
+            display: 'flex',
+            flexDirection: 'column'
+        };
         return (
         // jsx -> print result of ternary or expression with {}
             <tr onClick={this.startDialog}>
@@ -45,14 +98,24 @@ var Book = React.createClass({
                 <td>{this.props.isbn}</td>
                 <td>{this.props.date}</td>
                 <Dialog
-                  title="Dialog With Date Picker"
-                  actions={actions}
-                  modal={false}
-                  open={this.state.open}
-                  onRequestClose={this.handleClose}
+                    title="Add reservation"
+                    actions={actions}
+                    modal={false}
+                    open={this.state.open}
+                    onRequestClose={this.handleClose}
+                    bodyStyle={dialStyle}
                 >
-                  Open a Date Picker dialog from within a dialog.
-                  <DatePicker hintText="Date Picker" />
+                    <div style={elemStyle}>
+                        <p>{this.props.title}</p>
+                        <p>{this.props.author}</p>
+                        <p>{this.props.isbn}</p>
+                        <p>{this.props.date}</p>
+                    </div>
+                    <div style={elemStyle}>
+                        Please select the reservation period.
+                        <DatePicker onChange={this.handleChangeMinDate} hintText="Reserve from" />
+                        <DatePicker onChange={this.handleChangeMaxDate} hintText="Reserve until" />
+                    </div>
                 </Dialog>
             </tr>
         );
