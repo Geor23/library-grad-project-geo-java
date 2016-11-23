@@ -28,6 +28,22 @@ var SeeReservationsDialog = React.createClass({
     closeDialog: function() {
         this.setState({open: false});
     },
+    deleteReservation: function(resId) {
+        var data = {
+            id: resId
+        };
+
+        $.ajax({
+            url: 'http://localhost:3333/api/bookreservations', 
+            type: 'DELETE',
+            data: data,
+            success: (function() {
+                alert("The book has been deleted successfully");
+            })
+        });
+
+        this.setState({open: false});
+    },
     componentDidMount: function() {
         var that = this;
         $.get('http://localhost:3333/api/bookreservations/' + this.state.id )
@@ -58,7 +74,7 @@ var SeeReservationsDialog = React.createClass({
             flexDirection: 'column'
         };
         var reserv = this.state.reservations.map(function(res) {
-            return <div>{res.from} - {res.to} </div>
+            return <div onClick={() => this.deleteReservation(res.Id)} >{res.from} - {res.to}</div>
         });
         return (
             <Dialog
