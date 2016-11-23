@@ -4,6 +4,13 @@ var Dialog = require('material-ui/Dialog').default;
 var FlatButton = require('material-ui/FlatButton').default;
 
 var AddReservationDialog = React.createClass({
+    propTypes: {
+        id: React.PropTypes.number,
+        title: React.PropTypes.string.isRequired,
+        author: React.PropTypes.string.isRequired,
+        isbn: React.PropTypes.string,
+        date: React.PropTypes.string
+    },
     getInitialState: function() {
         return {
             id: this.props.id,
