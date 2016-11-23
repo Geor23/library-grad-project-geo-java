@@ -59,6 +59,23 @@ var Book = React.createClass({
 
         this.setState({open: false});
     },
+    deleteBook: function() {
+
+        var data = {
+            id: this.props.id
+        };
+
+        $.ajax({
+            url: 'http://localhost:3333/api/books', 
+            type: 'DELETE',
+            data: data,
+            success: (function() {
+                alert("The book has been deleted successfully");
+            })
+        });
+
+        this.setState({open: false});
+    },
     handleChangeMinDate: function(event, date) {
         this.setState({
             minDate: date,
@@ -98,7 +115,7 @@ var Book = React.createClass({
                 <MenuItem onClick={this.startDialog}>Reserve</MenuItem>
                 <MenuItem>See reservations</MenuItem>
                 <MenuItem>Edit Book</MenuItem>
-                <MenuItem>Delete Book</MenuItem>
+                <MenuItem onClick={this.deleteBook}>Delete Book</MenuItem>
             </IconMenu>
         );
         var dialStyle = {

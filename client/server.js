@@ -51,6 +51,12 @@ app.post('/api/books', function(req, res) {
     res.sendStatus(200);
 });
 
+app.delete('/api/books/', function(req, res) {
+    console.log("got hereeee");
+    console.log(req.body);
+    res.sendStatus(200);
+});
+
 app.get('/api/books', function(req, res) {
     request(url + '/api/books', function (error, response, body) {
         if (!error && response.statusCode == 200) {
