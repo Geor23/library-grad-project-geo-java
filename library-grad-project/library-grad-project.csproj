@@ -416,6 +416,10 @@
     <Compile Include="Migrations\201611231139397_Class1.Designer.cs">
       <DependentUpon>201611231139397_Class1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611231249031_Class2.cs" />
+    <Compile Include="Migrations\201611231249031_Class2.Designer.cs">
+      <DependentUpon>201611231249031_Class2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookReservation.cs" />
@@ -453,6 +457,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611231139397_Class1.resx">
       <DependentUpon>201611231139397_Class1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231249031_Class2.resx">
+      <DependentUpon>201611231249031_Class2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
