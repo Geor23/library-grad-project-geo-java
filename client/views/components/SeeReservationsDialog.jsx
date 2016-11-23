@@ -28,6 +28,15 @@ var SeeReservationsDialog = React.createClass({
     closeDialog: function() {
         this.setState({open: false});
     },
+    componentDidMount: function() {
+        var that = this;
+        $.get('http://localhost:3333/api/bookreservations', this.state.id)
+        .done(function(data) {
+            that.setState({ reservations: data });
+        }).fail(function(err) {
+            alert("ERROR");
+        });
+    },
     render: function() {
         const actions = [
           <FlatButton
