@@ -20,7 +20,7 @@ namespace LibraryGradProject.Repos
         {
             if ( CheckReservationArguments(entity) )
             {  
-                if (CheckTimeSlot(GetAllForBook(entity.book), entity))
+                if (CheckTimeSlot(GetAllForBook(entity.bookId), entity))
                 {
                     
                         context.BookReservations.Attach(entity);
@@ -54,7 +54,7 @@ namespace LibraryGradProject.Repos
 
         public bool CheckReservationArguments (BookDbReservation entity)
         {
-            if (entity.book != null && entity.from != null && entity.to != null)
+            if (entity.bookId != null && entity.from != null && entity.to != null)
             {
                 if (DateTime.Compare(entity.from, entity.to) < 0)
                 {
@@ -67,25 +67,30 @@ namespace LibraryGradProject.Repos
             }
             else
             {
-                throw new ArgumentNullException("You cannot make a reservation for an undefined book or with an undefined or valid time slot!");
+                throw new ArgumentNullException("You cannot make a reservation for an undefined book or with an undefined or valid time slot! entity: "+ entity);
             }
         }
 
         public bool CheckTimeSlot (IEnumerable<BookDbReservation> bookReservations, BookDbReservation entity)
         {
-            foreach (BookDbReservation bookRes in bookReservations)
+            if(bookReservations.ToList().FirstOrDefault() != null)
             {
-                if (!(DateTime.Compare(bookRes.to, entity.from) <= 0 || DateTime.Compare(bookRes.from, entity.to) >= 0))
+                foreach (BookDbReservation bookRes in bookReservations.ToList())
                 {
-                    return false;
+                    if (!(DateTime.Compare(bookRes.to, entity.from) <= 0 || DateTime.Compare(bookRes.from, entity.to) >= 0))
+                    {
+                        return false;
+                    }
                 }
             }
+
             return true;
+            
         }
 
-        public IEnumerable<BookDbReservation> GetAllForBook (Book book)
+        public IEnumerable<BookDbReservation> GetAllForBook (int bookId)
         {
-            return context.BookReservations.Where(bookRes => bookRes.book.Equals(book));
+            return context.BookReservations.Where(bookRes => bookRes.bookId.Equals(bookId));
         }
     }
 }

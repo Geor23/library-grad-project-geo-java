@@ -47,8 +47,8 @@ namespace LibraryGradProjectTests.Repos
             book2 = new Book() { Title = "Test2" };
             from = DateTime.UtcNow;
             to = from.AddDays(2);
-            newBookReservation = new BookDbReservation() { book = book, from = from, to = to, Id = 0 };
-            newBookReservation2 = new BookDbReservation() { book = book2, from = to, to = to.AddDays(2), Id = 1 };
+            newBookReservation = new BookDbReservation() { bookId = 0, from = from, to = to, Id = 0 };
+            newBookReservation2 = new BookDbReservation() { bookId = 1, from = to, to = to.AddDays(2), Id = 1 };
         }
 
         [Fact]
@@ -131,7 +131,7 @@ namespace LibraryGradProjectTests.Repos
             repo.Add(newBookReservation);
             repo.Add(newBookReservation2);
 
-            Assert.True(newBookReservation.Equals(repo.GetAllForBook(book).First()));
+            Assert.True(newBookReservation.Equals(repo.GetAllForBook(0).First()));
         }
 
         [Fact]
@@ -140,18 +140,18 @@ namespace LibraryGradProjectTests.Repos
             repo.Add(newBookReservation);
             repo.Add(newBookReservation2);
 
-            Assert.False(repo.CheckTimeSlot(repo.GetAllForBook(book), newBookReservation));
+            Assert.False(repo.CheckTimeSlot(repo.GetAllForBook(0), newBookReservation));
         }
 
         [Fact]
         public void CheckTimeSlot_Returns_True_If_Timeslot_Valid()
         {
-            BookDbReservation newBookReservation3 = new BookDbReservation() { book = book, from = to.AddDays(2), to = to.AddDays(4) };
+            BookDbReservation newBookReservation3 = new BookDbReservation() { bookId = 2, from = to.AddDays(2), to = to.AddDays(4) };
 
             repo.Add(newBookReservation);
             repo.Add(newBookReservation2);
 
-            Assert.True(repo.CheckTimeSlot(repo.GetAllForBook(book), newBookReservation3));
+            Assert.True(repo.CheckTimeSlot(repo.GetAllForBook(2), newBookReservation3));
         }
     }
 }

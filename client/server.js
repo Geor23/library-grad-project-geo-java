@@ -54,6 +54,42 @@ app.get('/api/books', function(req, res) {
     });
 });
 
+app.post('/api/bookreservations', function(req, res) {
+
+    var date = new Date(req.body.from);
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    var fromDate = month + "/" + day + "/" + year + " " + 0 + ':' + 0 + ':' + 0; 
+    
+    date = new Date(req.body.to);
+    day = date.getDate();
+    month = date.getMonth() + 1;
+    year = date.getFullYear();
+
+    var toDate = month + "/" + day + "/" + year + " " + 0 + ':' + 0 + ':' + 0; 
+    
+    var data = {
+        bookId: req.body['book[id]'],
+        from: fromDate,
+        to: toDate
+    };
+
+    request.post({
+            url:url + '/api/bookReservations',
+            headers: {
+                'content-type': 'application/json'
+            }, 
+            body: JSON.stringify(data)
+        }, function (err, httpResponse, body) { 
+            if (!err) {
+                console.log("err: " + err);
+            }
+    });
+    res.sendStatus(200);
+});
+
 app.use('/', function(req, res) {
     res.render('index');
 });

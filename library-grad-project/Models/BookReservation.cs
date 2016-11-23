@@ -5,7 +5,7 @@ namespace LibraryGradProject.Models
     public class BookDbReservation
     {
         public int Id { get; set; }
-        public Book book { get; set; }
+        public int bookId { get; set; }
         public DateTime from { get; set; }
         public DateTime to { get; set; }
 
@@ -18,7 +18,7 @@ namespace LibraryGradProject.Models
                 return false;
             }
 
-            return bookRes.book.Equals(book) &&
+            return bookRes.bookId.Equals(bookId) &&
                    bookRes.from == from &&
                    bookRes.to == to ;
         }
