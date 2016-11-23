@@ -54,26 +54,20 @@ app.get('/api/books', function(req, res) {
     });
 });
 
-app.post('/api/bookreservations', function(req, res) {
-
-    var date = new Date(req.body.from);
+var getDateString = function(data) {
+    var date = new Date(data);
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
+    return month + "/" + day + "/" + year + " " + 0 + ':' + 0 + ':' + 0; 
+};
 
-    var fromDate = month + "/" + day + "/" + year + " " + 0 + ':' + 0 + ':' + 0; 
-    
-    date = new Date(req.body.to);
-    day = date.getDate();
-    month = date.getMonth() + 1;
-    year = date.getFullYear();
-
-    var toDate = month + "/" + day + "/" + year + " " + 0 + ':' + 0 + ':' + 0; 
-    
+app.post('/api/bookreservations', function(req, res) {
+  
     var data = {
         bookId: req.body['book[id]'],
-        from: fromDate,
-        to: toDate
+        from: getDateString(req.body.from),
+        to: getDateString(req.body.to)
     };
 
     request.post({
