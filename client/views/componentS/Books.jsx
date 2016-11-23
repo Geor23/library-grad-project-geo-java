@@ -1,6 +1,7 @@
 var React = require('react');
 var Book = require('./Book.jsx');
 var BookForm = require('./BookForm.jsx');
+var List = require('material-ui/List').List;
 
 var Books = React.createClass({
     propTypes: {
@@ -30,8 +31,9 @@ var Books = React.createClass({
         });
     },
     render: function() {
-        var Style = {
-            maxHeight: "100%",
+        var listStyle = {
+            height: "100%",
+            minWidth: "80%",
             overflowY: "auto",
             overflowX: "hidden"
         };
@@ -39,20 +41,9 @@ var Books = React.createClass({
             return <Book id={book.Id} title={book.Title} author={book.Author} isbn={book.ISBN} date={book.PublishDate}></Book>;
         });
         return (
-            <div style={Style}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>ISBN</th>
-                            <th>Publish Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>{books}</tbody>
-                </table>
-            </div>
+                <List style={listStyle}>
+                    <div>{books}</div>
+                </List>
         );
     }
 });
