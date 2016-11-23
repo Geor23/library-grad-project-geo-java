@@ -29,6 +29,7 @@ var Book = React.createClass({
     },
     addReservation: function() {
         var book = {
+            id: this.props.id,
             title: this.props.title,
             author: this.props.author,
             isbn: this.props.isbn,
@@ -106,7 +107,7 @@ var Book = React.createClass({
                     bodyStyle={dialStyle}
                 >
                     <div style={elemStyle}>
-                        <p>{this.props.title}</p>
+                        <p>{this.props.id}: {this.props.title}</p>
                         <p>{this.props.author}</p>
                         <p>{this.props.isbn}</p>
                         <p>{this.props.date}</p>

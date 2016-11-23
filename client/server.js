@@ -55,12 +55,43 @@ app.get('/api/books', function(req, res) {
 });
 
 app.post('/api/bookreservations', function(req, res) {
+
+    var date = new Date(req.body.from);
+    console.log(date);
+    var day = date.getDate();        // yields day
+    var month = date.getMonth() + 1;    // yields month
+    var year = date.getFullYear();  // yields year
+    var hour = date.getHours();     // yields hours 
+    var minute = date.getMinutes(); // yields minutes
+    var second = date.getSeconds(); // yields seconds
+
+    // After this construct a string with the above results as below
+    var fromDate = month + "/" + day + "/" + year + " " + hour + ':' + minute + ':' + second; 
+    var date = new Date(req.body.to);    
+    console.log(date);
+
+    var day = date.getDate();        // yields day
+    var month = date.getMonth() + 1;    // yields month
+    var year = date.getFullYear();  // yields year
+    var hour = date.getHours();     // yields hours 
+    var minute = date.getMinutes(); // yields minutes
+    var second = date.getSeconds(); // yields seconds
+
+    // After this construct a string with the above results as below
+    var toDate = month + "/" + day + "/" + year + " " + hour + ':' + minute + ':' + second; 
+    
+    var data = {
+        bookId: req.body['book[id]'],
+        from: fromDate,
+        to: toDate
+    };
+    console.log(JSON.stringify(data));
     request.post({
-            url:url + '/api/bookreservations',
+            url:url + '/api/bookReservations',
             headers: {
                 'content-type': 'application/json'
             }, 
-            body: JSON.stringify(req.body)
+            body: JSON.stringify(data)
         }, function (err, httpResponse, body) { 
             if (!err) {
                 console.log("err: " + err);
