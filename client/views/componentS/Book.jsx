@@ -2,6 +2,15 @@ var React = require('react');
 var DatePicker = require('material-ui/DatePicker').default;
 var Dialog = require('material-ui/Dialog').default;
 var FlatButton = require('material-ui/FlatButton').default;
+var MenuItem = require('material-ui/MenuItem').default;
+var IconMenu = require('material-ui/IconMenu').default;
+var MoreVertIcon = require('material-ui/svg-icons/navigation/more-vert').default;
+var IconButton = require('material-ui/IconButton').default;
+var Colors = require('material-ui/styles/colors');
+var grey400 = Colors.grey400;
+var darkBlack = Colors.darkBlack;
+var Divider = require('material-ui/Divider').default;
+var ListItem = require('material-ui/List').ListItem;
 
 var Book = React.createClass({
     propTypes: {
@@ -75,6 +84,23 @@ var Book = React.createClass({
             onTouchTap={this.addReservation}
           />,
         ];
+        const iconButtonElement = (
+            <IconButton
+                touch={true}
+                tooltip="more"
+                tooltipPosition="bottom-left"
+            >
+                <MoreVertIcon color={grey400} />
+            </IconButton>
+        );
+        const rightIconMenu = (
+            <IconMenu iconButtonElement={iconButtonElement}>
+                <MenuItem onClick={this.startDialog}>Reserve</MenuItem>
+                <MenuItem>See reservations</MenuItem>
+                <MenuItem>Edit Book</MenuItem>
+                <MenuItem>Delete Book</MenuItem>
+            </IconMenu>
+        );
         var dialStyle = {
             display: 'flex',
             flexDirection: 'row',
@@ -87,13 +113,20 @@ var Book = React.createClass({
             flexDirection: 'column'
         };
         return (
-        // jsx -> print result of ternary or expression with {}
-            <tr onClick={this.startDialog}>
-                <td>{this.props.id}</td>
-                <td>{this.props.title}</td>
-                <td>{this.props.author}</td>
-                <td>{this.props.isbn}</td>
-                <td>{this.props.date}</td>
+            <div>
+                <ListItem
+                    rightIconButton={rightIconMenu}
+                    primaryText={this.props.title}
+                    secondaryText={
+                        <p>
+                            <span style={{color: darkBlack}}>{this.props.author}</span>
+                            <br />
+                            {this.props.isbn} - {this.props.date}
+                        </p>
+                    }
+                    secondaryTextLines={2}
+                />
+                <Divider inset={true} />
                 <Dialog
                     title="Add reservation"
                     actions={actions}
@@ -114,7 +147,7 @@ var Book = React.createClass({
                         <DatePicker onChange={this.handleChangeMaxDate} hintText="Reserve until" />
                     </div>
                 </Dialog>
-            </tr>
+            </div>
         );
     }
 });
