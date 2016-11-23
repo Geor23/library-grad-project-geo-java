@@ -81,7 +81,7 @@ var Book = React.createClass({
                     secondaryTextLines={2}
                 />
                 <Divider inset={true} />
-                <AddReservationDialog ref="child" />
+                <AddReservationDialog ref="child" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
             </div>
         );
     }
