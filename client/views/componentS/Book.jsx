@@ -10,7 +10,7 @@ var Divider = require('material-ui/Divider').default;
 var ListItem = require('material-ui/List').ListItem;
 var connect = require('react-redux').connect;
 var AddReservationDialog = require('./AddReservationDialog.jsx');
-
+var SeeReservationsDialog = require('./SeeReservationsDialog.jsx');
 
 var Book = React.createClass({
     propTypes: {
@@ -30,7 +30,10 @@ var Book = React.createClass({
         };
     },
     startAddReservationDialog: function() {
-        this.refs.child.startDialog();
+        this.refs.child1.startDialog();
+    },
+    startSeeReservationsDialog: function() {
+        this.refs.child2.startDialog();
     },
     deleteBook: function() {
         var data = {
@@ -61,7 +64,7 @@ var Book = React.createClass({
         const rightIconMenu = (
             <IconMenu iconButtonElement={iconButtonElement}>
                 <MenuItem onClick={this.startAddReservationDialog}>Reserve</MenuItem>
-                <MenuItem>See reservations</MenuItem>
+                <MenuItem onClick={this.startSeeReservationsDialog}>See reservations</MenuItem>
                 <MenuItem>Edit Book</MenuItem>
                 <MenuItem onClick={this.deleteBook}>Delete Book</MenuItem>
             </IconMenu>
@@ -81,7 +84,8 @@ var Book = React.createClass({
                     secondaryTextLines={2}
                 />
                 <Divider inset={true} />
-                <AddReservationDialog ref="child" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
+                <AddReservationDialog ref="child1" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
+                <SeeReservationsDialog ref="child2" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
             </div>
         );
     }
