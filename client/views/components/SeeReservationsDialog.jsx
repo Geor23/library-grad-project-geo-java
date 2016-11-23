@@ -30,7 +30,7 @@ var SeeReservationsDialog = React.createClass({
     },
     componentDidMount: function() {
         var that = this;
-        $.get('http://localhost:3333/api/bookreservations', this.state.id)
+        $.get('http://localhost:3333/api/bookreservations/' + this.state.id )
         .done(function(data) {
             that.setState({ reservations: data });
         }).fail(function(err) {

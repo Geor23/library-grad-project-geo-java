@@ -105,6 +105,17 @@ app.post('/api/bookreservations', function(req, res) {
     res.sendStatus(200);
 });
 
+app.get('/api/bookreservations/:id', function(req, res) {
+    console.log(req.params.id);
+    // request(url + '/api/bookreservations/' + req.body, function (error, response, body) {
+    //     if (!error && response.statusCode == 200) {
+    //         res.setHeader('Content-Type', 'application/json');
+    //         res.send(body);
+    //     }
+    // });
+    res.sendStatus(200);
+});
+
 app.use('/', function(req, res) {
     res.render('index');
 });
