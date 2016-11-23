@@ -10,7 +10,7 @@ namespace LibraryGradProject.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "LibraryGradProject.Context.BookContext";
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(LibraryGradProject.Context.BookContext context)
