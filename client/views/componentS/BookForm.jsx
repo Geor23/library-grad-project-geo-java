@@ -3,6 +3,7 @@ var Divider = require('material-ui/Divider').default;
 var TextField = require('material-ui/TextField').default;
 var RaisedButton = require('material-ui/RaisedButton').default;
 var Add = require('material-ui/svg-icons/content/add').default;
+var DatePicker = require('material-ui/DatePicker').default;
 
 var BookForm = React.createClass({
     propTypes: {
@@ -26,9 +27,9 @@ var BookForm = React.createClass({
             author: ev.target.value
         });
     },
-    changePublishDate: function(ev) {
+    changePublishDate: function(ev, date) {
         this.setState({
-            date: ev.target.value
+            date: date
         });
     },
     changeISBN: function(ev) {
@@ -98,7 +99,7 @@ var BookForm = React.createClass({
                     hintText="ISBN" 
                     floatingLabelText="ISBN"
                 />
-                <TextField 
+                <DatePicker 
                     id='date' 
                     style={fieldStyle} 
                     value={this.state.date} 

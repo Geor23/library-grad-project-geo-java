@@ -31,12 +31,18 @@ app.use('/bundle.js', function(req, res) {
 });
 
 app.post('/api/books', function(req, res) {
+    var book = {
+        title: req.body.title,
+        author: req.body.author,
+        isbn: req.body.isbn,
+        publishDate: getDateString(req.body.date)
+    }
     request.post({
             url:url + '/api/books',
             headers: {
                 'content-type': 'application/json'
             }, 
-            body: JSON.stringify(req.body)
+            body: JSON.stringify(book)
         }, function (err, httpResponse, body) { 
             if (!err) {
                 console.log("err: " + err);
@@ -54,26 +60,20 @@ app.get('/api/books', function(req, res) {
     });
 });
 
-app.post('/api/bookreservations', function(req, res) {
-
-    var date = new Date(req.body.from);
+var getDateString = function(data) {
+    var date = new Date(data);
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
+    return month + "/" + day + "/" + year + " " + 0 + ':' + 0 + ':' + 0; 
+};
 
-    var fromDate = month + "/" + day + "/" + year + " " + 0 + ':' + 0 + ':' + 0; 
-    
-    date = new Date(req.body.to);
-    day = date.getDate();
-    month = date.getMonth() + 1;
-    year = date.getFullYear();
+app.post('/api/bookreservations', function(req, res) {
 
-    var toDate = month + "/" + day + "/" + year + " " + 0 + ':' + 0 + ':' + 0; 
-    
     var data = {
         bookId: req.body['book[id]'],
-        from: fromDate,
-        to: toDate
+        from: getDateString(req.body.from),
+        to: getDateString(req.body.to)
     };
 
     request.post({
