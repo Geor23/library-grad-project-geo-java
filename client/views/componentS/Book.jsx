@@ -29,20 +29,16 @@ var Book = React.createClass({
     },
     addReservation: function() {
         var book = {
-            id: this.props.id,
-            title: this.props.title,
-            author: this.props.author,
-            isbn: this.props.isbn,
-            date: this.props.date
+            id: this.props.id
         };
 
-        var fromdate = this.state.minDate;
-        var todate = this.state.maxDate;
+        var fromDate = this.state.minDate;
+        var toDate = this.state.maxDate;
 
         var data = {
             book: book,
-            from: fromdate,
-            to: todate
+            from: fromDate,
+            to: toDate
         };
 
         $.post('http://localhost:3333/api/bookreservations', data)
