@@ -51,6 +51,21 @@ app.post('/api/books', function(req, res) {
     res.sendStatus(200);
 });
 
+app.delete('/api/books/', function(req, res) {
+    request.delete({
+            url:url + '/api/books/' + req.body.id,
+            headers: {
+                'content-type': 'application/json'
+            }, 
+            body: JSON.stringify(req.body.id)
+        }, function (err, httpResponse, body) { 
+            if (!err) {
+                console.log("err: " + err);
+            }
+    });
+    res.sendStatus(200);
+});
+
 app.get('/api/books', function(req, res) {
     request(url + '/api/books', function (error, response, body) {
         if (!error && response.statusCode == 200) {
