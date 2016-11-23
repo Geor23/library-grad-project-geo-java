@@ -31,12 +31,18 @@ app.use('/bundle.js', function(req, res) {
 });
 
 app.post('/api/books', function(req, res) {
+    var book = {
+        title: req.body.title,
+        author: req.body.author,
+        isbn: req.body.isbn,
+        publishDate: getDateString(req.body.date)
+    }
     request.post({
             url:url + '/api/books',
             headers: {
                 'content-type': 'application/json'
             }, 
-            body: JSON.stringify(req.body)
+            body: JSON.stringify(book)
         }, function (err, httpResponse, body) { 
             if (!err) {
                 console.log("err: " + err);
@@ -63,7 +69,7 @@ var getDateString = function(data) {
 };
 
 app.post('/api/bookreservations', function(req, res) {
-  
+
     var data = {
         bookId: req.body['book[id]'],
         from: getDateString(req.body.from),
