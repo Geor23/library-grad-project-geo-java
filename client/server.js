@@ -52,7 +52,6 @@ app.post('/api/books', function(req, res) {
 });
 
 app.delete('/api/books/', function(req, res) {
-    console.log(req.body.id);
     request.delete({
             url:url + '/api/books/' + req.body.id,
             headers: {
@@ -62,7 +61,6 @@ app.delete('/api/books/', function(req, res) {
         }, function (err, httpResponse, body) { 
             if (!err) {
                 console.log("err: " + err);
-                console.log(body);
             }
     });
     res.sendStatus(200);
