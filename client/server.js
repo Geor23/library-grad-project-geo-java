@@ -52,8 +52,19 @@ app.post('/api/books', function(req, res) {
 });
 
 app.delete('/api/books/', function(req, res) {
-    console.log("got hereeee");
-    console.log(req.body);
+    console.log(req.body.id);
+    request.delete({
+            url:url + '/api/books/' + req.body.id,
+            headers: {
+                'content-type': 'application/json'
+            }, 
+            body: JSON.stringify(req.body.id)
+        }, function (err, httpResponse, body) { 
+            if (!err) {
+                console.log("err: " + err);
+                console.log(body);
+            }
+    });
     res.sendStatus(200);
 });
 
