@@ -18,7 +18,8 @@ var SeeReservationsDialog = React.createClass({
             author: this.props.author,
             isbn: this.props.ISBN,
             date: this.props.date,
-            open: false
+            open: false,
+            reservations: []
         };
     },
     startDialog: function() {
@@ -47,8 +48,8 @@ var SeeReservationsDialog = React.createClass({
             display: 'flex',
             flexDirection: 'column'
         };
-        var reservations = this.state.reservations.map(function(res) {
-            return <h6>{res.from} -> {res.to}</h6>;
+        var reserv = this.state.reservations.map(function(res) {
+            return <div>{res.from} - {res.to} </div>
         });
         return (
             <Dialog
@@ -66,7 +67,7 @@ var SeeReservationsDialog = React.createClass({
                     <p>{this.props.date}</p>
                 </div>
                 <div style={elemStyle}>
-                    {reservations}
+                    {reserv}
                 </div>
             </Dialog>
         );
