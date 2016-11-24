@@ -32,14 +32,12 @@ var EditReservationDialog = React.createClass({
             to: this.state.maxDate
         };
 
-        console.log(data);
-
-        // $.put('http://localhost:3333/api/bookreservations', data)
-        //     .done(function() {
-        //         alert("The reservation has been edited successfully");
-        //     }).fail(function() {
-        //         alert("ERROR");
-        //     });
+        $.put('http://localhost:3333/api/bookreservations', data)
+            .done(function() {
+                alert("The reservation has been edited successfully");
+            }).fail(function() {
+                alert("ERROR");
+            });
 
         this.setState({open: false});
     },
