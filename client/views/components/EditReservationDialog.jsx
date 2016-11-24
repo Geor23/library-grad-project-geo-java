@@ -5,13 +5,15 @@ var FlatButton = require('material-ui/FlatButton').default;
 
 var EditReservationDialog = React.createClass({
     propTypes: {
-        id: React.PropTypes.number,
+        id: React.PropTypes.number.isRequired,
+        bookId: React.PropTypes.number.isRequired,
         from: React.PropTypes.string.isRequired,
         to: React.PropTypes.string.isRequired
     },
     getInitialState: function() {
         return {
             id: this.props.id,
+            bookId: this.props.bookId,
             from: this.props.from,
             to: this.props.to,
             minDate: this.props.from,
@@ -27,7 +29,8 @@ var EditReservationDialog = React.createClass({
     },
     editReservation: function() {
         var data = {
-            id: this.props.id,
+            id: this.state.id,
+            bookId: this.state.bookId,
             from: this.state.minDate,
             to: this.state.maxDate
         };
@@ -85,7 +88,7 @@ var EditReservationDialog = React.createClass({
         };
         return (
             <Dialog
-                title="Add reservation"
+                title="Edit reservation"
                 actions={actions}
                 modal={false}
                 open={this.state.open}

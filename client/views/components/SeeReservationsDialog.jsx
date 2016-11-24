@@ -20,7 +20,7 @@ var SeeReservationsDialog = React.createClass({
             id: this.props.id,
             title: this.props.title,
             author: this.props.author,
-            isbn: this.props.ISBN,
+            isbn: this.props.isbn,
             date: this.props.date,
             open: false,
             reservations: []
@@ -48,8 +48,9 @@ var SeeReservationsDialog = React.createClass({
 
         this.setState({open: false});
     },
-    editReservation: function() {
-        this.refs.editRes.startDialog();
+    editReservation: function(resId) {
+        var ref = "editRes"+resId;
+        this.refs[ref].startDialog();
     },
     componentDidMount: function() {
         var that = this;
@@ -86,15 +87,16 @@ var SeeReservationsDialog = React.createClass({
             flexDirection: 'column'
         };
         var reserv = this.state.reservations.map(function(res) {
+            var refer = "editRes" + res.Id;
             return <div>
                         {that.getDate(res.from)} -{that.getDate(res.to)}
                         <IconButton onClick={() => that.deleteReservation(res.Id)}>
                             <DeleteIc color='#eaf2eb' />
                         </IconButton>
-                        <IconButton onClick={() => that.editReservation()}>
+                        <IconButton onClick={() => that.editReservation(res.Id)}>
                             <EditIc color='#eaf2eb' />
                         </IconButton>
-                        <EditReservationDialog ref="editRes" id={res.Id} from={res.from} to={res.to} />
+                        <EditReservationDialog ref={refer} id={res.Id} bookId={res.bookId} from={res.from} to={res.to} />
                     </div>
         });
         return (

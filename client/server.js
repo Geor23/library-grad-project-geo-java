@@ -106,6 +106,7 @@ app.delete('/api/bookreservations/', function(req, res) {
 app.put('/api/bookreservations', function(req, res) {
     var data = {
         id: req.body.id,
+        bookId: req.body.bookId,
         from: getDateString(req.body.from),
         to: getDateString(req.body.to)
     };
