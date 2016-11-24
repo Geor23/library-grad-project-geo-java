@@ -6,6 +6,7 @@ var IconButton = require('material-ui/IconButton').default;
 var EditIc = require('material-ui/svg-icons/content/create').default;
 var DeleteIc = require('material-ui/svg-icons/content/clear').default;
 var EditReservationDialog = require('./EditReservationDialog.jsx');
+var DeleteReservationDialog = require('./DeleteReservationDialog.jsx');
 
 var SeeReservationsDialog = React.createClass({
     propTypes: {
@@ -33,20 +34,8 @@ var SeeReservationsDialog = React.createClass({
         this.setState({open: false});
     },
     deleteReservation: function(resId) {
-        var data = {
-            id: resId
-        };
-
-        $.ajax({
-            url: 'http://localhost:3333/api/bookreservations', 
-            type: 'DELETE',
-            data: data,
-            success: (function() {
-                alert("The book has been deleted successfully");
-            })
-        });
-
-        this.setState({open: false});
+        var ref = "delRes"+resId;
+        this.refs[ref].startDialog();
     },
     editReservation: function(resId) {
         var ref = "editRes"+resId;
@@ -88,6 +77,8 @@ var SeeReservationsDialog = React.createClass({
         };
         var reserv = this.state.reservations.map(function(res) {
             var refer = "editRes" + res.Id;
+            var refr = "delRes" + res.Id;
+
             return <div>
                         {that.getDate(res.from)} -{that.getDate(res.to)}
                         <IconButton onClick={() => that.deleteReservation(res.Id)}>
@@ -97,6 +88,7 @@ var SeeReservationsDialog = React.createClass({
                             <EditIc color='#eaf2eb' />
                         </IconButton>
                         <EditReservationDialog ref={refer} id={res.Id} bookId={res.bookId} from={res.from} to={res.to} />
+                        <DeleteReservationDialog ref={refr} id={res.Id} bookId={res.bookId} from={res.from} to={res.to} />
                     </div>
         });
         return (
