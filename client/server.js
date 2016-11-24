@@ -110,7 +110,6 @@ app.put('/api/bookreservations', function(req, res) {
         from: getDateString(req.body.from),
         to: getDateString(req.body.to)
     };
-    console.log(data);
     request.put({
             url:url + '/api/bookreservations/' + req.body.id,
             headers: {
