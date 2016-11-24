@@ -8,7 +8,8 @@ var DeleteBookDialog = React.createClass({
         title: React.PropTypes.string.isRequired,
         author: React.PropTypes.string.isRequired,
         isbn: React.PropTypes.string.isRequired,
-        date: React.PropTypes.string.isRequired
+        date: React.PropTypes.string.isRequired,
+        getBooks: React.PropTypes.func.isRequired
     },
     getInitialState: function() {
         return {
@@ -22,6 +23,7 @@ var DeleteBookDialog = React.createClass({
         this.setState({open: false});
     },
     deleteBook: function() {
+        var update = this.props.getBooks;
         var data = {
             id: this.props.id
         };
@@ -31,7 +33,7 @@ var DeleteBookDialog = React.createClass({
             type: 'DELETE',
             data: data,
             success: (function() {
-                alert("The book has been deleted successfully");
+                update()
             })
         });
 

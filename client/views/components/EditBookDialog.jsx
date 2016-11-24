@@ -64,7 +64,6 @@ var EditBookDialog = React.createClass({
             type: 'PUT',
             data: book,
             success: (function() {
-                alert("The book has been updated successfully");
                 update();
             })
         });
