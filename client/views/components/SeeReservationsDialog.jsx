@@ -62,6 +62,7 @@ var SeeReservationsDialog = React.createClass({
             onTouchTap={this.closeDialog}
           />,
         ];
+        var that = this;
         var dialStyle = {
             display: 'flex',
             flexDirection: 'row',
@@ -74,7 +75,7 @@ var SeeReservationsDialog = React.createClass({
             flexDirection: 'column'
         };
         var reserv = this.state.reservations.map(function(res) {
-            return <div onClick={() => this.deleteReservation(res.Id)} >{res.from} - {res.to}</div>
+            return <div onClick={() => that.deleteReservation(res.Id)} >{res.from} - {res.to}</div>
         });
         return (
             <Dialog
