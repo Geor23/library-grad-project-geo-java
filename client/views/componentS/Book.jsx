@@ -69,7 +69,7 @@ var Book = React.createClass({
             <IconMenu iconButtonElement={iconButtonElement}>
                 <MenuItem onClick={this.startAddReservationDialog}>Reserve</MenuItem>
                 <MenuItem onClick={this.startSeeReservationsDialog}>See reservations</MenuItem>
-                <MenuItem>Edit Book</MenuItem>
+                <MenuItem onClick={this.startEditBookDialog}>Edit Book</MenuItem>
                 <MenuItem onClick={this.deleteBook}>Delete Book</MenuItem>
             </IconMenu>
         );
