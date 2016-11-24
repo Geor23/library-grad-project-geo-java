@@ -14,10 +14,6 @@ var DeleteReservationDialog = React.createClass({
     },
     getInitialState: function() {
         return {
-            id: this.props.id,
-            bookId: this.props.bookId,
-            from: this.props.from,
-            to: this.props.to,
             open: false
         };
     },

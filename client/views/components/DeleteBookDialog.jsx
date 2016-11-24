@@ -15,11 +15,6 @@ var DeleteBookDialog = React.createClass({
     },
     getInitialState: function() {
         return {
-            id: this.props.id,
-            title: this.props.title,
-            author: this.props.author,
-            isbn: this.props.isbn,
-            date: this.props.date,
             open: false
         };
     },
