@@ -5,6 +5,7 @@ var FlatButton = require('material-ui/FlatButton').default;
 var IconButton = require('material-ui/IconButton').default;
 var EditIc = require('material-ui/svg-icons/content/create').default;
 var DeleteIc = require('material-ui/svg-icons/content/clear').default;
+var EditReservationDialog = require('./EditReservationDialog.jsx');
 
 var SeeReservationsDialog = React.createClass({
     propTypes: {
@@ -47,6 +48,9 @@ var SeeReservationsDialog = React.createClass({
 
         this.setState({open: false});
     },
+    editReservation: function() {
+        this.refs.editRes.startDialog();
+    },
     componentDidMount: function() {
         var that = this;
         $.get('http://localhost:3333/api/bookreservations/' + this.state.id )
@@ -87,9 +91,10 @@ var SeeReservationsDialog = React.createClass({
                         <IconButton onClick={() => that.deleteReservation(res.Id)}>
                             <DeleteIc color='#eaf2eb' />
                         </IconButton>
-                        <IconButton onClick={() => that.editReservation(res.Id)}>
+                        <IconButton onClick={() => that.editReservation()}>
                             <EditIc color='#eaf2eb' />
                         </IconButton>
+                        <EditReservationDialog ref="editRes" id={res.Id} from={res.from} to={res.to} />
                     </div>
         });
         return (

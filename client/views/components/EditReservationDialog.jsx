@@ -13,7 +13,7 @@ var EditReservationDialog = React.createClass({
         return {
             id: this.props.id,
             from: this.props.from,
-            to: this.props.to.
+            to: this.props.to,
             minDate: this.props.from,
             maxDate: this.props.to,
             open: false
@@ -78,6 +78,10 @@ var EditReservationDialog = React.createClass({
         var elemStyle = {
             display: 'flex',
             flexDirection: 'column'
+        };
+        var fieldStyle = {
+            display: "block",
+            margin: 10
         };
         return (
             <Dialog
