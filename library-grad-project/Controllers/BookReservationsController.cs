@@ -45,9 +45,7 @@ namespace LibraryGradProject.Controllers
             BookDbReservation oldBookRes = _bookResRepo.Get(newBookRes.Id);
             if (oldBookRes != null)
             {
-                oldBookRes.bookId = newBookRes.bookId;
-                oldBookRes.from = newBookRes.from;
-                oldBookRes.to = newBookRes.to;
+                _bookResRepo.EditReservation(oldBookRes, newBookRes);
             }
             else
             {
