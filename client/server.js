@@ -66,6 +66,28 @@ app.delete('/api/books/', function(req, res) {
     res.sendStatus(200);
 });
 
+app.put('/api/books', function(req, res) {
+    var book = {
+        id: req.body.id,
+        title: req.body.title,
+        author: req.body.author,
+        isbn: req.body.isbn,
+        publishDate: getDateString(req.body.date)
+    }
+    request.put({
+            url:url + '/api/books/' + req.body.id,
+            headers: {
+                'content-type': 'application/json'
+            }, 
+            body: JSON.stringify(book)
+        }, function (err, httpResponse, body) { 
+            if (!err) {
+                console.log("err: " + err);
+            }
+    });
+    res.sendStatus(200);
+});
+
 app.delete('/api/bookreservations/', function(req, res) {
     request.delete({
             url:url + '/api/bookReservations/' + req.body.id,
