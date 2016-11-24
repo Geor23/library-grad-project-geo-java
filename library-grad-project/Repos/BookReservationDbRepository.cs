@@ -34,6 +34,12 @@ namespace LibraryGradProject.Repos
             }
         }
 
+        public void EditReservation(BookDbReservation oldBookRes, BookDbReservation newBookRes)
+        {
+            context.Entry(oldBookRes).CurrentValues.SetValues(newBookRes);
+            context.SaveChanges();
+        }
+
         public BookDbReservation Get(int id)
         {
             return context.BookReservations.Where(bookRes => bookRes.Id == id).SingleOrDefault();

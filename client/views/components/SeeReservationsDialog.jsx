@@ -2,6 +2,10 @@ var React = require('react');
 var DatePicker = require('material-ui/DatePicker').default;
 var Dialog = require('material-ui/Dialog').default;
 var FlatButton = require('material-ui/FlatButton').default;
+var IconButton = require('material-ui/IconButton').default;
+var EditIc = require('material-ui/svg-icons/content/create').default;
+var DeleteIc = require('material-ui/svg-icons/content/clear').default;
+var EditReservationDialog = require('./EditReservationDialog.jsx');
 
 var SeeReservationsDialog = React.createClass({
     propTypes: {
@@ -16,7 +20,7 @@ var SeeReservationsDialog = React.createClass({
             id: this.props.id,
             title: this.props.title,
             author: this.props.author,
-            isbn: this.props.ISBN,
+            isbn: this.props.isbn,
             date: this.props.date,
             open: false,
             reservations: []
@@ -44,6 +48,10 @@ var SeeReservationsDialog = React.createClass({
 
         this.setState({open: false});
     },
+    editReservation: function(resId) {
+        var ref = "editRes"+resId;
+        this.refs[ref].startDialog();
+    },
     componentDidMount: function() {
         var that = this;
         $.get('http://localhost:3333/api/bookreservations/' + this.state.id )
@@ -52,6 +60,10 @@ var SeeReservationsDialog = React.createClass({
         }).fail(function(err) {
             alert("ERROR");
         });
+    },
+    getDate: function(date) {
+        var d = new Date(date);
+        return d.toDateString();
     },
     render: function() {
         const actions = [
@@ -75,7 +87,17 @@ var SeeReservationsDialog = React.createClass({
             flexDirection: 'column'
         };
         var reserv = this.state.reservations.map(function(res) {
-            return <div onClick={() => that.deleteReservation(res.Id)} >{res.from} - {res.to}</div>
+            var refer = "editRes" + res.Id;
+            return <div>
+                        {that.getDate(res.from)} -{that.getDate(res.to)}
+                        <IconButton onClick={() => that.deleteReservation(res.Id)}>
+                            <DeleteIc color='#eaf2eb' />
+                        </IconButton>
+                        <IconButton onClick={() => that.editReservation(res.Id)}>
+                            <EditIc color='#eaf2eb' />
+                        </IconButton>
+                        <EditReservationDialog ref={refer} id={res.Id} bookId={res.bookId} from={res.from} to={res.to} />
+                    </div>
         });
         return (
             <Dialog
