@@ -61,7 +61,7 @@ var EditBookDialog = React.createClass({
         $.ajax({
             url: 'http://localhost:3333/api/books', 
             type: 'PUT',
-            data: data,
+            data: book,
             success: (function() {
                 alert("The book has been updated successfully");
             })
