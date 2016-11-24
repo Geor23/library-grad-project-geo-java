@@ -51,6 +51,7 @@ var EditBookDialog = React.createClass({
     },
     editBook: function() {
         var book = {
+            id: this.state.id,
             title: this.state.title,
             author: this.state.author,
             isbn: this.state.isbn,
@@ -96,6 +97,10 @@ var EditBookDialog = React.createClass({
             display: 'flex',
             flexDirection: 'column'
         };
+        var fieldStyle = {
+            display: "block",
+            margin: 10
+        };
         return (
             <Dialog
                 title="Edit book"
@@ -112,6 +117,7 @@ var EditBookDialog = React.createClass({
                         onChange={this.changeTitle} 
                         hintText="Title" 
                         floatingLabelText="Title"
+                        style={fieldStyle} 
                     />
                     <TextField 
                         id='author' 
@@ -119,6 +125,7 @@ var EditBookDialog = React.createClass({
                         onChange={this.changeAuthor} 
                         hintText="Author" 
                         floatingLabelText="Author"
+                        style={fieldStyle} 
                     />
                     <TextField 
                         id='isbn' 
@@ -126,6 +133,7 @@ var EditBookDialog = React.createClass({
                         onChange={this.changeISBN} 
                         hintText="ISBN" 
                         floatingLabelText="ISBN"
+                        style={fieldStyle} 
                     />
                     <DatePicker 
                         id='date' 
@@ -133,6 +141,7 @@ var EditBookDialog = React.createClass({
                         onChange={this.changePublishDate} 
                         hintText="Publish Date" 
                         floatingLabelText="Publish Date"
+                        style={fieldStyle} 
                     />
                 </form>
             </Dialog>
