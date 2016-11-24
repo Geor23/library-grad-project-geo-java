@@ -12,10 +12,6 @@ var EditReservationDialog = React.createClass({
     },
     getInitialState: function() {
         return {
-            id: this.props.id,
-            bookId: this.props.bookId,
-            from: this.props.from,
-            to: this.props.to,
             minDate: this.props.from,
             maxDate: this.props.to,
             open: false
@@ -29,8 +25,8 @@ var EditReservationDialog = React.createClass({
     },
     editReservation: function() {
         var data = {
-            id: this.state.id,
-            bookId: this.state.bookId,
+            id: this.props.id,
+            bookId: this.props.bookId,
             from: this.state.minDate,
             to: this.state.maxDate
         };
