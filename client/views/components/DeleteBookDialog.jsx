@@ -55,7 +55,6 @@ var DeleteBookDialog = React.createClass({
             onTouchTap={this.deleteBook}
           />,
         ];
-        var that = this;
         var dialStyle = {
             display: 'flex',
             flexDirection: 'row',
