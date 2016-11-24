@@ -12,6 +12,7 @@ var connect = require('react-redux').connect;
 var AddReservationDialog = require('./AddReservationDialog.jsx');
 var SeeReservationsDialog = require('./SeeReservationsDialog.jsx');
 var EditBookDialog = require('./EditBookDialog.jsx');
+var DeleteBookDialog = require('./DeleteBookDialog.jsx');
 
 var Book = React.createClass({
     propTypes: {
@@ -39,21 +40,8 @@ var Book = React.createClass({
     startEditBookDialog: function() {
         this.refs.editBook.startDialog();
     },
-    deleteBook: function() {
-        var data = {
-            id: this.props.id
-        };
-
-        $.ajax({
-            url: 'http://localhost:3333/api/books', 
-            type: 'DELETE',
-            data: data,
-            success: (function() {
-                alert("The book has been deleted successfully");
-            })
-        });
-
-        this.setState({open: false});
+    startDeleteBookDialog: function() {
+        this.refs.delBook.startDialog();
     },
     render: function() {
         const iconButtonElement = (
@@ -70,7 +58,7 @@ var Book = React.createClass({
                 <MenuItem onClick={this.startAddReservationDialog}>Reserve</MenuItem>
                 <MenuItem onClick={this.startSeeReservationsDialog}>See reservations</MenuItem>
                 <MenuItem onClick={this.startEditBookDialog}>Edit Book</MenuItem>
-                <MenuItem onClick={this.deleteBook}>Delete Book</MenuItem>
+                <MenuItem onClick={this.startDeleteBookDialog}>Delete Book</MenuItem>
             </IconMenu>
         );
         return (
@@ -91,6 +79,7 @@ var Book = React.createClass({
                 <AddReservationDialog ref="addRes" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
                 <SeeReservationsDialog ref="seeRes" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
                 <EditBookDialog ref="editBook" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
+                <DeleteBookDialog ref="delBook" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
             </div>
         );
     }
