@@ -58,15 +58,14 @@ var EditBookDialog = React.createClass({
             date: this.state.date
         };
 
-        console.log(book);
-        // $.ajax({
-        //     url: 'http://localhost:3333/api/books', 
-        //     type: 'PUT',
-        //     data: data,
-        //     success: (function() {
-        //         alert("The book has been updated successfully");
-        //     })
-        // });
+        $.ajax({
+            url: 'http://localhost:3333/api/books', 
+            type: 'PUT',
+            data: data,
+            success: (function() {
+                alert("The book has been updated successfully");
+            })
+        });
 
         this.setState({open: false});
     },
