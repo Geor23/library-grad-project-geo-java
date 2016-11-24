@@ -2,6 +2,9 @@ var React = require('react');
 var DatePicker = require('material-ui/DatePicker').default;
 var Dialog = require('material-ui/Dialog').default;
 var FlatButton = require('material-ui/FlatButton').default;
+var IconButton = require('material-ui/IconButton').default;
+var EditIc = require('material-ui/svg-icons/content/create').default;
+var DeleteIc = require('material-ui/svg-icons/content/clear').default;
 
 var SeeReservationsDialog = React.createClass({
     propTypes: {
@@ -53,6 +56,10 @@ var SeeReservationsDialog = React.createClass({
             alert("ERROR");
         });
     },
+    getDate: function(date) {
+        var d = new Date(date);
+        return d.toDateString();
+    },
     render: function() {
         const actions = [
           <FlatButton
@@ -75,7 +82,15 @@ var SeeReservationsDialog = React.createClass({
             flexDirection: 'column'
         };
         var reserv = this.state.reservations.map(function(res) {
-            return <div onClick={() => that.deleteReservation(res.Id)} >{res.from} - {res.to}</div>
+            return <div>
+                        {that.getDate(res.from)} -{that.getDate(res.to)}
+                        <IconButton onClick={() => that.deleteReservation(res.Id)}>
+                            <DeleteIc color='#eaf2eb' />
+                        </IconButton>
+                        <IconButton onClick={() => that.editReservation(res.Id)}>
+                            <EditIc color='#eaf2eb' />
+                        </IconButton>
+                    </div>
         });
         return (
             <Dialog
