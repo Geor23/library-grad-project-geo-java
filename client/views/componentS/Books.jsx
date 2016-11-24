@@ -12,15 +12,6 @@ var Books = React.createClass({
         };
     },
     getBooks: function() {
-        $.get('http://localhost:3333/api/books')
-        .done(function(data) {
-            return data;
-        }).fail(function(err) {
-            return [];
-            alert("ERROR");
-        });
-    },
-    componentDidMount: function() {
         var that = this;
         $.get('http://localhost:3333/api/books')
         .done(function(data) {
@@ -29,7 +20,11 @@ var Books = React.createClass({
             alert("ERROR");
         });
     },
+    componentDidMount: function() {
+        this.getBooks();
+    },
     render: function() {
+        var that = this;
         var listStyle = {
             height: "100%",
             minWidth: "80%",
@@ -37,7 +32,7 @@ var Books = React.createClass({
             overflowX: "hidden"
         };
         var books = this.state.books.map(function(book) {
-            return <Book id={book.Id} title={book.Title} author={book.Author} isbn={book.ISBN} date={book.PublishDate}></Book>;
+            return <Book id={book.Id} title={book.Title} author={book.Author} isbn={book.ISBN} date={book.PublishDate} getBooks={that.getBooks}></Book>;
         });
         return (
                 <List style={listStyle}>

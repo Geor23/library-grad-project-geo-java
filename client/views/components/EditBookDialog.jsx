@@ -10,7 +10,8 @@ var EditBookDialog = React.createClass({
         title: React.PropTypes.string.isRequired,
         author: React.PropTypes.string.isRequired,
         isbn: React.PropTypes.string,
-        date: React.PropTypes.string
+        date: React.PropTypes.string,
+        getBooks: React.PropTypes.func.isRequired
     },
     getInitialState: function() {
         return {
@@ -49,6 +50,7 @@ var EditBookDialog = React.createClass({
         this.setState({open: false});
     },
     editBook: function() {
+        var update = this.props.getBooks;
         var book = {
             id: this.state.id,
             title: this.state.title,
@@ -63,6 +65,7 @@ var EditBookDialog = React.createClass({
             data: book,
             success: (function() {
                 alert("The book has been updated successfully");
+                update();
             })
         });
 

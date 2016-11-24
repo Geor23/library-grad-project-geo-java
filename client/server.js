@@ -44,7 +44,7 @@ app.post('/api/books', function(req, res) {
             }, 
             body: JSON.stringify(book)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -59,7 +59,7 @@ app.delete('/api/books/', function(req, res) {
             }, 
             body: JSON.stringify(req.body.id)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -81,7 +81,7 @@ app.put('/api/books', function(req, res) {
             }, 
             body: JSON.stringify(book)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -96,7 +96,7 @@ app.delete('/api/bookreservations/', function(req, res) {
             }, 
             body: JSON.stringify(req.body.id)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -117,7 +117,7 @@ app.put('/api/bookreservations', function(req, res) {
             }, 
             body: JSON.stringify(data)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -164,7 +164,7 @@ app.post('/api/bookreservations', function(req, res) {
             }, 
             body: JSON.stringify(data)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });

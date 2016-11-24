@@ -19,7 +19,8 @@ var Book = React.createClass({
         title: React.PropTypes.string.isRequired,
         author: React.PropTypes.string.isRequired,
         isbn: React.PropTypes.string,
-        date: React.PropTypes.string
+        date: React.PropTypes.string,
+        getBooks: React.PropTypes.func.isRequired
     },
     startAddReservationDialog: function() {
         this.refs.addRes.startDialog();
@@ -68,8 +69,8 @@ var Book = React.createClass({
                 <Divider inset={true} />
                 <AddReservationDialog ref="addRes" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
                 <SeeReservationsDialog ref="seeRes" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
-                <EditBookDialog ref="editBook" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
-                <DeleteBookDialog ref="delBook" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
+                <EditBookDialog ref="editBook" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} getBooks={this.props.getBooks} />
+                <DeleteBookDialog ref="delBook" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} getBooks={this.props.getBooks} />
             </div>
         );
     }
