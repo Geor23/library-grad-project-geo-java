@@ -2,6 +2,8 @@ var React = require('react');
 var DatePicker = require('material-ui/DatePicker').default;
 var Dialog = require('material-ui/Dialog').default;
 var FlatButton = require('material-ui/FlatButton').default;
+var DatePicker = require('material-ui/DatePicker').default;
+var TextField = require('material-ui/TextField').default;
 
 var EditBookDialog = React.createClass({
     propTypes: {
@@ -21,6 +23,26 @@ var EditBookDialog = React.createClass({
             open: false
         };
     },
+    changeTitle: function(ev) {
+        this.setState({
+            title: ev.target.value
+        });
+    },
+    changeAuthor: function(ev) {
+        this.setState({
+            author: ev.target.value
+        });
+    },
+    changePublishDate: function(ev, date) {
+        this.setState({
+            date: date
+        });
+    },
+    changeISBN: function(ev) {
+        this.setState({
+            isbn: ev.target.value
+        });
+    },
     startDialog: function() {
         this.setState({open: true});
     },
@@ -28,16 +50,20 @@ var EditBookDialog = React.createClass({
         this.setState({open: false});
     },
     editBook: function() {
-        // var data = {
-        //     id: resId
-        // };
+        var book = {
+            title: this.state.title,
+            author: this.state.author,
+            isbn: this.state.isbn,
+            date: this.state.date
+        };
 
+        console.log(book);
         // $.ajax({
-        //     url: 'http://localhost:3333/api/bookreservations', 
+        //     url: 'http://localhost:3333/api/books', 
         //     type: 'PUT',
         //     data: data,
         //     success: (function() {
-        //         alert("The book has been deleted successfully");
+        //         alert("The book has been updated successfully");
         //     })
         // });
 
@@ -79,14 +105,36 @@ var EditBookDialog = React.createClass({
                 onRequestClose={this.handleClose}
                 bodyStyle={dialStyle}
             >
-            
-                <div style={elemStyle}>
-                    <p>{this.props.id}</p>
-                    <p>{this.props.title}</p>
-                    <p>{this.props.author}</p>
-                    <p>{this.props.isbn}</p>
-                    <p>{this.props.date}</p>
-                </div>
+                <form onSubmit={this.editBook}>
+                    <TextField 
+                        id='title' 
+                        value={this.state.title} 
+                        onChange={this.changeTitle} 
+                        hintText="Title" 
+                        floatingLabelText="Title"
+                    />
+                    <TextField 
+                        id='author' 
+                        value={this.state.author} 
+                        onChange={this.changeAuthor} 
+                        hintText="Author" 
+                        floatingLabelText="Author"
+                    />
+                    <TextField 
+                        id='isbn' 
+                        value={this.state.isbn} 
+                        onChange={this.changeISBN} 
+                        hintText="ISBN" 
+                        floatingLabelText="ISBN"
+                    />
+                    <DatePicker 
+                        id='date' 
+                        value={this.state.date} 
+                        onChange={this.changePublishDate} 
+                        hintText="Publish Date" 
+                        floatingLabelText="Publish Date"
+                    />
+                </form>
             </Dialog>
         );
     }
