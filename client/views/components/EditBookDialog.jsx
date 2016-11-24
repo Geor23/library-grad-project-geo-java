@@ -18,7 +18,7 @@ var EditBookDialog = React.createClass({
             id: this.props.id,
             title: this.props.title,
             author: this.props.author,
-            isbn: this.props.ISBN,
+            isbn: this.props.isbn,
             date: this.props.date,
             open: false
         };
