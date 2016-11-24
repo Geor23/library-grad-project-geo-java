@@ -22,15 +22,6 @@ var Book = React.createClass({
         isbn: React.PropTypes.string,
         date: React.PropTypes.string
     },
-    getInitialState: function() {
-        return {
-            id: this.props.id,
-            title: this.props.title,
-            author: this.props.author,
-            isbn: this.props.isbn,
-            date: this.props.date
-        };
-    },
     startAddReservationDialog: function() {
         this.refs.addRes.startDialog();
     },

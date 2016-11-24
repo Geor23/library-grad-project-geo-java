@@ -7,11 +7,11 @@ var TextField = require('material-ui/TextField').default;
 
 var DeleteBookDialog = React.createClass({
     propTypes: {
-        id: React.PropTypes.number,
+        id: React.PropTypes.number.isRequired,
         title: React.PropTypes.string.isRequired,
         author: React.PropTypes.string.isRequired,
-        isbn: React.PropTypes.string,
-        date: React.PropTypes.string
+        isbn: React.PropTypes.string.isRequired,
+        date: React.PropTypes.string.isRequired
     },
     getInitialState: function() {
         return {

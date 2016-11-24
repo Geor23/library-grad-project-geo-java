@@ -54,7 +54,6 @@ var DeleteReservationDialog = React.createClass({
             onTouchTap={this.deleteReservation}
           />,
         ];
-        var that = this;
         var dialStyle = {
             display: 'flex',
             flexDirection: 'row',
