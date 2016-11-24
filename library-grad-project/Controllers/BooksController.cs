@@ -44,10 +44,7 @@ namespace LibraryGradProject.Controllers
         {
             Book oldBook = _bookRepo.Get(newBook.Id);
             if (oldBook!=null) {
-                oldBook.ISBN = newBook.ISBN;
-                oldBook.Title = newBook.Title;
-                oldBook.Author = newBook.Author;
-                oldBook.PublishDate = newBook.PublishDate;
+                _bookRepo.EditBook(oldBook, newBook);
             } else {
                 _bookRepo.Add(newBook);
             }

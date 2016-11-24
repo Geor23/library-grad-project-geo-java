@@ -26,6 +26,12 @@ namespace LibraryGradProject.Repos
             }
         }
 
+        public void EditBook(Book oldBook, Book newBook)
+        {
+            context.Entry(oldBook).CurrentValues.SetValues(newBook);
+            context.SaveChanges();
+        }
+
         public IEnumerable<Book> GetAll()
         {
             return context.Books.ToList();
