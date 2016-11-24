@@ -129,7 +129,7 @@ var EditBookDialog = React.createClass({
                     />
                     <DatePicker 
                         id='date' 
-                        value={this.state.date} 
+                        value={new Date(this.state.date)} 
                         onChange={this.changePublishDate} 
                         hintText="Publish Date" 
                         floatingLabelText="Publish Date"
