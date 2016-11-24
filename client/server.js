@@ -103,6 +103,26 @@ app.delete('/api/bookreservations/', function(req, res) {
     res.sendStatus(200);
 });
 
+app.put('/api/bookreservations', function(req, res) {
+    var res = {
+        id: req.body.id,
+        from: getDateString(req.body.from),
+        to: getDateString(req.body.to)
+    }
+    request.put({
+            url:url + '/api/bookreservations/' + req.body.id,
+            headers: {
+                'content-type': 'application/json'
+            }, 
+            body: JSON.stringify(res)
+        }, function (err, httpResponse, body) { 
+            if (!err) {
+                console.log("err: " + err);
+            }
+    });
+    res.sendStatus(200);
+});
+
 app.get('/api/books', function(req, res) {
     request(url + '/api/books', function (error, response, body) {
         if (!error && response.statusCode == 200) {
