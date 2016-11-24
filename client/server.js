@@ -104,17 +104,18 @@ app.delete('/api/bookreservations/', function(req, res) {
 });
 
 app.put('/api/bookreservations', function(req, res) {
-    var res = {
+    var data = {
         id: req.body.id,
         from: getDateString(req.body.from),
         to: getDateString(req.body.to)
-    }
+    };
+    console.log(data);
     request.put({
             url:url + '/api/bookreservations/' + req.body.id,
             headers: {
                 'content-type': 'application/json'
             }, 
-            body: JSON.stringify(res)
+            body: JSON.stringify(data)
         }, function (err, httpResponse, body) { 
             if (!err) {
                 console.log("err: " + err);
