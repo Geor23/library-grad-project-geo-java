@@ -1,6 +1,5 @@
 var React = require('react');
 var Book = require('./Book.jsx');
-var BookForm = require('./BookForm.jsx');
 var List = require('material-ui/List').List;
 
 var Books = React.createClass({

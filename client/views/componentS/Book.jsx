@@ -8,7 +8,6 @@ var grey400 = Colors.grey400;
 var darkBlack = Colors.darkBlack;
 var Divider = require('material-ui/Divider').default;
 var ListItem = require('material-ui/List').ListItem;
-var connect = require('react-redux').connect;
 var AddReservationDialog = require('./AddReservationDialog.jsx');
 var SeeReservationsDialog = require('./SeeReservationsDialog.jsx');
 var EditBookDialog = require('./EditBookDialog.jsx');

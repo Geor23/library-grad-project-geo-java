@@ -1,5 +1,4 @@
 var React = require('react');
-var DatePicker = require('material-ui/DatePicker').default;
 var Dialog = require('material-ui/Dialog').default;
 var FlatButton = require('material-ui/FlatButton').default;
 var DatePicker = require('material-ui/DatePicker').default;
