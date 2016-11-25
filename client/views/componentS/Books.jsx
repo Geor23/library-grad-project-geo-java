@@ -33,6 +33,7 @@ var Books = React.createClass({
         };
         var books = this.state.books.map(function(book) {
             return <Book 
+                        key={book.Id}
                         id={book.Id} 
                         title={book.Title} 
                         author={book.Author} 
