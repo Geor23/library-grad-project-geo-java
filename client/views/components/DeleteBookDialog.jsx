@@ -1,25 +1,18 @@
 var React = require('react');
-var DatePicker = require('material-ui/DatePicker').default;
 var Dialog = require('material-ui/Dialog').default;
 var FlatButton = require('material-ui/FlatButton').default;
-var DatePicker = require('material-ui/DatePicker').default;
-var TextField = require('material-ui/TextField').default;
 
 var DeleteBookDialog = React.createClass({
     propTypes: {
-        id: React.PropTypes.number,
+        id: React.PropTypes.number.isRequired,
         title: React.PropTypes.string.isRequired,
         author: React.PropTypes.string.isRequired,
-        isbn: React.PropTypes.string,
-        date: React.PropTypes.string
+        isbn: React.PropTypes.string.isRequired,
+        date: React.PropTypes.string.isRequired,
+        getBooks: React.PropTypes.func.isRequired
     },
     getInitialState: function() {
         return {
-            id: this.props.id,
-            title: this.props.title,
-            author: this.props.author,
-            isbn: this.props.isbn,
-            date: this.props.date,
             open: false
         };
     },
@@ -30,6 +23,7 @@ var DeleteBookDialog = React.createClass({
         this.setState({open: false});
     },
     deleteBook: function() {
+        var update = this.props.getBooks;
         var data = {
             id: this.props.id
         };
@@ -39,7 +33,7 @@ var DeleteBookDialog = React.createClass({
             type: 'DELETE',
             data: data,
             success: (function() {
-                alert("The book has been deleted successfully");
+                update()
             })
         });
 
@@ -60,7 +54,6 @@ var DeleteBookDialog = React.createClass({
             onTouchTap={this.deleteBook}
           />,
         ];
-        var that = this;
         var dialStyle = {
             display: 'flex',
             flexDirection: 'row',

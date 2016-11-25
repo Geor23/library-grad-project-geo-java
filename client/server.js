@@ -15,7 +15,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
 var url = 'http://localhost:51918'; 
-var reservations = [];
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -44,7 +43,7 @@ app.post('/api/books', function(req, res) {
             }, 
             body: JSON.stringify(book)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -59,7 +58,7 @@ app.delete('/api/books/', function(req, res) {
             }, 
             body: JSON.stringify(req.body.id)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -81,7 +80,7 @@ app.put('/api/books', function(req, res) {
             }, 
             body: JSON.stringify(book)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -96,7 +95,7 @@ app.delete('/api/bookreservations/', function(req, res) {
             }, 
             body: JSON.stringify(req.body.id)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -110,7 +109,6 @@ app.put('/api/bookreservations', function(req, res) {
         from: getDateString(req.body.from),
         to: getDateString(req.body.to)
     };
-    console.log(data);
     request.put({
             url:url + '/api/bookreservations/' + req.body.id,
             headers: {
@@ -118,7 +116,7 @@ app.put('/api/bookreservations', function(req, res) {
             }, 
             body: JSON.stringify(data)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -133,14 +131,6 @@ app.get('/api/books', function(req, res) {
         }
     });
 });
-
-var getReservations = function() {
-    request(url + '/api/bookreservations/', function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            reservations = JSON.parse(body);
-        }
-    });
-};
 
 var getDateString = function(data) {
     var date = new Date(data);
@@ -165,7 +155,7 @@ app.post('/api/bookreservations', function(req, res) {
             }, 
             body: JSON.stringify(data)
         }, function (err, httpResponse, body) { 
-            if (!err) {
+            if (err) {
                 console.log("err: " + err);
             }
     });
@@ -173,20 +163,24 @@ app.post('/api/bookreservations', function(req, res) {
 });
 
 app.get('/api/bookreservations/:id', function(req, res) {
-    var filterByID = function(obj) {
-        if (obj.bookId == req.params.id) {
-            return true;
-        } else {
-            return false;
+    request(url + '/api/bookreservations/', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var reservations = JSON.parse(body);
+            var filterByID = function(obj) {
+                if (obj.bookId == req.params.id) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            var arrByID = reservations.filter(filterByID);
+            res.setHeader('Content-Type', 'application/json');
+            res.send(arrByID);
         }
-    }
-    var arrByID = reservations.filter(filterByID);
-    res.setHeader('Content-Type', 'application/json');
-    res.send(arrByID);
+    });
 });
 
 app.use('/', function(req, res) {
-    getReservations();
     res.render('index');
 });
 

@@ -8,14 +8,11 @@ var EditReservationDialog = React.createClass({
         id: React.PropTypes.number.isRequired,
         bookId: React.PropTypes.number.isRequired,
         from: React.PropTypes.string.isRequired,
-        to: React.PropTypes.string.isRequired
+        to: React.PropTypes.string.isRequired,
+        getReservations: React.PropTypes.func.isRequired
     },
     getInitialState: function() {
         return {
-            id: this.props.id,
-            bookId: this.props.bookId,
-            from: this.props.from,
-            to: this.props.to,
             minDate: this.props.from,
             maxDate: this.props.to,
             open: false
@@ -28,9 +25,11 @@ var EditReservationDialog = React.createClass({
         this.setState({open: false});
     },
     editReservation: function() {
+        var update = this.props.getReservations;
+        var that = this;
         var data = {
-            id: this.state.id,
-            bookId: this.state.bookId,
+            id: this.props.id,
+            bookId: this.props.bookId,
             from: this.state.minDate,
             to: this.state.maxDate
         };
@@ -40,11 +39,10 @@ var EditReservationDialog = React.createClass({
             type: 'PUT',
             data: data,
             success: (function() {
-                alert("The book reservation has been updated successfully");
+                update();
+                that.setState({open: false});
             })
         });
-
-        this.setState({open: false});
     },
     handleChangeMinDate: function(event, date) {
         this.setState({

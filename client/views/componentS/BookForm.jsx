@@ -1,5 +1,4 @@
 var React = require('react');
-var Divider = require('material-ui/Divider').default;
 var TextField = require('material-ui/TextField').default;
 var RaisedButton = require('material-ui/RaisedButton').default;
 var Add = require('material-ui/svg-icons/content/add').default;

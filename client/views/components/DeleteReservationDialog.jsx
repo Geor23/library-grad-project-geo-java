@@ -1,23 +1,17 @@
 var React = require('react');
-var DatePicker = require('material-ui/DatePicker').default;
 var Dialog = require('material-ui/Dialog').default;
 var FlatButton = require('material-ui/FlatButton').default;
-var DatePicker = require('material-ui/DatePicker').default;
-var TextField = require('material-ui/TextField').default;
 
 var DeleteReservationDialog = React.createClass({
     propTypes: {
         id: React.PropTypes.number.isRequired,
         bookId: React.PropTypes.number.isRequired,
         from: React.PropTypes.string.isRequired,
-        to: React.PropTypes.string.isRequired
+        to: React.PropTypes.string.isRequired,
+        getReservations: React.PropTypes.func.isRequired
     },
     getInitialState: function() {
         return {
-            id: this.props.id,
-            bookId: this.props.bookId,
-            from: this.props.from,
-            to: this.props.to,
             open: false
         };
     },
@@ -28,6 +22,9 @@ var DeleteReservationDialog = React.createClass({
         this.setState({open: false});
     },
     deleteReservation: function() {
+        var update = this.props.getReservations;
+        var that = this;
+
         var data = {
             id: this.props.id
         };
@@ -37,11 +34,10 @@ var DeleteReservationDialog = React.createClass({
             type: 'DELETE',
             data: data,
             success: (function() {
-                alert("The book has been deleted successfully");
+                update();
+                that.setState({open: false});
             })
         });
-
-        this.setState({open: false});
     },
     render: function() {
         const actions = [
@@ -58,7 +54,6 @@ var DeleteReservationDialog = React.createClass({
             onTouchTap={this.deleteReservation}
           />,
         ];
-        var that = this;
         var dialStyle = {
             display: 'flex',
             flexDirection: 'row',

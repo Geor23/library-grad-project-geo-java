@@ -8,7 +8,6 @@ var grey400 = Colors.grey400;
 var darkBlack = Colors.darkBlack;
 var Divider = require('material-ui/Divider').default;
 var ListItem = require('material-ui/List').ListItem;
-var connect = require('react-redux').connect;
 var AddReservationDialog = require('./AddReservationDialog.jsx');
 var SeeReservationsDialog = require('./SeeReservationsDialog.jsx');
 var EditBookDialog = require('./EditBookDialog.jsx');
@@ -20,16 +19,8 @@ var Book = React.createClass({
         title: React.PropTypes.string.isRequired,
         author: React.PropTypes.string.isRequired,
         isbn: React.PropTypes.string,
-        date: React.PropTypes.string
-    },
-    getInitialState: function() {
-        return {
-            id: this.props.id,
-            title: this.props.title,
-            author: this.props.author,
-            isbn: this.props.isbn,
-            date: this.props.date
-        };
+        date: React.PropTypes.string,
+        getBooks: React.PropTypes.func.isRequired
     },
     startAddReservationDialog: function() {
         this.refs.addRes.startDialog();
@@ -76,10 +67,40 @@ var Book = React.createClass({
                     secondaryTextLines={2}
                 />
                 <Divider inset={true} />
-                <AddReservationDialog ref="addRes" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
-                <SeeReservationsDialog ref="seeRes" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
-                <EditBookDialog ref="editBook" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
-                <DeleteBookDialog ref="delBook" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
+                <AddReservationDialog 
+                    ref="addRes" 
+                    id={this.props.id} 
+                    title={this.props.title} 
+                    author={this.props.author} 
+                    isbn={this.props.isbn} 
+                    date={this.props.date} 
+                />
+                <SeeReservationsDialog 
+                    ref="seeRes" 
+                    id={this.props.id} 
+                    title={this.props.title} 
+                    author={this.props.author} 
+                    isbn={this.props.isbn} 
+                    date={this.props.date} 
+                />
+                <EditBookDialog 
+                    ref="editBook" 
+                    id={this.props.id} 
+                    title={this.props.title} 
+                    author={this.props.author} 
+                    isbn={this.props.isbn} 
+                    date={this.props.date} 
+                    getBooks={this.props.getBooks} 
+                />
+                <DeleteBookDialog 
+                    ref="delBook" 
+                    id={this.props.id} 
+                    title={this.props.title} 
+                    author={this.props.author} 
+                    isbn={this.props.isbn} 
+                    date={this.props.date} 
+                    getBooks={this.props.getBooks} 
+                />
             </div>
         );
     }

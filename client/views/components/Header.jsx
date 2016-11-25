@@ -1,7 +1,5 @@
 var React = require('react');
-var ReactDOM =  require('react-dom');
 var ReactRouter = require('react-router');
-var { Router, Route, IndexRoute, Link } = ReactRouter;
 var browserHistory = ReactRouter.browserHistory;
 var IconButton = require('material-ui/IconButton').default;
 var SearchIc = require('material-ui/svg-icons/action/search').default;
