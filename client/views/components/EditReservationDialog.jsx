@@ -26,6 +26,7 @@ var EditReservationDialog = React.createClass({
     },
     editReservation: function() {
         var update = this.props.getReservations;
+        var that = this;
         var data = {
             id: this.props.id,
             bookId: this.props.bookId,
@@ -39,10 +40,9 @@ var EditReservationDialog = React.createClass({
             data: data,
             success: (function() {
                 update();
+                that.setState({open: false});
             })
         });
-
-        this.setState({open: false});
     },
     handleChangeMinDate: function(event, date) {
         this.setState({

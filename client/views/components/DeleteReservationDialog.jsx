@@ -23,6 +23,8 @@ var DeleteReservationDialog = React.createClass({
     },
     deleteReservation: function() {
         var update = this.props.getReservations;
+        var that = this;
+
         var data = {
             id: this.props.id
         };
@@ -33,10 +35,9 @@ var DeleteReservationDialog = React.createClass({
             data: data,
             success: (function() {
                 update();
+                that.setState({open: false});
             })
         });
-
-        this.setState({open: false});
     },
     render: function() {
         const actions = [
