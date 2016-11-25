@@ -67,10 +67,40 @@ var Book = React.createClass({
                     secondaryTextLines={2}
                 />
                 <Divider inset={true} />
-                <AddReservationDialog ref="addRes" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
-                <SeeReservationsDialog ref="seeRes" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} />
-                <EditBookDialog ref="editBook" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} getBooks={this.props.getBooks} />
-                <DeleteBookDialog ref="delBook" id={this.props.id} title={this.props.title} author={this.props.author} isbn={this.props.isbn} date={this.props.date} getBooks={this.props.getBooks} />
+                <AddReservationDialog 
+                    ref="addRes" 
+                    id={this.props.id} 
+                    title={this.props.title} 
+                    author={this.props.author} 
+                    isbn={this.props.isbn} 
+                    date={this.props.date} 
+                />
+                <SeeReservationsDialog 
+                    ref="seeRes" 
+                    id={this.props.id} 
+                    title={this.props.title} 
+                    author={this.props.author} 
+                    isbn={this.props.isbn} 
+                    date={this.props.date} 
+                />
+                <EditBookDialog 
+                    ref="editBook" 
+                    id={this.props.id} 
+                    title={this.props.title} 
+                    author={this.props.author} 
+                    isbn={this.props.isbn} 
+                    date={this.props.date} 
+                    getBooks={this.props.getBooks} 
+                />
+                <DeleteBookDialog 
+                    ref="delBook" 
+                    id={this.props.id} 
+                    title={this.props.title} 
+                    author={this.props.author} 
+                    isbn={this.props.isbn} 
+                    date={this.props.date} 
+                    getBooks={this.props.getBooks} 
+                />
             </div>
         );
     }

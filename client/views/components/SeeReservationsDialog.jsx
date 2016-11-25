@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Dialog = require('material-ui/Dialog').default;
 var FlatButton = require('material-ui/FlatButton').default;
 var Reservation = require('./Reservation.jsx');
@@ -18,12 +19,13 @@ var SeeReservationsDialog = React.createClass({
         };
     },
     startDialog: function() {
+        this.getReservations();
         this.setState({open: true});
     },
     closeDialog: function() {
         this.setState({open: false});
     },
-    componentDidMount: function() {
+    getReservations: function() {
         var that = this;
         $.get('http://localhost:3333/api/bookreservations/' + this.props.id )
         .done(function(data) {
@@ -33,6 +35,7 @@ var SeeReservationsDialog = React.createClass({
         });
     },
     render: function() {
+        var that = this;
         const actions = [
           <FlatButton
             label="OK"
@@ -53,7 +56,13 @@ var SeeReservationsDialog = React.createClass({
             flexDirection: 'column'
         };
         var reserv = this.state.reservations.map(function(res) {
-            return <Reservation id={res.Id} bookId={res.bookId} from={res.from} to={res.to} />
+            return <Reservation 
+                        id={res.Id} 
+                        bookId={res.bookId} 
+                        from={res.from} 
+                        to={res.to} 
+                        getReservations={that.getReservations} 
+                    />
         });
         return (
             <Dialog

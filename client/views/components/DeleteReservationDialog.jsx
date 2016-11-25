@@ -7,7 +7,8 @@ var DeleteReservationDialog = React.createClass({
         id: React.PropTypes.number.isRequired,
         bookId: React.PropTypes.number.isRequired,
         from: React.PropTypes.string.isRequired,
-        to: React.PropTypes.string.isRequired
+        to: React.PropTypes.string.isRequired,
+        getReservations: React.PropTypes.func.isRequired
     },
     getInitialState: function() {
         return {
@@ -21,6 +22,7 @@ var DeleteReservationDialog = React.createClass({
         this.setState({open: false});
     },
     deleteReservation: function() {
+        var update = this.props.getReservations;
         var data = {
             id: this.props.id
         };
@@ -30,7 +32,7 @@ var DeleteReservationDialog = React.createClass({
             type: 'DELETE',
             data: data,
             success: (function() {
-                alert("The book has been deleted successfully");
+                update();
             })
         });
 

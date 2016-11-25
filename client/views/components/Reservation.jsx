@@ -10,7 +10,8 @@ var Reservation = React.createClass({
         id: React.PropTypes.number.isRequired,
         bookId: React.PropTypes.number.isRequired,
         from: React.PropTypes.string.isRequired,
-        to: React.PropTypes.string.isRequired
+        to: React.PropTypes.string.isRequired,
+        getReservations: React.PropTypes.func.isRequired
     },
     deleteReservation: function(resId) {
         this.refs.delRes.startDialog();
@@ -32,8 +33,22 @@ var Reservation = React.createClass({
                 <IconButton onClick={() => this.editReservation(this.props.id)}>
                     <EditIc color='#eaf2eb' />
                 </IconButton>
-                <EditReservationDialog ref="editRes" id={this.props.id} bookId={this.props.bookId} from={this.props.from} to={this.props.to} />
-                <DeleteReservationDialog ref="delRes" id={this.props.id} bookId={this.props.bookId} from={this.props.from} to={this.props.to} />
+                <EditReservationDialog 
+                    ref="editRes" 
+                    id={this.props.id} 
+                    bookId={this.props.bookId} 
+                    from={this.props.from} 
+                    to={this.props.to} 
+                    getReservations={this.props.getReservations} 
+                />
+                <DeleteReservationDialog 
+                    ref="delRes" 
+                    id={this.props.id} 
+                    bookId={this.props.bookId} 
+                    from={this.props.from} 
+                    to={this.props.to} 
+                    getReservations={this.props.getReservations}
+                />
             </div>
         );
     }

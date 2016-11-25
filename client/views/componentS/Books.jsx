@@ -32,7 +32,14 @@ var Books = React.createClass({
             overflowX: "hidden"
         };
         var books = this.state.books.map(function(book) {
-            return <Book id={book.Id} title={book.Title} author={book.Author} isbn={book.ISBN} date={book.PublishDate} getBooks={that.getBooks}></Book>;
+            return <Book 
+                        id={book.Id} 
+                        title={book.Title} 
+                        author={book.Author} 
+                        isbn={book.ISBN} 
+                        date={book.PublishDate} 
+                        getBooks={that.getBooks}
+                    ></Book>;
         });
         return (
                 <List style={listStyle}>

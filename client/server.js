@@ -15,7 +15,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
 var url = 'http://localhost:51918'; 
-var reservations = [];
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -133,14 +132,6 @@ app.get('/api/books', function(req, res) {
     });
 });
 
-var getReservations = function() {
-    request(url + '/api/bookreservations/', function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            reservations = JSON.parse(body);
-        }
-    });
-};
-
 var getDateString = function(data) {
     var date = new Date(data);
     var day = date.getDate();
@@ -172,20 +163,24 @@ app.post('/api/bookreservations', function(req, res) {
 });
 
 app.get('/api/bookreservations/:id', function(req, res) {
-    var filterByID = function(obj) {
-        if (obj.bookId == req.params.id) {
-            return true;
-        } else {
-            return false;
+    request(url + '/api/bookreservations/', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var reservations = JSON.parse(body);
+            var filterByID = function(obj) {
+                if (obj.bookId == req.params.id) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            var arrByID = reservations.filter(filterByID);
+            res.setHeader('Content-Type', 'application/json');
+            res.send(arrByID);
         }
-    }
-    var arrByID = reservations.filter(filterByID);
-    res.setHeader('Content-Type', 'application/json');
-    res.send(arrByID);
+    });
 });
 
 app.use('/', function(req, res) {
-    getReservations();
     res.render('index');
 });
 
