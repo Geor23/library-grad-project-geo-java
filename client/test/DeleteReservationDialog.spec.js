@@ -4,8 +4,8 @@ var chai = require( 'chai');
 var sinon = require('sinon');
 var expect = chai.expect;
 
-var FlatButton = require('material-ui/FlatButton').default;
-var Dialog = require('material-ui/Dialog').default;
+// var FlatButton = require('material-ui/FlatButton').default;
+// var Dialog = require('material-ui/Dialog').default;
 var DeleteReservationDialog = require('../views/components/DeleteReservationDialog.jsx') ;
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
