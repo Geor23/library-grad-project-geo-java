@@ -12,7 +12,7 @@ describe('<BookForm />', function () {
 	const muiTheme = getMuiTheme(); 
 	var wrapper, d, onBook;
 	 before(function() {
-        d = Date.now().toString();
+        d = Date.now();
         onBook=function(){console.log('hello')};
         wrapper = shallow(
             <BookForm 
@@ -30,7 +30,6 @@ describe('<BookForm />', function () {
         expect(wrapper.find('TextField').at(0).props().id).to.equal('title');
         expect(wrapper.find('TextField').at(1).props().id).to.equal('author');
         expect(wrapper.find('TextField').at(2).props().id).to.equal('isbn');
-        console.log(wrapper.find('TextField').at(0).props());
   	});
     it('should have 1 DatePicker child', function () {
     	expect(wrapper.find('DatePicker').length).to.equal(1);
