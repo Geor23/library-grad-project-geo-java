@@ -64,7 +64,7 @@ describe('<DeleteReservationDialog />', function () {
 		wrapper.node.props.actions[0].props.onTouchTap();
     	expect(wrapper.state().open).to.equal(false);
   	});
-	it('pressing SUBMIT should call function deleteReservation when submit gets fired', function () {
+	xit('pressing SUBMIT should call function deleteReservation when submit gets fired', function () {
 		// wrapper.instance().startDialog();
 		// var spy = sinon.stub(wrapper.instance(), 'deleteReservation').returns('hello');
 		//expect(wrapper.node.props.actions[1].props.onTouchTap()).to.equal('hello');

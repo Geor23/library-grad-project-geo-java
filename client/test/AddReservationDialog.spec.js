@@ -59,4 +59,42 @@ describe('<AddReservationDialog />', function() {
         expect(wrapper.childAt(1).children().length).to.equal(3);
         expect(wrapper.childAt(1).children().find(DatePicker).length).to.equal(2);
     });
-})
+    it('should set the state open: true when startDialog gets fired', function () {
+    	wrapper.instance().startDialog();
+		expect(wrapper.state().open).to.equal(true);
+  	});
+    it('pressing CANCEL should close the dialog', function () {
+		wrapper.node.props.actions[0].props.onTouchTap();
+    	expect(wrapper.state().open).to.equal(false);
+  	});
+    xit('pressing SUBMIT should call function addReservation', function () {
+		wrapper.instance().startDialog();
+        // sinon.stub(wrapper.instance(), 'addReservation', function(){return 'hello'});
+        wrapper.node.props.actions[1].props.onTouchTap();
+        // console.log(wrapper.instance().addReservation);
+        // console.log(wrapper.node.props.actions[1].props.onTouchTap.bind.Function);
+		// var spy = sinon.spy(wrapper.instance(), 'addReservation');
+		// expect(wrapper.node.props.actions[1].props.onTouchTap()).to.equal('hello');
+    	expect(addReservation.called).to.equal(true);
+  	});
+    xit('triggering onChange from -Reserve from- will call handleChangeMinDate and change state', function () {
+		wrapper.instance().startDialog();
+        // sinon.stub(wrapper.instance(), 'addReservation', function(){return 'hello'});
+        wrapper.node.props.actions[1].props.onTouchTap();
+        // console.log(wrapper.instance().addReservation);
+        // console.log(wrapper.node.props.actions[1].props.onTouchTap.bind.Function);
+		// var spy = sinon.spy(wrapper.instance(), 'addReservation');
+		// expect(wrapper.node.props.actions[1].props.onTouchTap()).to.equal('hello');
+    	expect(addReservation.called).to.equal(true);
+  	});
+    xit('triggering onChange from -Reserve until- will call handleChangeMaxDate and change state', function () {
+		wrapper.instance().startDialog();
+        // sinon.stub(wrapper.instance(), 'addReservation', function(){return 'hello'});
+        wrapper.node.props.actions[1].props.onTouchTap();
+        // console.log(wrapper.instance().addReservation);
+        // console.log(wrapper.node.props.actions[1].props.onTouchTap.bind.Function);
+		// var spy = sinon.spy(wrapper.instance(), 'addReservation');
+		// expect(wrapper.node.props.actions[1].props.onTouchTap()).to.equal('hello');
+    	expect(addReservation.called).to.equal(true);
+  	});
+});
