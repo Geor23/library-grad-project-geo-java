@@ -49,4 +49,10 @@ describe('<AddReservationDialog />', function() {
     it('the first should have 4 children[book info]', function () {
     	expect(wrapper.childAt(0).children().length).to.equal(4);
   	});
+    it('the first should contain the book info', function () {
+    	expect(wrapper.childAt(0).childAt(0).html()).to.equal('<p>0: title</p>');
+        expect(wrapper.childAt(0).childAt(1).html()).to.equal('<p>author</p>');
+        expect(wrapper.childAt(0).childAt(2).html()).to.equal('<p>isbn</p>');
+        expect(wrapper.childAt(0).childAt(3).html()).to.equal('<p>' + d + '</p>');
+  	});
 })
