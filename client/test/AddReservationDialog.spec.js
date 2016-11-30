@@ -55,4 +55,8 @@ describe('<AddReservationDialog />', function() {
         expect(wrapper.childAt(0).childAt(2).html()).to.equal('<p>isbn</p>');
         expect(wrapper.childAt(0).childAt(3).html()).to.equal('<p>' + d + '</p>');
   	});
+    it('the second should contain two date pickers', function () {
+        expect(wrapper.childAt(1).children().length).to.equal(3);
+        expect(wrapper.childAt(1).children().find(DatePicker).length).to.equal(2);
+    });
 })
