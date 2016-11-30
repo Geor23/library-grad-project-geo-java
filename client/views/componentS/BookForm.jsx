@@ -13,7 +13,7 @@ var BookForm = React.createClass({
             title: '',
             author: '',
             isbn: '',
-            date: ''
+            date: {}
         };
     },
     changeTitle: function(ev) {
@@ -57,7 +57,7 @@ var BookForm = React.createClass({
             title: '',
             author: '',
             isbn: '',
-            date: ''
+            date: {}
         });
     },
     render: function() {
