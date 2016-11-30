@@ -1,18 +1,17 @@
 var React = require('react');
-var enzyme = require('enzyme') ;
-var mount = require('enzyme').mount ;
-var shallow = require('enzyme').shallow ;
+import { shallow, mount } from 'enzyme';
 var chai = require( 'chai');
 var sinon = require('sinon');
 var expect = chai.expect;
+
 var FlatButton = require('material-ui/FlatButton').default;
 var Dialog = require('material-ui/Dialog').default;
+var DeleteReservationDialog = require('../views/components/DeleteReservationDialog.jsx') ;
+
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
-
-var DeleteReservationDialog = require('../views/components/DeleteReservationDialog.jsx') ;
 
 describe('<DeleteReservationDialog />', function () {
 	const muiTheme = getMuiTheme(); 
@@ -20,7 +19,14 @@ describe('<DeleteReservationDialog />', function () {
 	before(function() {
 		d = Date.now().toString();
 			getR = function(){ console.log('got reservation!'); };
-  		wrapper = shallow(<DeleteReservationDialog id={0} bookId={1} from={d} to={d} getReservations={getR} />, {
+  		wrapper = shallow(
+			  <DeleteReservationDialog 
+			  		id={0} 
+				  	bookId={1} 
+				  	from={d}
+				   	to={d} 
+				   	getReservations={getR} 
+				/>, {
 		    context: {muiTheme},
 		    childContextTypes: {muiTheme: React.PropTypes.object}
 		});
