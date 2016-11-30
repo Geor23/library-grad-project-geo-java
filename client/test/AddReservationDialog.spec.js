@@ -46,4 +46,7 @@ describe('<AddReservationDialog />', function() {
   	it('should have 2 children', function () {
     	expect(wrapper.children().length).to.equal(2);
   	});
+    it('the first should have 4 children[book info]', function () {
+    	expect(wrapper.childAt(0).children().length).to.equal(4);
+  	});
 })
