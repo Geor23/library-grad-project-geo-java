@@ -12,7 +12,7 @@ describe('<EditBookDialog />', function () {
 	const muiTheme = getMuiTheme(); 
 	var wrapper, d, getBooks;
 	 before(function() {
-		d = Date.now().toString();
+		d = Date.now();
         getBooks=function(){console.log('hello')};
         wrapper = shallow(
             <EditBookDialog 

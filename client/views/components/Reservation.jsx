@@ -26,7 +26,7 @@ var Reservation = React.createClass({
     render: function() {
         return (
             <div>
-                {this.getDate(this.props.from)} -{this.getDate(this.props.to)}
+                {this.getDate(this.props.from)} - {this.getDate(this.props.to)}
                 <IconButton onClick={() => this.deleteReservation(this.props.id)}>
                     <DeleteIc color='#eaf2eb' />
                 </IconButton>
