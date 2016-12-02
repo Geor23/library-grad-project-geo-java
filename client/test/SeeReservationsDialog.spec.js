@@ -50,7 +50,7 @@ describe('<SeeReservationsDialog />', function () {
         expect(wrapper.childAt(0).childAt(3).html()).to.equal('<p>' + d + '</p>');
   	});
     it('if the state gets a reservation, the second should contain 1 Reservation element', function () {
-		wrapper.setState({reservations: [{id: 0, bookId: 1, from: 'now', to: 'to', getReservations: getR}]});
+		wrapper.setState({reservations: [{Id: 0, bookId: 1, from: 'now', to: 'to', getReservations: getR}]});
         expect(wrapper.childAt(1).children().length).to.equal(1);
         expect(wrapper.childAt(1).children().find('Reservation').length).to.equal(1);
     });
