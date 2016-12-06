@@ -32,5 +32,11 @@ public class LibraryController {
 	public void addBook(@RequestBody final Book book) {
 		bookService.add(book);
 	}
+	
+	@GetMapping(value = "/books")
+	@ResponseBody
+	public Optional<Iterable<Book>> getBooks() {
+		return bookService.getAll();
+	}
 
 }
