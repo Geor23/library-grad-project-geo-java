@@ -26,7 +26,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Optional<Book> getByISBN(String isbn) {
+	public Optional<Book> getByIsbn(String isbn) {
 		return bookRepository.findByIsbnIgnoringCase(isbn);
 	}
 
@@ -35,4 +35,19 @@ public class BookServiceImpl implements BookService {
 		bookRepository.save(book);
 	}
 
+	@Override
+	public Optional<Book> getById(Long id) {
+		return Optional.of(bookRepository.findOne(id));
+	}
+
+	@Override
+	public Optional<Iterable<Book>> getAll() {
+		return Optional.of(bookRepository.findAll());
+	}
+
+	@Override
+	public void deleteBook(Long id) {
+		Book book = bookRepository.findOne(id);
+		bookRepository.delete(book);
+	}
 }
