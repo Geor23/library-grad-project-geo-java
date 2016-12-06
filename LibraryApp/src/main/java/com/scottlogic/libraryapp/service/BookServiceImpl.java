@@ -32,22 +32,21 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void add(Book book) {
-		bookRepository.save(book);
+		bookRepository.save(Optional.of(book));
 	}
 
 	@Override
 	public Optional<Book> getById(Long id) {
-		return Optional.of(bookRepository.findOne(id));
+		return bookRepository.findOne(id);
 	}
 
 	@Override
-	public Optional<Iterable<Book>> getAll() {
-		return Optional.of(bookRepository.findAll());
+	public Iterable<Optional<Book>> getAll() {
+		return bookRepository.findAll();
 	}
 
 	@Override
-	public void deleteBook(Long id) {
-		Book book = bookRepository.findOne(id);
+	public void deleteBook(Optional<Book> book) {
 		bookRepository.delete(book);
 	}
 }

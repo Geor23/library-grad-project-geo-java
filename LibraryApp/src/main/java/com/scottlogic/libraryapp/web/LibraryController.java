@@ -35,8 +35,18 @@ public class LibraryController {
 	
 	@GetMapping(value = "/books")
 	@ResponseBody
-	public Optional<Iterable<Book>> getBooks() {
+	public Iterable<Optional<Book>> getBooks() {
 		return bookService.getAll();
+	}
+	
+	@DeleteMapping(value = "/books")
+	public void deleteBook(@RequestBody final Long id) {
+		final Optional<Book> book = bookService.getById(id);
+		if (book.isPresent()) {
+			bookService.deleteBook(book);
+		} else {
+			throw new EntityNotFoundException("No book found with id " + id);
+		}
 	}
 
 }

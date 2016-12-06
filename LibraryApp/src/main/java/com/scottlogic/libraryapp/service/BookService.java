@@ -9,7 +9,7 @@ public interface BookService {
 	Optional<Book> getByAuthor(final String author);
 	Optional<Book> getByIsbn(final String isbn);
 	Optional<Book> getById(final Long id);
-	Optional<Iterable<Book>> getAll();
-	void deleteBook(final Long id);
+	Iterable<Optional<Book>> getAll();
+	void deleteBook(final Optional<Book> book);
 	void add(final Book book);
 }
