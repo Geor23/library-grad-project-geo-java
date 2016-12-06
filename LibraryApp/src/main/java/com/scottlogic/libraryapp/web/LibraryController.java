@@ -19,7 +19,7 @@ public class LibraryController {
 	
 	@GetMapping(value = "/books/{Id}")
 	@ResponseBody
-	public Book getBook(@PathVariable("Id") final Long Id) {
+	public Book getBook(@PathVariable("Id") final Integer Id) {
 		final Optional<Book> book = Optional.of(bookService.getById(Id));
 		if (book.isPresent()) {
 			return book.get();
@@ -40,7 +40,7 @@ public class LibraryController {
 	}
 	
 	@DeleteMapping(value = "/books")
-	public void deleteBook(@RequestBody final Long id) {
+	public void deleteBook(@RequestBody final Integer id) {
 		final Book book = bookService.getById(id);
 		if (book != null) {
 			bookService.deleteBook(book);

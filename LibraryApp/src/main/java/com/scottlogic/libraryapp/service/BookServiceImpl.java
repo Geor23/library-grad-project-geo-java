@@ -15,20 +15,20 @@ public class BookServiceImpl implements BookService {
 		this.bookRepository = bookRepository;
 	}
 
-//	@Override
-//	public Optional<Book> getByTitle(String title) {
-//		return bookRepository.findByTitleIgnoringCase(title);
-//	}
-//
-//	@Override
-//	public Optional<Book> getByAuthor(String author) {
-//		return bookRepository.findByAuthorIgnoringCase(author);
-//	}
-//
-//	@Override
-//	public Optional<Book> getByIsbn(String isbn) {
-//		return bookRepository.findByIsbnIgnoringCase(isbn);
-//	}
+	@Override
+	public Book getByTitle(String title) {
+		return bookRepository.findByTitleIgnoringCase(title);
+	}
+
+	@Override
+	public Book getByAuthor(String author) {
+		return bookRepository.findByAuthorIgnoringCase(author);
+	}
+
+	@Override
+	public Book getByIsbn(String isbn) {
+		return bookRepository.findByIsbnIgnoringCase(isbn);
+	}
 
 	@Override
 	public void add(Book book) {
@@ -36,7 +36,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Book getById(Long id) {
+	public Book getById(Integer id) {
 		return bookRepository.findOne(id);
 	}
 
