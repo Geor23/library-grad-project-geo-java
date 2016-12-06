@@ -1,12 +1,12 @@
-package com.scottlogic;
+package com.scottlogic.libraryapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LibraryAppApplication {
+public class LibraryApp {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LibraryAppApplication.class, args);
+	public static void main(String args[]) {
+		SpringApplication.run(LibraryApp.class, args);
 	}
 }
