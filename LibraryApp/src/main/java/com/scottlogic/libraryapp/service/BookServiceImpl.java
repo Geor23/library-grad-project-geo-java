@@ -1,6 +1,8 @@
 package com.scottlogic.libraryapp.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 import com.scottlogic.libraryapp.dao.BookRepository;
@@ -16,28 +18,30 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Book getByTitle(String title) {
+	public Optional<Book> getByTitle(String title) {
 		return bookRepository.findByTitleIgnoringCase(title);
 	}
 
 	@Override
-	public Book getByAuthor(String author) {
+	public Optional<Book> getByAuthor(String author) {
 		return bookRepository.findByAuthorIgnoringCase(author);
 	}
 
 	@Override
-	public Book getByIsbn(String isbn) {
+	public Optional<Book> getByIsbn(String isbn) {
 		return bookRepository.findByIsbnIgnoringCase(isbn);
 	}
 
 	@Override
-	public void add(Book book) {
-		bookRepository.save(book);
+	public void add(Optional<Book> book) {
+		Book b = book.get();
+		System.out.println(b);
+		bookRepository.save(b);
 	}
 
 	@Override
-	public Book getById(Integer id) {
-		return bookRepository.findOne(id);
+	public Optional<Book> getById(Integer id) {
+		return Optional.of(bookRepository.findOne(id));
 	}
 
 	@Override
@@ -46,7 +50,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void deleteBook(Book book) {
-		bookRepository.delete(book);
+	public void deleteBook(Optional<Book> book) {
+		bookRepository.delete(book.get());
 	}
 }

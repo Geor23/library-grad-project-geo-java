@@ -1,6 +1,9 @@
 package com.scottlogic.libraryapp.web;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -20,7 +23,7 @@ public class LibraryController {
 	@GetMapping(value = "/books/{Id}")
 	@ResponseBody
 	public Book getBook(@PathVariable("Id") final Integer Id) {
-		final Optional<Book> book = Optional.of(bookService.getById(Id));
+		final Optional<Book> book = bookService.getById(Id);
 		if (book.isPresent()) {
 			return book.get();
 		} else {
@@ -30,7 +33,7 @@ public class LibraryController {
 	
 	@PostMapping(value = "/books")
 	public void addBook(@RequestBody final Book book) {
-		bookService.add(book);
+		bookService.add(Optional.of(book));
 	}
 	
 	@GetMapping(value = "/books")
@@ -41,8 +44,8 @@ public class LibraryController {
 	
 	@DeleteMapping(value = "/books")
 	public void deleteBook(@RequestBody final Integer id) {
-		final Book book = bookService.getById(id);
-		if (book != null) {
+		final Optional<Book> book = bookService.getById(id);
+		if (book.isPresent()) {
 			bookService.deleteBook(book);
 		} else {
 			throw new EntityNotFoundException("No book found with id " + id);
