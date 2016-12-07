@@ -12,4 +12,5 @@ public interface BookService {
 	Iterable<Book> getAll();
 	void deleteBook(final Optional<Book> book);
 	void add(final Optional<Book> book);
+	void editBook(Optional<Book> book);
 }

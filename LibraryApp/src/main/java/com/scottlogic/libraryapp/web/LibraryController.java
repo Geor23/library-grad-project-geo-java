@@ -52,6 +52,11 @@ public class LibraryController {
 		}
 	}
 	
+	@PutMapping(value = "/books")
+	public void editBook(@RequestBody final Book book) {
+		bookService.editBook(Optional.of(book));
+	}
+	
 	// TO DO : Put!!
 
 }

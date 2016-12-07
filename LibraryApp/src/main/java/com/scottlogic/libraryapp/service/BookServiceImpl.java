@@ -35,7 +35,6 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void add(Optional<Book> book) {
 		Book b = book.get();
-		System.out.println(b);
 		bookRepository.save(b);
 	}
 
@@ -52,5 +51,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void deleteBook(Optional<Book> book) {
 		bookRepository.delete(book.get());
+	}
+	
+	@Override
+	public void editBook(Optional<Book> book) {
+		Book b = book.get();
+		bookRepository.save(b);
 	}
 }
