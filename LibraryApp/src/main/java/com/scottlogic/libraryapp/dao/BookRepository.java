@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface BookRepository extends CrudRepository<Optional<Book>, Long> {
-	Optional<Book> findByTitleIgnoringCase(final String title);
-	Optional<Book> findByAuthorIgnoringCase(final String author);
-	Optional<Book> findByIsbnIgnoringCase(final String isbn);
+public interface BookRepository extends CrudRepository<Book, Integer> {
+	Book findByTitleIgnoringCase(final String title);
+	Book findByAuthorIgnoringCase(final String author);
+	Book findByIsbnIgnoringCase(final String isbn);
 }

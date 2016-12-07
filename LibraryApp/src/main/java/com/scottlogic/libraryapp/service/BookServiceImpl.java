@@ -16,37 +16,37 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Optional<Book> getByTitle(String title) {
+	public Book getByTitle(String title) {
 		return bookRepository.findByTitleIgnoringCase(title);
 	}
 
 	@Override
-	public Optional<Book> getByAuthor(String author) {
+	public Book getByAuthor(String author) {
 		return bookRepository.findByAuthorIgnoringCase(author);
 	}
 
 	@Override
-	public Optional<Book> getByIsbn(String isbn) {
+	public Book getByIsbn(String isbn) {
 		return bookRepository.findByIsbnIgnoringCase(isbn);
 	}
 
 	@Override
 	public void add(Book book) {
-		bookRepository.save(Optional.of(book));
+		bookRepository.save(book);
 	}
 
 	@Override
-	public Optional<Book> getById(Long id) {
+	public Book getById(Integer id) {
 		return bookRepository.findOne(id);
 	}
 
 	@Override
-	public Iterable<Optional<Book>> getAll() {
+	public Iterable<Book> getAll() {
 		return bookRepository.findAll();
 	}
 
 	@Override
-	public void deleteBook(Optional<Book> book) {
+	public void deleteBook(Book book) {
 		bookRepository.delete(book);
 	}
 }

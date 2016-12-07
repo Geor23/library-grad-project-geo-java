@@ -17,14 +17,14 @@ public class LibraryController {
 		this.bookService = bookService;
 	}
 	
-	@GetMapping(value = "/books/{Title}")
+	@GetMapping(value = "/books/{Id}")
 	@ResponseBody
-	public Book getBook(@PathVariable("Title") final String Title) {
-		final Optional<Book> book = bookService.getByTitle(Title);
+	public Book getBook(@PathVariable("Id") final Integer Id) {
+		final Optional<Book> book = Optional.of(bookService.getById(Id));
 		if (book.isPresent()) {
 			return book.get();
 		} else {
-			throw new EntityNotFoundException("No book found with title " + Title);
+			throw new EntityNotFoundException("No book found with id " + Id);
 		}
 	}
 	
@@ -35,14 +35,14 @@ public class LibraryController {
 	
 	@GetMapping(value = "/books")
 	@ResponseBody
-	public Iterable<Optional<Book>> getBooks() {
+	public Iterable<Book> getBooks() {
 		return bookService.getAll();
 	}
 	
 	@DeleteMapping(value = "/books")
-	public void deleteBook(@RequestBody final Long id) {
-		final Optional<Book> book = bookService.getById(id);
-		if (book.isPresent()) {
+	public void deleteBook(@RequestBody final Integer id) {
+		final Book book = bookService.getById(id);
+		if (book != null) {
 			bookService.deleteBook(book);
 		} else {
 			throw new EntityNotFoundException("No book found with id " + id);
