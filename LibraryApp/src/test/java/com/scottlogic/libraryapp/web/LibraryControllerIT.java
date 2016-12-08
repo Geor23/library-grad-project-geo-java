@@ -50,7 +50,6 @@ public class LibraryControllerIT {
 	
     @Test
     public void shouldAddBook(){
-    	book.setBookId(1);
         final ResponseEntity<Void> response = restTemplate.postForEntity("/books", book, Void.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
         final Optional<Book> addedBook = bookRepository.findByTitleIgnoringCase("java");
@@ -59,7 +58,6 @@ public class LibraryControllerIT {
     
 	@Test
 	public void shouldGetBook() {
-    	book.setBookId(2);
         bookRepository.save(book);
         final ResponseEntity<Book> result = restTemplate.getForEntity("/books/{Id}", Book.class, 2);
 
@@ -69,7 +67,6 @@ public class LibraryControllerIT {
     
 	@Test
 	public void shouldGetAllBooks() {
-    	book.setBookId(3);
         bookRepository.save(book);
         final ResponseEntity<Book[]> result = restTemplate.getForEntity("/books", Book[].class);
 
@@ -79,14 +76,8 @@ public class LibraryControllerIT {
 	
     @Test
     public void shouldEditBook(){
-    	book.setBookId(4);
     	newbook.setBookId(4);
     	bookRepository.save(book);
-    	
-    	final ResponseEntity<Book[]> result = restTemplate.getForEntity("/books", Book[].class);
-
-        assertThat(result.getStatusCode(), equalTo(HttpStatus.OK));
-        assertTrue(Arrays.asList(result.getBody()).contains(book));
     	
         restTemplate.put("/books", newbook);
         
