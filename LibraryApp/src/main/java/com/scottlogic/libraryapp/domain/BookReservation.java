@@ -6,46 +6,54 @@ import javax.persistence.*;
 
 @Entity
 public class BookReservation {
+		
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	private Integer bookId;
-	private Date from;
-	private Date to;
+	
+	private Integer book;
+	private String fromDate;
+	private String toDate;
 	
 	public BookReservation() {
 	}
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Integer getResId() {
+	public BookReservation(final Integer bookId, final String from, final String to) {
+		this.book = bookId;
+		this.fromDate = from;
+		this.toDate= to;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setResId(final Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 	
-	public Integer getResBookId() {
-		return bookId;
+	public Integer getBook() {
+		return book;
 	}
 	
-	public void setResBookId(final Integer bookId) {
-		this.bookId = bookId;
+	public void setBook(final Integer bookId) {
+		this.book = bookId;
 	}
 	
-	public Date getFrom() {
-		return from;
+	public String getFrom() {
+		return fromDate;
 	}
 	
-	public void setFrom(final Date from) {
-		this.from = from;
+	public void setFrom(final String from) {
+		this.fromDate = from;
 	}
 	
-	public Date getTo() {
-		return to;
+	public String getTo() {
+		return toDate;
 	}
 	
-	public void setTo(final Date to) {
-		this.to = to;
+	public void setTo(final String to) {
+		this.toDate = to;
 	}
 	
    @Override
@@ -55,8 +63,8 @@ public class BookReservation {
 
         final BookReservation res = (BookReservation) o;
 
-        return bookId.equals(res.bookId)&&
-        		from.equals(res.from)&&
-        		to.equals(res.to);
+        return book.equals(res.book)&&
+        		fromDate.equals(res.fromDate)&&
+        		toDate.equals(res.toDate);
     }
 }
