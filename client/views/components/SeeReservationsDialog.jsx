@@ -57,9 +57,9 @@ var SeeReservationsDialog = React.createClass({
         };
         var reserv = this.state.reservations.map(function(res) {
             return <Reservation 
-                        key={res.Id}
-                        id={res.Id} 
-                        bookId={res.bookId} 
+                        key={res.id}
+                        id={res.id} 
+                        bookId={res.book} 
                         from={res.from} 
                         to={res.to} 
                         getReservations={that.getReservations} 

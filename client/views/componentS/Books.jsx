@@ -33,12 +33,12 @@ var Books = React.createClass({
         };
         var books = this.state.books.map(function(book) {
             return <Book 
-                        key={book.Id}
-                        id={book.Id} 
-                        title={book.Title} 
-                        author={book.Author} 
-                        isbn={book.ISBN} 
-                        date={book.PublishDate} 
+                        key={book.bookId}
+                        id={book.bookId} 
+                        title={book.title} 
+                        author={book.author} 
+                        isbn={book.isbn} 
+                        date={book.publishDate} 
                         getBooks={that.getBooks}
                     ></Book>;
         });
