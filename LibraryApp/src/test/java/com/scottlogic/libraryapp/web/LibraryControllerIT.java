@@ -39,8 +39,8 @@ public class LibraryControllerIT {
 	
 	@Before
 	public void setup() {
-		book = new Book("Java", "Author", "Isbn");
-		newbook = new Book("Java1", "Author1", "Isbn1");
+		book = new Book("Java", "Author", "Isbn", null);
+		newbook = new Book("Java1", "Author1", "Isbn1", null);
 	}
 	
 	@After

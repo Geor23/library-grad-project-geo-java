@@ -35,7 +35,7 @@ public class BookRepositoryIT {
 
     @Test
     public void shouldAddBook(){
-        final Book book = new Book("Java", "author", "isbn");
+        final Book book = new Book("Java", "author", "isbn", null);
 
         bookRepository.save(book);
 
@@ -45,7 +45,7 @@ public class BookRepositoryIT {
     
     @Test
     public void shouldGetBookByTitleIgnoringCase(){
-        entityManager.persist(new Book("Java", "Author", "Isbn"));
+        entityManager.persist(new Book("Java", "Author", "Isbn", null));
 
         final Optional<Book> result = bookRepository.findByTitleIgnoringCase("java");
 
@@ -55,7 +55,7 @@ public class BookRepositoryIT {
     
     @Test
     public void shouldGetBookByAuthorIgnoringCase(){
-        entityManager.persist(new Book("Java", "Author", "Isbn"));
+        entityManager.persist(new Book("Java", "Author", "Isbn", null));
 
         final Optional<Book> result = bookRepository.findByAuthorIgnoringCase("author");
 
@@ -64,7 +64,7 @@ public class BookRepositoryIT {
     
     @Test
     public void shouldGetBookByIsbnIgnoringCase(){
-        entityManager.persist(new Book("Java", "Author", "Isbn"));
+        entityManager.persist(new Book("Java", "Author", "Isbn", null));
 
         final Optional<Book> result = bookRepository.findByIsbnIgnoringCase("isbn");
 
@@ -74,10 +74,10 @@ public class BookRepositoryIT {
 
     @Test
     public void shouldEditBook(){
-        final Book book = new Book("Java", "Author", "Isbn");
+        final Book book = new Book("Java", "Author", "Isbn", null);
         bookRepository.save(book);
         
-        final Book newbook = new Book("Java1", "Author1", "Isbn1");
+        final Book newbook = new Book("Java1", "Author1", "Isbn1", null);
         newbook.setBookId(book.getBookId());
         bookRepository.save(newbook);
 
@@ -87,7 +87,7 @@ public class BookRepositoryIT {
 
     @Test
     public void shouldDeleteBook(){
-        final Book book = new Book("Java", "Author", "Isbn");
+        final Book book = new Book("Java", "Author", "Isbn", null);
         bookRepository.save(book);
 
         Book result = entityManager.find(Book.class, book.getBookId());
@@ -101,10 +101,10 @@ public class BookRepositoryIT {
 
     @Test
     public void shouldGetAllBooks(){
-        final Book book = new Book("Java", "Author", "Isbn");
+        final Book book = new Book("Java", "Author", "Isbn", null);
         bookRepository.save(book);
         
-        final Book newbook = new Book("Java1", "Author1", "Isbn1");
+        final Book newbook = new Book("Java1", "Author1", "Isbn1", null);
         bookRepository.save(newbook);
 
         Iterable<Book> result = bookRepository.findAll();

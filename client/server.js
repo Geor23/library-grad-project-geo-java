@@ -110,7 +110,6 @@ app.put('/api/books', function(req, res) {
 
 app.get('/api/bookreservations/:id', function(req, res) {
     request(url + '/bookreservations', function (error, response, body) {
-        console.log(body);
         if (!error && response.statusCode == 200) {
             var reservations = JSON.parse(body);
             var filterByID = function(obj) {
@@ -133,7 +132,6 @@ app.post('/api/bookreservations', function(req, res) {
         from: getDateString(req.body.from),
         to: getDateString(req.body.to)
     };
-    console.log(data);
     request.post({
             url:url + '/bookreservations',
             headers: {
@@ -170,7 +168,6 @@ app.put('/api/bookreservations', function(req, res) {
         from: getDateString(req.body.from),
         to: getDateString(req.body.to)
     };
-    console.log(data);
     request.put({
             url:url + '/bookreservations',
             headers: {

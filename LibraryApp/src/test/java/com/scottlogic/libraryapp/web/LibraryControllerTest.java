@@ -40,7 +40,7 @@ public class LibraryControllerTest {
 	@Test
 	public void shouldGetAllBooks() throws Exception {
 		when(bookService.getAll())
-			.thenReturn(Arrays.asList(new Book("Java", "Author", "Isbn")));
+			.thenReturn(Arrays.asList(new Book("Java", "Author", "Isbn", null)));
 		
 		mockMvc.perform(get("/books"))
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -50,7 +50,7 @@ public class LibraryControllerTest {
 	@Test
 	public void shouldGetBook() throws Exception {
 		when(bookService.getById(1))
-			.thenReturn(Optional.of(new Book("Java", "Author", "Isbn")));
+			.thenReturn(Optional.of(new Book("Java", "Author", "Isbn", null)));
 		
 		mockMvc.perform(get("/books/{Id}", 1))
 		        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -59,7 +59,7 @@ public class LibraryControllerTest {
 	
 	@Test
     public void shouldAddBook() throws Exception {
-        final Book book = new Book("Java", "Author", "Isbn");
+        final Book book = new Book("Java", "Author", "Isbn", null);
 
         mockMvc.perform(post("/books")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -71,7 +71,7 @@ public class LibraryControllerTest {
 	
 	@Test
     public void shouldEditBook() throws Exception {
-        final Book book = new Book("Java", "Author", "Isbn");
+        final Book book = new Book("Java", "Author", "Isbn", null);
 
         mockMvc.perform(put("/books", book)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
