@@ -24,7 +24,7 @@ public class ReservationController {
 		this.bookResService = bookResService;
 	}
 	
-	@GetMapping(value = "/bookRes/{Id}")
+	@GetMapping(value = "/bookreservations/{Id}")
 	@ResponseBody
 	public BookReservation getBookReservation(@PathVariable("Id") final Integer Id) {
 		final Optional<BookReservation> bookRes = bookResService.getById(Id);
@@ -35,18 +35,19 @@ public class ReservationController {
 		}
 	}
 	
-	@PostMapping(value = "/bookRes")
+	@PostMapping(value = "/bookreservations")
 	public void addBook(@RequestBody final BookReservation bookRes) {
+		System.out.println("reservation : " + bookRes);
 		bookResService.add(Optional.of(bookRes));
 	}
 	
-	@GetMapping(value = "/bookRes")
+	@GetMapping(value = "/bookreservations")
 	@ResponseBody
 	public Iterable<BookReservation> getReservations() {
 		return bookResService.getAll();
 	}
 	
-	@DeleteMapping(value = "/bookRes")
+	@DeleteMapping(value = "/bookreservations")
 	public void deleteReservation(@RequestBody final Integer id) {
 		final Optional<BookReservation> book = bookResService.getById(id);
 		if (book.isPresent()) {
@@ -56,7 +57,7 @@ public class ReservationController {
 		}
 	}
 	
-	@PutMapping(value = "/bookRes")
+	@PutMapping(value = "/bookreservations")
 	public void editReservation(@RequestBody final BookReservation book) {
 		bookResService.editReservation(Optional.of(book));
 	}

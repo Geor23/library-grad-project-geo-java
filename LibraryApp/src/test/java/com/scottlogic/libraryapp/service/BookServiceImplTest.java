@@ -33,7 +33,7 @@ public class BookServiceImplTest {
     
     @Test
     public void shouldAddBook() {
-    	final Book book = new Book("Title", "Author", "Isbn");
+    	final Book book = new Book("Title", "Author", "Isbn", null);
     	
     	bookService.add(Optional.of(book));
     	verify(bookRepository).save(book);
@@ -41,7 +41,7 @@ public class BookServiceImplTest {
     
     @Test
     public void shouldEditBook() {
-    	final Book book = new Book("Title", "Author", "Isbn");
+    	final Book book = new Book("Title", "Author", "Isbn", null);
     	
     	bookService.editBook(Optional.of(book));
     	verify(bookRepository).save(book);
@@ -49,7 +49,7 @@ public class BookServiceImplTest {
     
     @Test
     public void shouldDeleteBook() {
-    	final Book book = new Book("Title", "Author", "Isbn");
+    	final Book book = new Book("Title", "Author", "Isbn", null);
     	
     	bookService.deleteBook(Optional.of(book));
     	verify(bookRepository).delete(book);
@@ -57,7 +57,7 @@ public class BookServiceImplTest {
     
     @Test
     public void shouldGetBookByTitle() {
-    	when(bookRepository.findByTitleIgnoringCase("Title")).thenReturn(Optional.of(new Book("Title", "Author", "Isbn")));
+    	when(bookRepository.findByTitleIgnoringCase("Title")).thenReturn(Optional.of(new Book("Title", "Author", "Isbn", null)));
     	
     	final Optional<Book> result = bookService.getByTitle("Title");
     	assertThat(result.get().getTitle(), equalTo("Title"));
@@ -65,7 +65,7 @@ public class BookServiceImplTest {
     
     @Test
     public void shouldGetBookByAuthor() {
-    	when(bookRepository.findByAuthorIgnoringCase("Author")).thenReturn(Optional.of(new Book("Title", "Author", "Isbn")));
+    	when(bookRepository.findByAuthorIgnoringCase("Author")).thenReturn(Optional.of(new Book("Title", "Author", "Isbn", null)));
     	
     	final Optional<Book> result = bookService.getByAuthor("Author");
     	assertThat(result.get().getAuthor(), equalTo("Author"));
@@ -73,7 +73,7 @@ public class BookServiceImplTest {
     
     @Test
     public void shouldGetBookByIsbn() {
-    	when(bookRepository.findByIsbnIgnoringCase("Isbn")).thenReturn(Optional.of(new Book("Title", "Author", "Isbn")));
+    	when(bookRepository.findByIsbnIgnoringCase("Isbn")).thenReturn(Optional.of(new Book("Title", "Author", "Isbn", null)));
     	
     	final Optional<Book> result = bookService.getByIsbn("Isbn");
     	assertThat(result.get().getIsbn(), equalTo("Isbn"));
@@ -81,7 +81,7 @@ public class BookServiceImplTest {
     
     @Test
     public void shouldGetBookById() {
-    	when(bookRepository.findOne(1)).thenReturn(new Book("Title", "Author", "Isbn"));
+    	when(bookRepository.findOne(1)).thenReturn(new Book("Title", "Author", "Isbn", null));
     	
     	final Optional<Book> result = bookService.getById(1);
     	assertThat(result.get().getIsbn(), equalTo("Isbn"));
@@ -89,8 +89,8 @@ public class BookServiceImplTest {
     
     @Test
     public void shouldGetAll() {
-    	when(bookRepository.findAll()).thenReturn(Arrays.asList(new Book("Title", "Author", "Isbn")));
-    	assertThat(bookService.getAll(), equalTo(Arrays.asList(new Book("Title", "Author", "Isbn"))));
+    	when(bookRepository.findAll()).thenReturn(Arrays.asList(new Book("Title", "Author", "Isbn", null)));
+    	assertThat(bookService.getAll(), equalTo(Arrays.asList(new Book("Title", "Author", "Isbn", null))));
     }
 
 }

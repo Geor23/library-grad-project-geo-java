@@ -1,5 +1,7 @@
 package com.scottlogic.libraryapp.domain;
 
+import java.sql.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,14 +10,16 @@ public class Book {
 	private String title;
 	private String author;
 	private String isbn;
+	private Date publishDate;
 	
 	public Book() {
 	}
 	
-	public Book(final String title, final String author, final String isbn) {
+	public Book(final String title, final String author, final String isbn, final Date date) {
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
+		this.publishDate = date;
 	}
 	
 	@Id
@@ -52,6 +56,14 @@ public class Book {
 		this.isbn = isbn;
 	}
 	
+	public Date getPublishDate() {
+		return publishDate;
+	}
+	
+	public void setPublishDate(final Date date) {
+		this.publishDate = date;
+	}
+	
    @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -61,6 +73,7 @@ public class Book {
 
         return title.equals(book.title)&&
         		author.equals(book.author)&&
-        		isbn.equals(book.isbn);
+        		isbn.equals(book.isbn)&&
+        		publishDate.equals(book.publishDate);
     }
 }

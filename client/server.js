@@ -14,7 +14,7 @@ app.engine('html', require('ejs').__express);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
-var url = 'http://localhost:51918'; 
+var url = 'http://localhost:8080'; 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -36,7 +36,7 @@ app.use('/bundle.js', function(req, res) {
 */
 
 app.get('/api/books', function(req, res) {
-    request(url + '/api/books', function (error, response, body) {
+    request(url + '/books', function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.setHeader('Content-Type', 'application/json');
             res.send(body);
@@ -51,9 +51,8 @@ app.post('/api/books', function(req, res) {
         isbn: req.body.isbn,
         publishDate: getDateString(req.body.date)
     };
-    // console.log(book);
     request.post({
-            url:url + '/api/books',
+            url:url + '/books',
             headers: {
                 'content-type': 'application/json'
             }, 
@@ -68,7 +67,7 @@ app.post('/api/books', function(req, res) {
 
 app.delete('/api/books/', function(req, res) {
     request.delete({
-            url:url + '/api/books/' + req.body.id,
+            url:url + '/books',
             headers: {
                 'content-type': 'application/json'
             }, 
@@ -83,15 +82,14 @@ app.delete('/api/books/', function(req, res) {
 
 app.put('/api/books', function(req, res) {
     var book = {
-        id: req.body.id,
+        bookId: req.body.id,
         title: req.body.title,
         author: req.body.author,
         isbn: req.body.isbn,
         publishDate: getDateString(req.body.date)
     };
-    // console.log(book);
     request.put({
-            url:url + '/api/books/' + req.body.id,
+            url:url + '/books',
             headers: {
                 'content-type': 'application/json'
             }, 
@@ -111,11 +109,11 @@ app.put('/api/books', function(req, res) {
 */
 
 app.get('/api/bookreservations/:id', function(req, res) {
-    request(url + '/api/bookreservations/', function (error, response, body) {
+    request(url + '/bookreservations', function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var reservations = JSON.parse(body);
             var filterByID = function(obj) {
-                if (obj.bookId == req.params.id) {
+                if (obj.book == req.params.id) {
                     return true;
                 } else {
                     return false;
@@ -130,12 +128,12 @@ app.get('/api/bookreservations/:id', function(req, res) {
 
 app.post('/api/bookreservations', function(req, res) {
     var data = {
-        bookId: req.body['book[id]'],
+        book: req.body['book[id]'],
         from: getDateString(req.body.from),
         to: getDateString(req.body.to)
     };
     request.post({
-            url:url + '/api/bookReservations',
+            url:url + '/bookreservations',
             headers: {
                 'content-type': 'application/json'
             }, 
@@ -150,7 +148,7 @@ app.post('/api/bookreservations', function(req, res) {
 
 app.delete('/api/bookreservations/', function(req, res) {
     request.delete({
-            url:url + '/api/bookReservations/' + req.body.id,
+            url:url + '/bookreservations',
             headers: {
                 'content-type': 'application/json'
             }, 
@@ -166,12 +164,12 @@ app.delete('/api/bookreservations/', function(req, res) {
 app.put('/api/bookreservations', function(req, res) {
     var data = {
         id: req.body.id,
-        bookId: req.body.bookId,
+        book: req.body.book,
         from: getDateString(req.body.from),
         to: getDateString(req.body.to)
     };
     request.put({
-            url:url + '/api/bookreservations/' + req.body.id,
+            url:url + '/bookreservations',
             headers: {
                 'content-type': 'application/json'
             }, 
@@ -199,7 +197,7 @@ var getDateString = function(data) {
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
-    return month + "/" + day + "/" + year + " " + 0 + ':' + 0 + ':' + 0; 
+    return year + "-" + month + "-" + day; 
 };
 
 module.exports = server

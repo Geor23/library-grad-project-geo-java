@@ -29,7 +29,7 @@ var EditReservationDialog = React.createClass({
         var that = this;
         var data = {
             id: this.props.id,
-            bookId: this.props.bookId,
+            book: this.props.bookId,
             from: this.state.minDate,
             to: this.state.maxDate
         };

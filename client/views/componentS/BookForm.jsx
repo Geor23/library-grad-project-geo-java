@@ -5,9 +5,6 @@ var Add = require('material-ui/svg-icons/content/add').default;
 var DatePicker = require('material-ui/DatePicker').default;
 
 var BookForm = React.createClass({
-    propTypes: {
-        onBook: React.PropTypes.func.isRequired
-    },
     getInitialState: function() {
         return {
             title: '',
